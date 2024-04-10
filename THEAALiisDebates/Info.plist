@@ -8,14 +8,14 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>Google Sign In</string>
+			<string>Google Sign In </string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.410269484684-vnh0so58389ou1tpvlg0rh2hj9upedjd</string>
+				<string>com.googleusercontent.apps.86709597429-pgldqj8avqcchojo51uuubli7h9fh06k</string>
 			</array>
 		</dict>
 	</array>
 	<key>GIDClientID</key>
-	<string>410269484684-vnh0so58389ou1tpvlg0rh2hj9upedjd.apps.googleusercontent.com</string>
+	<string>86709597429-pgldqj8avqcchojo51uuubli7h9fh06k.apps.googleusercontent.com</string>
 </dict>
 </plist>

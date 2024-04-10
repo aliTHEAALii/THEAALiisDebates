@@ -11,6 +11,108 @@
 		2F690C152BC095BF00A31760 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C142BC095BF00A31760 /* ContentView.swift */; };
 		2F690C172BC095C000A31760 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F690C162BC095C000A31760 /* Assets.xcassets */; };
 		2F690C1B2BC095C000A31760 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F690C1A2BC095C000A31760 /* Preview Assets.xcassets */; };
+		2F690C232BC0969300A31760 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2F690C222BC0969300A31760 /* FirebaseAuth */; };
+		2F690C252BC0969300A31760 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2F690C242BC0969300A31760 /* FirebaseFirestore */; };
+		2F690C272BC0969300A31760 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2F690C262BC0969300A31760 /* FirebaseFirestoreSwift */; };
+		2F690C292BC0969300A31760 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2F690C282BC0969300A31760 /* FirebaseStorage */; };
+		2F690C2B2BC0969300A31760 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 2F690C2A2BC0969300A31760 /* FirebaseStorageCombine-Community */; };
+		2F690C2E2BC096DD00A31760 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 2F690C2D2BC096DD00A31760 /* GoogleSignIn */; };
+		2F690C302BC096DD00A31760 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2F690C2F2BC096DD00A31760 /* GoogleSignInSwift */; };
+		2F690C322BC0974200A31760 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C312BC0974200A31760 /* RootView.swift */; };
+		2F690C3E2BC09A5D00A31760 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F690C3D2BC09A5D00A31760 /* GoogleService-Info.plist */; };
+		2F690C412BC09B4000A31760 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C402BC09B4000A31760 /* AuthenticationManager.swift */; };
+		2F690C442BC09B9700A31760 /* LoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C432BC09B9700A31760 /* LoginScreenViewModel.swift */; };
+		2F690C462BC09BBB00A31760 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C452BC09BBB00A31760 /* Utilities.swift */; };
+		2F690C482BC09BDA00A31760 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C472BC09BDA00A31760 /* LoginScreen.swift */; };
+		2F690C4A2BC09BFE00A31760 /* LogInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C492BC09BFE00A31760 /* LogInButton.swift */; };
+		2F690C4D2BC09C2600A31760 /* AppleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C4C2BC09C2600A31760 /* AppleLoginButton.swift */; };
+		2F690C4F2BC09C4A00A31760 /* SignInAppleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C4E2BC09C4A00A31760 /* SignInAppleHelper.swift */; };
+		2F690C522BC09C8000A31760 /* GoogleLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C512BC09C8000A31760 /* GoogleLoginButton.swift */; };
+		2F690C542BC09CB100A31760 /* SignInWithGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C532BC09CB100A31760 /* SignInWithGoogleHelper.swift */; };
+		2F690C572BC09D0A00A31760 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C562BC09D0A00A31760 /* User.swift */; };
+		2F690C592BC09D3A00A31760 /* Image Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C582BC09D3A00A31760 /* Image Manager.swift */; };
+		2F690C5B2BC09D7500A31760 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C5A2BC09D7500A31760 /* Globals.swift */; };
+		2F690C5E2BC09E1C00A31760 /* PersonTITIconSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C5D2BC09E1C00A31760 /* PersonTITIconSV.swift */; };
+		2F690C652BC0BD3C00A31760 /* Video Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C642BC0BD3C00A31760 /* Video Manager.swift */; };
+		2F690C672BC0BD6200A31760 /* TIVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C662BC0BD6200A31760 /* TIVideo.swift */; };
+		2F690C692BC0BD7E00A31760 /* TITChainLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C682BC0BD7E00A31760 /* TITChainLink.swift */; };
+		2F690C6B2BC0BD9900A31760 /* TI Model & Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C6A2BC0BD9900A31760 /* TI Model & Manager.swift */; };
+		2F690C6D2BC0BDAF00A31760 /* DebateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C6C2BC0BDAF00A31760 /* DebateModel.swift */; };
+		2F690C702BC0BE4300A31760 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C6F2BC0BE4300A31760 /* UserViewModel.swift */; };
+		2F690C722BC0BE5E00A31760 /* TITViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C712BC0BE5E00A31760 /* TITViewModel.swift */; };
+		2F690C742BC1775000A31760 /* TestingComponentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C732BC1775000A31760 /* TestingComponentsManager.swift */; };
+		2F690C772BC177C600A31760 /* TI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C762BC177C600A31760 /* TI.swift */; };
+		2F690C7A2BC1781000A31760 /* TIIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C792BC1781000A31760 /* TIIcon.swift */; };
+		2F690C7C2BC1784D00A31760 /* FutureFeatureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C7B2BC1784D00A31760 /* FutureFeatureButton.swift */; };
+		2F690C7E2BC1787800A31760 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C7D2BC1787800A31760 /* LoadingView.swift */; };
+		2F690C802BC1789200A31760 /* DescriptionSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C7F2BC1789200A31760 /* DescriptionSV.swift */; };
+		2F690C822BC178C400A31760 /* AddButtonSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C812BC178C400A31760 /* AddButtonSV.swift */; };
+		2F690C842BC1796D00A31760 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C832BC1796D00A31760 /* CloseButton.swift */; };
+		2F690C862BC1799D00A31760 /* CommentsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C852BC1799D00A31760 /* CommentsButton.swift */; };
+		2F690C882BC17BE600A31760 /* ii.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C872BC17BE600A31760 /* ii.swift */; };
+		2F690C8C2BC17CF200A31760 /* UserTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C8B2BC17CF200A31760 /* UserTabView.swift */; };
+		2F690C8F2BC17D5700A31760 /* UserBioAndButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C8E2BC17D5700A31760 /* UserBioAndButtons.swift */; };
+		2F690C912BC17D7100A31760 /* UserViewTabsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C902BC17D7100A31760 /* UserViewTabsBar.swift */; };
+		2F690C932BC17D8A00A31760 /* UserPostedDebateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C922BC17D8A00A31760 /* UserPostedDebateCard.swift */; };
+		2F690C962BC17DDF00A31760 /* PickProfileImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C952BC17DDF00A31760 /* PickProfileImageButton.swift */; };
+		2F690C982BC17DF800A31760 /* EditUserInfoFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C972BC17DF800A31760 /* EditUserInfoFSC.swift */; };
+		2F690C9A2BC17E1500A31760 /* EditUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C992BC17E1500A31760 /* EditUserInfoViewModel.swift */; };
+		2F690C9C2BC17E6700A31760 /* UserButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C9B2BC17E6700A31760 /* UserButton.swift */; };
+		2F690C9E2BC17E7C00A31760 /* UserFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690C9D2BC17E7C00A31760 /* UserFSC.swift */; };
+		2F690CA12BC1855700A31760 /* TI1DIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CA02BC1855700A31760 /* TI1DIcon.swift */; };
+		2F690CA32BC1857700A31760 /* TICard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CA22BC1857700A31760 /* TICard.swift */; };
+		2F690CA52BC1859900A31760 /* THEAALiiInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CA42BC1859900A31760 /* THEAALiiInteractionView.swift */; };
+		2F690CA72BC185B700A31760 /* TIvsControlCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CA62BC185B700A31760 /* TIvsControlCenter.swift */; };
+		2F690CA92BC185D000A31760 /* VsIndicators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CA82BC185D000A31760 /* VsIndicators.swift */; };
+		2F690CAB2BC185F200A31760 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CAA2BC185F200A31760 /* Comments.swift */; };
+		2F690CAD2BC1860500A31760 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CAC2BC1860500A31760 /* Post.swift */; };
+		2F690CAF2BC1874500A31760 /* VideoSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CAE2BC1874500A31760 /* VideoSV.swift */; };
+		2F690CB32BC18DAE00A31760 /* VotingVideoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CB22BC18DAE00A31760 /* VotingVideoCard.swift */; };
+		2F690CB52BC18DC900A31760 /* ResponseListSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CB42BC18DC900A31760 /* ResponseListSV.swift */; };
+		2F690CB72BC18DF100A31760 /* ResponseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CB62BC18DF100A31760 /* ResponseListViewModel.swift */; };
+		2F690CB92BC18E1100A31760 /* AdminResponseSideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CB82BC18E1100A31760 /* AdminResponseSideSheet.swift */; };
+		2F690CBB2BC18E2300A31760 /* VotingSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CBA2BC18E2300A31760 /* VotingSV.swift */; };
+		2F690CBD2BC18EA200A31760 /* TIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CBC2BC18EA200A31760 /* TIView.swift */; };
+		2F690CC02BC18EF000A31760 /* TIControlsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CBF2BC18EF000A31760 /* TIControlsVM.swift */; };
+		2F690CC22BC18F0800A31760 /* TIControlsSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CC12BC18F0800A31760 /* TIControlsSV.swift */; };
+		2F690CC42BC18F2E00A31760 /* UploadToTIChainFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CC32BC18F2E00A31760 /* UploadToTIChainFSC.swift */; };
+		2F690CC62BC18F5500A31760 /* TIControlCenterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CC52BC18F5500A31760 /* TIControlCenterViewModel.swift */; };
+		2F690CC92BC18FC000A31760 /* TIInfoFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CC82BC18FC000A31760 /* TIInfoFSC.swift */; };
+		2F690CCB2BC18FE600A31760 /* TIAdminsListSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CCA2BC18FE600A31760 /* TIAdminsListSV.swift */; };
+		2F690CCD2BC1905500A31760 /* AddTIVideoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CCC2BC1905500A31760 /* AddTIVideoButton.swift */; };
+		2F690CCF2BC1906E00A31760 /* AddVideoFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CCE2BC1906E00A31760 /* AddVideoFSC.swift */; };
+		2F690CD22BC190C900A31760 /* CreateDebateFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CD12BC190C900A31760 /* CreateDebateFSC.swift */; };
+		2F690CD42BC190E000A31760 /* CreateDebateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CD32BC190E000A31760 /* CreateDebateButton.swift */; };
+		2F690CD62BC190F900A31760 /* PickVideoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CD52BC190F900A31760 /* PickVideoButton.swift */; };
+		2F690CD82BC1910D00A31760 /* PickThumbnailSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CD72BC1910D00A31760 /* PickThumbnailSV.swift */; };
+		2F690CDB2BC1913900A31760 /* CreateTIFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CDA2BC1913900A31760 /* CreateTIFSC.swift */; };
+		2F690CDD2BC1915000A31760 /* CreateD1TI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CDC2BC1915000A31760 /* CreateD1TI.swift */; };
+		2F690CDF2BC1916900A31760 /* CreateD2TI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CDE2BC1916900A31760 /* CreateD2TI.swift */; };
+		2F690CE42BC191D900A31760 /* LibraryTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CE32BC191D900A31760 /* LibraryTabView.swift */; };
+		2F690CE62BC191F500A31760 /* EditSavedDebatesFSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CE52BC191F500A31760 /* EditSavedDebatesFSC.swift */; };
+		2F690CE82BC1927D00A31760 /* FeedTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CE72BC1927D00A31760 /* FeedTab.swift */; };
+		2F690CEA2BC1929D00A31760 /* FeedVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CE92BC1929D00A31760 /* FeedVM.swift */; };
+		2F690CEC2BC192B200A31760 /* FeedTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CEB2BC192B200A31760 /* FeedTabView.swift */; };
+		2F690CEE2BC192CE00A31760 /* VideoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CED2BC192CE00A31760 /* VideoCard.swift */; };
+		2F690CF02BC1937300A31760 /* TabsBarCustomized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CEF2BC1937300A31760 /* TabsBarCustomized.swift */; };
+		2F690CF22BC1938B00A31760 /* TabsBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CF12BC1938B00A31760 /* TabsBar.swift */; };
+		2F690CF42BC1939B00A31760 /* MiniPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CF32BC1939B00A31760 /* MiniPlayer.swift */; };
+		2F690CF72BC193DE00A31760 /* TITView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CF62BC193DE00A31760 /* TITView.swift */; };
+		2F690CF92BC193EE00A31760 /* DebateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CF82BC193EE00A31760 /* DebateCard.swift */; };
+		2F690CFB2BC193FF00A31760 /* TITCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CFA2BC193FF00A31760 /* TITCard.swift */; };
+		2F690CFE2BC1943200A31760 /* DebateControlsSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CFD2BC1943200A31760 /* DebateControlsSV.swift */; };
+		2F690D002BC1945200A31760 /* DebateInfoFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690CFF2BC1945200A31760 /* DebateInfoFS.swift */; };
+		2F690D022BC1947B00A31760 /* VideoInfoSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D012BC1947B00A31760 /* VideoInfoSV.swift */; };
+		2F690D042BC194A800A31760 /* ResponseArrayTopBarSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D032BC194A800A31760 /* ResponseArrayTopBarSV.swift */; };
+		2F690D062BC194BC00A31760 /* SideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D052BC194BC00A31760 /* SideSheet.swift */; };
+		2F690D082BC194D500A31760 /* SideOptionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D072BC194D500A31760 /* SideOptionsSheet.swift */; };
+		2F690D0A2BC194E700A31760 /* VotingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D092BC194E700A31760 /* VotingCell.swift */; };
+		2F690D0C2BC1950400A31760 /* SideSheetForVotingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D0B2BC1950400A31760 /* SideSheetForVotingCell.swift */; };
+		2F690D112BC1D9EA00A31760 /* CreateTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D102BC1D9EA00A31760 /* CreateTI.swift */; };
+		2F690D142BC3044C00A31760 /* SelectTiTypeSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D132BC3044C00A31760 /* SelectTiTypeSV.swift */; };
+		2F690D182BC6738E00A31760 /* D1Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D172BC6738E00A31760 /* D1Icon.swift */; };
+		2F690D1C2BC722B200A31760 /* AddD1Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D1B2BC722B200A31760 /* AddD1Info.swift */; };
+		2F690D1E2BC7538000A31760 /* AddD2Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F690D1D2BC7538000A31760 /* AddD2Info.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +122,102 @@
 		2F690C162BC095C000A31760 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F690C182BC095C000A31760 /* THEAALiisDebates.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = THEAALiisDebates.entitlements; sourceTree = "<group>"; };
 		2F690C1A2BC095C000A31760 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2F690C312BC0974200A31760 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		2F690C3D2BC09A5D00A31760 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2F690C402BC09B4000A31760 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		2F690C432BC09B9700A31760 /* LoginScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewModel.swift; sourceTree = "<group>"; };
+		2F690C452BC09BBB00A31760 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		2F690C472BC09BDA00A31760 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+		2F690C492BC09BFE00A31760 /* LogInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInButton.swift; sourceTree = "<group>"; };
+		2F690C4C2BC09C2600A31760 /* AppleLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginButton.swift; sourceTree = "<group>"; };
+		2F690C4E2BC09C4A00A31760 /* SignInAppleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAppleHelper.swift; sourceTree = "<group>"; };
+		2F690C512BC09C8000A31760 /* GoogleLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginButton.swift; sourceTree = "<group>"; };
+		2F690C532BC09CB100A31760 /* SignInWithGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithGoogleHelper.swift; sourceTree = "<group>"; };
+		2F690C562BC09D0A00A31760 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2F690C582BC09D3A00A31760 /* Image Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image Manager.swift"; sourceTree = "<group>"; };
+		2F690C5A2BC09D7500A31760 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		2F690C5D2BC09E1C00A31760 /* PersonTITIconSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonTITIconSV.swift; sourceTree = "<group>"; };
+		2F690C5F2BC0A04B00A31760 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2F690C642BC0BD3C00A31760 /* Video Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Video Manager.swift"; sourceTree = "<group>"; };
+		2F690C662BC0BD6200A31760 /* TIVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIVideo.swift; sourceTree = "<group>"; };
+		2F690C682BC0BD7E00A31760 /* TITChainLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TITChainLink.swift; sourceTree = "<group>"; };
+		2F690C6A2BC0BD9900A31760 /* TI Model & Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TI Model & Manager.swift"; sourceTree = "<group>"; };
+		2F690C6C2BC0BDAF00A31760 /* DebateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateModel.swift; sourceTree = "<group>"; };
+		2F690C6F2BC0BE4300A31760 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		2F690C712BC0BE5E00A31760 /* TITViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TITViewModel.swift; sourceTree = "<group>"; };
+		2F690C732BC1775000A31760 /* TestingComponentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingComponentsManager.swift; sourceTree = "<group>"; };
+		2F690C762BC177C600A31760 /* TI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TI.swift; sourceTree = "<group>"; };
+		2F690C792BC1781000A31760 /* TIIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIIcon.swift; sourceTree = "<group>"; };
+		2F690C7B2BC1784D00A31760 /* FutureFeatureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FutureFeatureButton.swift; sourceTree = "<group>"; };
+		2F690C7D2BC1787800A31760 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		2F690C7F2BC1789200A31760 /* DescriptionSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionSV.swift; sourceTree = "<group>"; };
+		2F690C812BC178C400A31760 /* AddButtonSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonSV.swift; sourceTree = "<group>"; };
+		2F690C832BC1796D00A31760 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		2F690C852BC1799D00A31760 /* CommentsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsButton.swift; sourceTree = "<group>"; };
+		2F690C872BC17BE600A31760 /* ii.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ii.swift; sourceTree = "<group>"; };
+		2F690C8B2BC17CF200A31760 /* UserTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTabView.swift; sourceTree = "<group>"; };
+		2F690C8E2BC17D5700A31760 /* UserBioAndButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBioAndButtons.swift; sourceTree = "<group>"; };
+		2F690C902BC17D7100A31760 /* UserViewTabsBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewTabsBar.swift; sourceTree = "<group>"; };
+		2F690C922BC17D8A00A31760 /* UserPostedDebateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostedDebateCard.swift; sourceTree = "<group>"; };
+		2F690C952BC17DDF00A31760 /* PickProfileImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickProfileImageButton.swift; sourceTree = "<group>"; };
+		2F690C972BC17DF800A31760 /* EditUserInfoFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoFSC.swift; sourceTree = "<group>"; };
+		2F690C992BC17E1500A31760 /* EditUserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewModel.swift; sourceTree = "<group>"; };
+		2F690C9B2BC17E6700A31760 /* UserButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserButton.swift; sourceTree = "<group>"; };
+		2F690C9D2BC17E7C00A31760 /* UserFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFSC.swift; sourceTree = "<group>"; };
+		2F690CA02BC1855700A31760 /* TI1DIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TI1DIcon.swift; sourceTree = "<group>"; };
+		2F690CA22BC1857700A31760 /* TICard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TICard.swift; sourceTree = "<group>"; };
+		2F690CA42BC1859900A31760 /* THEAALiiInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THEAALiiInteractionView.swift; sourceTree = "<group>"; };
+		2F690CA62BC185B700A31760 /* TIvsControlCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIvsControlCenter.swift; sourceTree = "<group>"; };
+		2F690CA82BC185D000A31760 /* VsIndicators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VsIndicators.swift; sourceTree = "<group>"; };
+		2F690CAA2BC185F200A31760 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
+		2F690CAC2BC1860500A31760 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		2F690CAE2BC1874500A31760 /* VideoSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSV.swift; sourceTree = "<group>"; };
+		2F690CB22BC18DAE00A31760 /* VotingVideoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingVideoCard.swift; sourceTree = "<group>"; };
+		2F690CB42BC18DC900A31760 /* ResponseListSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseListSV.swift; sourceTree = "<group>"; };
+		2F690CB62BC18DF100A31760 /* ResponseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseListViewModel.swift; sourceTree = "<group>"; };
+		2F690CB82BC18E1100A31760 /* AdminResponseSideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminResponseSideSheet.swift; sourceTree = "<group>"; };
+		2F690CBA2BC18E2300A31760 /* VotingSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingSV.swift; sourceTree = "<group>"; };
+		2F690CBC2BC18EA200A31760 /* TIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIView.swift; sourceTree = "<group>"; };
+		2F690CBF2BC18EF000A31760 /* TIControlsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIControlsVM.swift; sourceTree = "<group>"; };
+		2F690CC12BC18F0800A31760 /* TIControlsSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIControlsSV.swift; sourceTree = "<group>"; };
+		2F690CC32BC18F2E00A31760 /* UploadToTIChainFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadToTIChainFSC.swift; sourceTree = "<group>"; };
+		2F690CC52BC18F5500A31760 /* TIControlCenterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIControlCenterViewModel.swift; sourceTree = "<group>"; };
+		2F690CC82BC18FC000A31760 /* TIInfoFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIInfoFSC.swift; sourceTree = "<group>"; };
+		2F690CCA2BC18FE600A31760 /* TIAdminsListSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TIAdminsListSV.swift; sourceTree = "<group>"; };
+		2F690CCC2BC1905500A31760 /* AddTIVideoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTIVideoButton.swift; sourceTree = "<group>"; };
+		2F690CCE2BC1906E00A31760 /* AddVideoFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVideoFSC.swift; sourceTree = "<group>"; };
+		2F690CD12BC190C900A31760 /* CreateDebateFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDebateFSC.swift; sourceTree = "<group>"; };
+		2F690CD32BC190E000A31760 /* CreateDebateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDebateButton.swift; sourceTree = "<group>"; };
+		2F690CD52BC190F900A31760 /* PickVideoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickVideoButton.swift; sourceTree = "<group>"; };
+		2F690CD72BC1910D00A31760 /* PickThumbnailSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickThumbnailSV.swift; sourceTree = "<group>"; };
+		2F690CDA2BC1913900A31760 /* CreateTIFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTIFSC.swift; sourceTree = "<group>"; };
+		2F690CDC2BC1915000A31760 /* CreateD1TI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateD1TI.swift; sourceTree = "<group>"; };
+		2F690CDE2BC1916900A31760 /* CreateD2TI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateD2TI.swift; sourceTree = "<group>"; };
+		2F690CE32BC191D900A31760 /* LibraryTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTabView.swift; sourceTree = "<group>"; };
+		2F690CE52BC191F500A31760 /* EditSavedDebatesFSC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSavedDebatesFSC.swift; sourceTree = "<group>"; };
+		2F690CE72BC1927D00A31760 /* FeedTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTab.swift; sourceTree = "<group>"; };
+		2F690CE92BC1929D00A31760 /* FeedVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVM.swift; sourceTree = "<group>"; };
+		2F690CEB2BC192B200A31760 /* FeedTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTabView.swift; sourceTree = "<group>"; };
+		2F690CED2BC192CE00A31760 /* VideoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCard.swift; sourceTree = "<group>"; };
+		2F690CEF2BC1937300A31760 /* TabsBarCustomized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsBarCustomized.swift; sourceTree = "<group>"; };
+		2F690CF12BC1938B00A31760 /* TabsBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsBar.swift; sourceTree = "<group>"; };
+		2F690CF32BC1939B00A31760 /* MiniPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayer.swift; sourceTree = "<group>"; };
+		2F690CF62BC193DE00A31760 /* TITView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TITView.swift; sourceTree = "<group>"; };
+		2F690CF82BC193EE00A31760 /* DebateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateCard.swift; sourceTree = "<group>"; };
+		2F690CFA2BC193FF00A31760 /* TITCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TITCard.swift; sourceTree = "<group>"; };
+		2F690CFD2BC1943200A31760 /* DebateControlsSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateControlsSV.swift; sourceTree = "<group>"; };
+		2F690CFF2BC1945200A31760 /* DebateInfoFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateInfoFS.swift; sourceTree = "<group>"; };
+		2F690D012BC1947B00A31760 /* VideoInfoSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInfoSV.swift; sourceTree = "<group>"; };
+		2F690D032BC194A800A31760 /* ResponseArrayTopBarSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseArrayTopBarSV.swift; sourceTree = "<group>"; };
+		2F690D052BC194BC00A31760 /* SideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideSheet.swift; sourceTree = "<group>"; };
+		2F690D072BC194D500A31760 /* SideOptionsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideOptionsSheet.swift; sourceTree = "<group>"; };
+		2F690D092BC194E700A31760 /* VotingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingCell.swift; sourceTree = "<group>"; };
+		2F690D0B2BC1950400A31760 /* SideSheetForVotingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideSheetForVotingCell.swift; sourceTree = "<group>"; };
+		2F690D102BC1D9EA00A31760 /* CreateTI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTI.swift; sourceTree = "<group>"; };
+		2F690D132BC3044C00A31760 /* SelectTiTypeSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTiTypeSV.swift; sourceTree = "<group>"; };
+		2F690D172BC6738E00A31760 /* D1Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = D1Icon.swift; sourceTree = "<group>"; };
+		2F690D1B2BC722B200A31760 /* AddD1Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddD1Info.swift; sourceTree = "<group>"; };
+		2F690D1D2BC7538000A31760 /* AddD2Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddD2Info.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +225,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F690C232BC0969300A31760 /* FirebaseAuth in Frameworks */,
+				2F690C292BC0969300A31760 /* FirebaseStorage in Frameworks */,
+				2F690C302BC096DD00A31760 /* GoogleSignInSwift in Frameworks */,
+				2F690C2B2BC0969300A31760 /* FirebaseStorageCombine-Community in Frameworks */,
+				2F690C252BC0969300A31760 /* FirebaseFirestore in Frameworks */,
+				2F690C272BC0969300A31760 /* FirebaseFirestoreSwift in Frameworks */,
+				2F690C2E2BC096DD00A31760 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,10 +257,19 @@
 		2F690C112BC095BF00A31760 /* THEAALiisDebates */ = {
 			isa = PBXGroup;
 			children = (
+				2F690C5C2BC09DE400A31760 /* Globals */,
+				2F690C3F2BC09B1600A31760 /* Login */,
+				2F690C552BC09CE600A31760 /* Models & Managers */,
+				2F690C6E2BC0BE0900A31760 /* View Model */,
+				2F690C752BC177A400A31760 /* THEAALii's Interaction */,
+				2F690C892BC17C9F00A31760 /* View */,
 				2F690C122BC095BF00A31760 /* THEAALiisDebatesApp.swift */,
 				2F690C142BC095BF00A31760 /* ContentView.swift */,
+				2F690C312BC0974200A31760 /* RootView.swift */,
 				2F690C162BC095C000A31760 /* Assets.xcassets */,
 				2F690C182BC095C000A31760 /* THEAALiisDebates.entitlements */,
+				2F690C5F2BC0A04B00A31760 /* Info.plist */,
+				2F690C3D2BC09A5D00A31760 /* GoogleService-Info.plist */,
 				2F690C192BC095C000A31760 /* Preview Content */,
 			);
 			path = THEAALiisDebates;
@@ -67,6 +281,309 @@
 				2F690C1A2BC095C000A31760 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2F690C3F2BC09B1600A31760 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C402BC09B4000A31760 /* AuthenticationManager.swift */,
+				2F690C422BC09B7400A31760 /* Authentication */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		2F690C422BC09B7400A31760 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C432BC09B9700A31760 /* LoginScreenViewModel.swift */,
+				2F690C452BC09BBB00A31760 /* Utilities.swift */,
+				2F690C472BC09BDA00A31760 /* LoginScreen.swift */,
+				2F690C492BC09BFE00A31760 /* LogInButton.swift */,
+				2F690C4B2BC09C1100A31760 /* Apple Login */,
+				2F690C502BC09C5F00A31760 /* Google Login */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		2F690C4B2BC09C1100A31760 /* Apple Login */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C4C2BC09C2600A31760 /* AppleLoginButton.swift */,
+				2F690C4E2BC09C4A00A31760 /* SignInAppleHelper.swift */,
+			);
+			path = "Apple Login";
+			sourceTree = "<group>";
+		};
+		2F690C502BC09C5F00A31760 /* Google Login */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C512BC09C8000A31760 /* GoogleLoginButton.swift */,
+				2F690C532BC09CB100A31760 /* SignInWithGoogleHelper.swift */,
+			);
+			path = "Google Login";
+			sourceTree = "<group>";
+		};
+		2F690C552BC09CE600A31760 /* Models & Managers */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C562BC09D0A00A31760 /* User.swift */,
+				2F690C6C2BC0BDAF00A31760 /* DebateModel.swift */,
+				2F690C6A2BC0BD9900A31760 /* TI Model & Manager.swift */,
+				2F690C682BC0BD7E00A31760 /* TITChainLink.swift */,
+				2F690C662BC0BD6200A31760 /* TIVideo.swift */,
+				2F690C582BC09D3A00A31760 /* Image Manager.swift */,
+				2F690C642BC0BD3C00A31760 /* Video Manager.swift */,
+			);
+			path = "Models & Managers";
+			sourceTree = "<group>";
+		};
+		2F690C5C2BC09DE400A31760 /* Globals */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C5A2BC09D7500A31760 /* Globals.swift */,
+				2F690C732BC1775000A31760 /* TestingComponentsManager.swift */,
+				2F690C782BC177E200A31760 /* Global Views */,
+			);
+			path = Globals;
+			sourceTree = "<group>";
+		};
+		2F690C6E2BC0BE0900A31760 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C6F2BC0BE4300A31760 /* UserViewModel.swift */,
+				2F690C712BC0BE5E00A31760 /* TITViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		2F690C752BC177A400A31760 /* THEAALii's Interaction */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C872BC17BE600A31760 /* ii.swift */,
+				2F690C9F2BC1853B00A31760 /* TIT Icons */,
+				2F690C762BC177C600A31760 /* TI.swift */,
+				2F690CA22BC1857700A31760 /* TICard.swift */,
+				2F690CA42BC1859900A31760 /* THEAALiiInteractionView.swift */,
+				2F690CA62BC185B700A31760 /* TIvsControlCenter.swift */,
+				2F690CA82BC185D000A31760 /* VsIndicators.swift */,
+				2F690CAA2BC185F200A31760 /* Comments.swift */,
+				2F690CAC2BC1860500A31760 /* Post.swift */,
+			);
+			path = "THEAALii's Interaction";
+			sourceTree = "<group>";
+		};
+		2F690C782BC177E200A31760 /* Global Views */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C792BC1781000A31760 /* TIIcon.swift */,
+				2F690D172BC6738E00A31760 /* D1Icon.swift */,
+				2F690C7B2BC1784D00A31760 /* FutureFeatureButton.swift */,
+				2F690C7D2BC1787800A31760 /* LoadingView.swift */,
+				2F690C7F2BC1789200A31760 /* DescriptionSV.swift */,
+				2F690C5D2BC09E1C00A31760 /* PersonTITIconSV.swift */,
+				2F690C812BC178C400A31760 /* AddButtonSV.swift */,
+				2F690C832BC1796D00A31760 /* CloseButton.swift */,
+				2F690C852BC1799D00A31760 /* CommentsButton.swift */,
+			);
+			path = "Global Views";
+			sourceTree = "<group>";
+		};
+		2F690C892BC17C9F00A31760 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CB02BC1877D00A31760 /* TI */,
+				2F690CAE2BC1874500A31760 /* VideoSV.swift */,
+				2F690CF52BC193C200A31760 /* Debate View */,
+				2F690CEF2BC1937300A31760 /* TabsBarCustomized.swift */,
+				2F690CF12BC1938B00A31760 /* TabsBar.swift */,
+				2F690CF32BC1939B00A31760 /* MiniPlayer.swift */,
+				2F690CE02BC1918A00A31760 /* Tab 1 Feed */,
+				2F690CE12BC1919900A31760 /* Tab 2 Search */,
+				2F690D0D2BC1D26100A31760 /* Tab 3 */,
+				2F690CD02BC190A500A31760 /* Tab 3 Start Debate */,
+				2F690CE22BC191B700A31760 /* Tab 4  */,
+				2F690C8A2BC17CCD00A31760 /* Tab 5 User */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2F690C8A2BC17CCD00A31760 /* Tab 5 User */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C8B2BC17CF200A31760 /* UserTabView.swift */,
+				2F690C8D2BC17D1000A31760 /* Components Currents User */,
+				2F690C9B2BC17E6700A31760 /* UserButton.swift */,
+				2F690C9D2BC17E7C00A31760 /* UserFSC.swift */,
+			);
+			path = "Tab 5 User";
+			sourceTree = "<group>";
+		};
+		2F690C8D2BC17D1000A31760 /* Components Currents User */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C8E2BC17D5700A31760 /* UserBioAndButtons.swift */,
+				2F690C902BC17D7100A31760 /* UserViewTabsBar.swift */,
+				2F690C922BC17D8A00A31760 /* UserPostedDebateCard.swift */,
+				2F690C942BC17D9A00A31760 /* Edit User Info */,
+			);
+			path = "Components Currents User";
+			sourceTree = "<group>";
+		};
+		2F690C942BC17D9A00A31760 /* Edit User Info */ = {
+			isa = PBXGroup;
+			children = (
+				2F690C952BC17DDF00A31760 /* PickProfileImageButton.swift */,
+				2F690C972BC17DF800A31760 /* EditUserInfoFSC.swift */,
+				2F690C992BC17E1500A31760 /* EditUserInfoViewModel.swift */,
+			);
+			path = "Edit User Info";
+			sourceTree = "<group>";
+		};
+		2F690C9F2BC1853B00A31760 /* TIT Icons */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CA02BC1855700A31760 /* TI1DIcon.swift */,
+			);
+			path = "TIT Icons";
+			sourceTree = "<group>";
+		};
+		2F690CB02BC1877D00A31760 /* TI */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CBC2BC18EA200A31760 /* TIView.swift */,
+				2F690CBE2BC18EB900A31760 /* TI Control Center */,
+				2F690CCC2BC1905500A31760 /* AddTIVideoButton.swift */,
+				2F690CCE2BC1906E00A31760 /* AddVideoFSC.swift */,
+				2F690CB12BC1883100A31760 /* Response List */,
+			);
+			path = TI;
+			sourceTree = "<group>";
+		};
+		2F690CB12BC1883100A31760 /* Response List */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CB42BC18DC900A31760 /* ResponseListSV.swift */,
+				2F690CB22BC18DAE00A31760 /* VotingVideoCard.swift */,
+				2F690CB62BC18DF100A31760 /* ResponseListViewModel.swift */,
+				2F690CB82BC18E1100A31760 /* AdminResponseSideSheet.swift */,
+				2F690CBA2BC18E2300A31760 /* VotingSV.swift */,
+			);
+			path = "Response List";
+			sourceTree = "<group>";
+		};
+		2F690CBE2BC18EB900A31760 /* TI Control Center */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CBF2BC18EF000A31760 /* TIControlsVM.swift */,
+				2F690CC12BC18F0800A31760 /* TIControlsSV.swift */,
+				2F690CC32BC18F2E00A31760 /* UploadToTIChainFSC.swift */,
+				2F690CC52BC18F5500A31760 /* TIControlCenterViewModel.swift */,
+				2F690CC72BC18F8500A31760 /* TI Info FSC */,
+			);
+			path = "TI Control Center";
+			sourceTree = "<group>";
+		};
+		2F690CC72BC18F8500A31760 /* TI Info FSC */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CC82BC18FC000A31760 /* TIInfoFSC.swift */,
+				2F690CCA2BC18FE600A31760 /* TIAdminsListSV.swift */,
+			);
+			path = "TI Info FSC";
+			sourceTree = "<group>";
+		};
+		2F690CD02BC190A500A31760 /* Tab 3 Start Debate */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CD12BC190C900A31760 /* CreateDebateFSC.swift */,
+				2F690CD32BC190E000A31760 /* CreateDebateButton.swift */,
+				2F690CD52BC190F900A31760 /* PickVideoButton.swift */,
+				2F690CD72BC1910D00A31760 /* PickThumbnailSV.swift */,
+				2F690CD92BC1911600A31760 /* Create TI */,
+			);
+			path = "Tab 3 Start Debate";
+			sourceTree = "<group>";
+		};
+		2F690CD92BC1911600A31760 /* Create TI */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CDA2BC1913900A31760 /* CreateTIFSC.swift */,
+				2F690CDC2BC1915000A31760 /* CreateD1TI.swift */,
+				2F690CDE2BC1916900A31760 /* CreateD2TI.swift */,
+			);
+			path = "Create TI";
+			sourceTree = "<group>";
+		};
+		2F690CE02BC1918A00A31760 /* Tab 1 Feed */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CE72BC1927D00A31760 /* FeedTab.swift */,
+				2F690CE92BC1929D00A31760 /* FeedVM.swift */,
+				2F690CEB2BC192B200A31760 /* FeedTabView.swift */,
+				2F690CED2BC192CE00A31760 /* VideoCard.swift */,
+			);
+			path = "Tab 1 Feed";
+			sourceTree = "<group>";
+		};
+		2F690CE12BC1919900A31760 /* Tab 2 Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Tab 2 Search";
+			sourceTree = "<group>";
+		};
+		2F690CE22BC191B700A31760 /* Tab 4  */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CE32BC191D900A31760 /* LibraryTabView.swift */,
+				2F690CE52BC191F500A31760 /* EditSavedDebatesFSC.swift */,
+			);
+			path = "Tab 4 ";
+			sourceTree = "<group>";
+		};
+		2F690CF52BC193C200A31760 /* Debate View */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CF62BC193DE00A31760 /* TITView.swift */,
+				2F690CF82BC193EE00A31760 /* DebateCard.swift */,
+				2F690CFA2BC193FF00A31760 /* TITCard.swift */,
+				2F690CFC2BC1941000A31760 /* Debate Conrols */,
+				2F690D012BC1947B00A31760 /* VideoInfoSV.swift */,
+				2F690D032BC194A800A31760 /* ResponseArrayTopBarSV.swift */,
+				2F690D052BC194BC00A31760 /* SideSheet.swift */,
+				2F690D072BC194D500A31760 /* SideOptionsSheet.swift */,
+				2F690D092BC194E700A31760 /* VotingCell.swift */,
+				2F690D0B2BC1950400A31760 /* SideSheetForVotingCell.swift */,
+			);
+			path = "Debate View";
+			sourceTree = "<group>";
+		};
+		2F690CFC2BC1941000A31760 /* Debate Conrols */ = {
+			isa = PBXGroup;
+			children = (
+				2F690CFD2BC1943200A31760 /* DebateControlsSV.swift */,
+				2F690CFF2BC1945200A31760 /* DebateInfoFS.swift */,
+			);
+			path = "Debate Conrols";
+			sourceTree = "<group>";
+		};
+		2F690D0D2BC1D26100A31760 /* Tab 3 */ = {
+			isa = PBXGroup;
+			children = (
+				2F690D102BC1D9EA00A31760 /* CreateTI.swift */,
+				2F690D122BC3043300A31760 /* Create TI SVs */,
+			);
+			path = "Tab 3";
+			sourceTree = "<group>";
+		};
+		2F690D122BC3043300A31760 /* Create TI SVs */ = {
+			isa = PBXGroup;
+			children = (
+				2F690D132BC3044C00A31760 /* SelectTiTypeSV.swift */,
+				2F690D1B2BC722B200A31760 /* AddD1Info.swift */,
+				2F690D1D2BC7538000A31760 /* AddD2Info.swift */,
+			);
+			path = "Create TI SVs";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +602,15 @@
 			dependencies = (
 			);
 			name = THEAALiisDebates;
+			packageProductDependencies = (
+				2F690C222BC0969300A31760 /* FirebaseAuth */,
+				2F690C242BC0969300A31760 /* FirebaseFirestore */,
+				2F690C262BC0969300A31760 /* FirebaseFirestoreSwift */,
+				2F690C282BC0969300A31760 /* FirebaseStorage */,
+				2F690C2A2BC0969300A31760 /* FirebaseStorageCombine-Community */,
+				2F690C2D2BC096DD00A31760 /* GoogleSignIn */,
+				2F690C2F2BC096DD00A31760 /* GoogleSignInSwift */,
+			);
 			productName = THEAALiisDebates;
 			productReference = 2F690C0F2BC095BF00A31760 /* THEAALiisDebates.app */;
 			productType = "com.apple.product-type.application";
@@ -113,6 +639,10 @@
 				Base,
 			);
 			mainGroup = 2F690C062BC095BF00A31760;
+			packageReferences = (
+				2F690C212BC0969300A31760 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				2F690C2C2BC096DD00A31760 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			productRefGroup = 2F690C102BC095BF00A31760 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -129,6 +659,7 @@
 			files = (
 				2F690C1B2BC095C000A31760 /* Preview Assets.xcassets in Resources */,
 				2F690C172BC095C000A31760 /* Assets.xcassets in Resources */,
+				2F690C3E2BC09A5D00A31760 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +670,102 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F690CA52BC1859900A31760 /* THEAALiiInteractionView.swift in Sources */,
+				2F690C592BC09D3A00A31760 /* Image Manager.swift in Sources */,
+				2F690C702BC0BE4300A31760 /* UserViewModel.swift in Sources */,
+				2F690CCF2BC1906E00A31760 /* AddVideoFSC.swift in Sources */,
+				2F690CF92BC193EE00A31760 /* DebateCard.swift in Sources */,
+				2F690C462BC09BBB00A31760 /* Utilities.swift in Sources */,
+				2F690C9A2BC17E1500A31760 /* EditUserInfoViewModel.swift in Sources */,
+				2F690C982BC17DF800A31760 /* EditUserInfoFSC.swift in Sources */,
+				2F690C4A2BC09BFE00A31760 /* LogInButton.swift in Sources */,
+				2F690C742BC1775000A31760 /* TestingComponentsManager.swift in Sources */,
+				2F690C522BC09C8000A31760 /* GoogleLoginButton.swift in Sources */,
+				2F690D1E2BC7538000A31760 /* AddD2Info.swift in Sources */,
+				2F690CFB2BC193FF00A31760 /* TITCard.swift in Sources */,
+				2F690CBB2BC18E2300A31760 /* VotingSV.swift in Sources */,
+				2F690CCD2BC1905500A31760 /* AddTIVideoButton.swift in Sources */,
+				2F690CAD2BC1860500A31760 /* Post.swift in Sources */,
+				2F690CA32BC1857700A31760 /* TICard.swift in Sources */,
+				2F690CD62BC190F900A31760 /* PickVideoButton.swift in Sources */,
+				2F690C6D2BC0BDAF00A31760 /* DebateModel.swift in Sources */,
 				2F690C152BC095BF00A31760 /* ContentView.swift in Sources */,
+				2F690C4D2BC09C2600A31760 /* AppleLoginButton.swift in Sources */,
+				2F690CC92BC18FC000A31760 /* TIInfoFSC.swift in Sources */,
+				2F690C802BC1789200A31760 /* DescriptionSV.swift in Sources */,
+				2F690C412BC09B4000A31760 /* AuthenticationManager.swift in Sources */,
+				2F690CD42BC190E000A31760 /* CreateDebateButton.swift in Sources */,
+				2F690CEA2BC1929D00A31760 /* FeedVM.swift in Sources */,
 				2F690C132BC095BF00A31760 /* THEAALiisDebatesApp.swift in Sources */,
+				2F690C962BC17DDF00A31760 /* PickProfileImageButton.swift in Sources */,
+				2F690CD22BC190C900A31760 /* CreateDebateFSC.swift in Sources */,
+				2F690CC62BC18F5500A31760 /* TIControlCenterViewModel.swift in Sources */,
+				2F690CF02BC1937300A31760 /* TabsBarCustomized.swift in Sources */,
+				2F690C5B2BC09D7500A31760 /* Globals.swift in Sources */,
+				2F690CB52BC18DC900A31760 /* ResponseListSV.swift in Sources */,
+				2F690C842BC1796D00A31760 /* CloseButton.swift in Sources */,
+				2F690CE42BC191D900A31760 /* LibraryTabView.swift in Sources */,
+				2F690C482BC09BDA00A31760 /* LoginScreen.swift in Sources */,
+				2F690C8C2BC17CF200A31760 /* UserTabView.swift in Sources */,
+				2F690CA92BC185D000A31760 /* VsIndicators.swift in Sources */,
+				2F690C672BC0BD6200A31760 /* TIVideo.swift in Sources */,
+				2F690D0C2BC1950400A31760 /* SideSheetForVotingCell.swift in Sources */,
+				2F690CE82BC1927D00A31760 /* FeedTab.swift in Sources */,
+				2F690CDF2BC1916900A31760 /* CreateD2TI.swift in Sources */,
+				2F690CD82BC1910D00A31760 /* PickThumbnailSV.swift in Sources */,
+				2F690C5E2BC09E1C00A31760 /* PersonTITIconSV.swift in Sources */,
+				2F690C722BC0BE5E00A31760 /* TITViewModel.swift in Sources */,
+				2F690C932BC17D8A00A31760 /* UserPostedDebateCard.swift in Sources */,
+				2F690D022BC1947B00A31760 /* VideoInfoSV.swift in Sources */,
+				2F690C912BC17D7100A31760 /* UserViewTabsBar.swift in Sources */,
+				2F690C692BC0BD7E00A31760 /* TITChainLink.swift in Sources */,
+				2F690C652BC0BD3C00A31760 /* Video Manager.swift in Sources */,
+				2F690C8F2BC17D5700A31760 /* UserBioAndButtons.swift in Sources */,
+				2F690C772BC177C600A31760 /* TI.swift in Sources */,
+				2F690D062BC194BC00A31760 /* SideSheet.swift in Sources */,
+				2F690CC02BC18EF000A31760 /* TIControlsVM.swift in Sources */,
+				2F690D082BC194D500A31760 /* SideOptionsSheet.swift in Sources */,
+				2F690C542BC09CB100A31760 /* SignInWithGoogleHelper.swift in Sources */,
+				2F690C572BC09D0A00A31760 /* User.swift in Sources */,
+				2F690C7E2BC1787800A31760 /* LoadingView.swift in Sources */,
+				2F690C442BC09B9700A31760 /* LoginScreenViewModel.swift in Sources */,
+				2F690C822BC178C400A31760 /* AddButtonSV.swift in Sources */,
+				2F690CB72BC18DF100A31760 /* ResponseListViewModel.swift in Sources */,
+				2F690CF22BC1938B00A31760 /* TabsBar.swift in Sources */,
+				2F690CCB2BC18FE600A31760 /* TIAdminsListSV.swift in Sources */,
+				2F690C4F2BC09C4A00A31760 /* SignInAppleHelper.swift in Sources */,
+				2F690D042BC194A800A31760 /* ResponseArrayTopBarSV.swift in Sources */,
+				2F690D182BC6738E00A31760 /* D1Icon.swift in Sources */,
+				2F690CAB2BC185F200A31760 /* Comments.swift in Sources */,
+				2F690CB92BC18E1100A31760 /* AdminResponseSideSheet.swift in Sources */,
+				2F690D112BC1D9EA00A31760 /* CreateTI.swift in Sources */,
+				2F690CAF2BC1874500A31760 /* VideoSV.swift in Sources */,
+				2F690CF72BC193DE00A31760 /* TITView.swift in Sources */,
+				2F690CA72BC185B700A31760 /* TIvsControlCenter.swift in Sources */,
+				2F690D002BC1945200A31760 /* DebateInfoFS.swift in Sources */,
+				2F690C7A2BC1781000A31760 /* TIIcon.swift in Sources */,
+				2F690CEE2BC192CE00A31760 /* VideoCard.swift in Sources */,
+				2F690C322BC0974200A31760 /* RootView.swift in Sources */,
+				2F690CFE2BC1943200A31760 /* DebateControlsSV.swift in Sources */,
+				2F690CB32BC18DAE00A31760 /* VotingVideoCard.swift in Sources */,
+				2F690CE62BC191F500A31760 /* EditSavedDebatesFSC.swift in Sources */,
+				2F690C6B2BC0BD9900A31760 /* TI Model & Manager.swift in Sources */,
+				2F690C882BC17BE600A31760 /* ii.swift in Sources */,
+				2F690D142BC3044C00A31760 /* SelectTiTypeSV.swift in Sources */,
+				2F690CF42BC1939B00A31760 /* MiniPlayer.swift in Sources */,
+				2F690C7C2BC1784D00A31760 /* FutureFeatureButton.swift in Sources */,
+				2F690D1C2BC722B200A31760 /* AddD1Info.swift in Sources */,
+				2F690CC22BC18F0800A31760 /* TIControlsSV.swift in Sources */,
+				2F690CA12BC1855700A31760 /* TI1DIcon.swift in Sources */,
+				2F690CEC2BC192B200A31760 /* FeedTabView.swift in Sources */,
+				2F690CC42BC18F2E00A31760 /* UploadToTIChainFSC.swift in Sources */,
+				2F690CBD2BC18EA200A31760 /* TIView.swift in Sources */,
+				2F690C9E2BC17E7C00A31760 /* UserFSC.swift in Sources */,
+				2F690C9C2BC17E6700A31760 /* UserButton.swift in Sources */,
+				2F690CDD2BC1915000A31760 /* CreateD1TI.swift in Sources */,
+				2F690C862BC1799D00A31760 /* CommentsButton.swift in Sources */,
+				2F690D0A2BC194E700A31760 /* VotingCell.swift in Sources */,
+				2F690CDB2BC1913900A31760 /* CreateTIFSC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +899,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = THEAALiisDebates/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -292,10 +918,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.THEAALii.THEAALiisDebates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -312,6 +939,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = THEAALiisDebates/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -330,10 +958,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.THEAALii.THEAALiisDebates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -359,6 +988,63 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2F690C212BC0969300A31760 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.23.1;
+			};
+		};
+		2F690C2C2BC096DD00A31760 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2F690C222BC0969300A31760 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F690C212BC0969300A31760 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		2F690C242BC0969300A31760 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F690C212BC0969300A31760 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		2F690C262BC0969300A31760 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F690C212BC0969300A31760 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		2F690C282BC0969300A31760 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F690C212BC0969300A31760 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		2F690C2A2BC0969300A31760 /* FirebaseStorageCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F690C212BC0969300A31760 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseStorageCombine-Community";
+		};
+		2F690C2D2BC096DD00A31760 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F690C2C2BC096DD00A31760 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		2F690C2F2BC096DD00A31760 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F690C2C2BC096DD00A31760 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2F690C072BC095BF00A31760 /* Project object */;
 }

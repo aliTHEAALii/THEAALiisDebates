@@ -77,8 +77,12 @@ struct iiFSC: View {
     }
 }
 
-struct ii_Previews: PreviewProvider {
-    static var previews: some View {
-        iiButton(ti: .constant(TestingComponents().testTI0))
-    }
+//struct ii_Previews: PreviewProvider {
+//    static var previews: some View {
+//        iiButton(ti: .constant(TestingComponents().testTI0))
+//    }
+//}
+
+#Preview {
+    iiButton(ti: .constant(TestingComponents().testTI0))
 }

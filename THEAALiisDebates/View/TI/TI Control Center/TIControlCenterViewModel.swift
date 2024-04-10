@@ -1,8 +1,15 @@
 //
-//  TIControlCenterViewModel.swift
-//  THEAALiisDebates
+//  TIContolCenterViewModel.swift
+//  TheAaliiDebates
 //
-//  Created by Ali Kadhum on 4/6/24.
+//  Created by Ali Abraham on 5/18/23.
 //
 
 import Foundation
+
+
+@MainActor
+final class TIControlCenterViewModel: ObservableObject {
+    
+    
+}

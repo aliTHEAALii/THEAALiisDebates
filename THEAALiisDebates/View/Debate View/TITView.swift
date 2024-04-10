@@ -176,9 +176,12 @@ struct TITView: View {
 //struct TITView_Previews: PreviewProvider {
 //    static var previews: some View {
 //
-//        TabsBarCustomized()
+////        TabsBarCustomized()
 //        TITView(TIT: TestingComponents().testingTIT, showDebateView: .constant(true), isMiniPlayer : .constant(false))
 //    }
 //}
 
+//#Preview {
+//    TITView(TIT: TestingComponents().testingTIT, showDebateView: .constant(true), isMiniPlayer : .constant(true))
+//}
 
