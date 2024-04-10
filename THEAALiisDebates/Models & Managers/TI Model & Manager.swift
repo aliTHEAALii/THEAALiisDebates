@@ -10,7 +10,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-//MARK: - TIT Model
+//MARK: - TI Model
 struct TIModel: Identifiable, Codable, Hashable {
     
     @DocumentID var documentID: String?
@@ -21,9 +21,9 @@ struct TIModel: Identifiable, Codable, Hashable {
     var thumbnailURLString: String?
     
     var creatorUID: String?
-    var administratorsUID: [String] = []
+    var administratorsUID: [String] = []            //FIXME: UIDs
     
-    var interactionChain: [String] //FIXME: UID or ID
+    var interactionChain: [String]                  //FIXME: UID or ID
     
     var observersUIDs: [String]? = []
     
