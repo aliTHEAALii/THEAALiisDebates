@@ -13,33 +13,17 @@ struct CloseButton: View {
     
     var body: some View {
         
-        
         Button {
             showFSC.toggle()
         } label: {
-            ZStack {
-
-    //            RoundedRectangle(cornerRadius: 10)
-    //                .frame(width: width * 0.1, height: width * 0.1)
-    //                .foregroundColor(.black)
-    //
-    //            RoundedRectangle(cornerRadius: 10)
-    //                .strokeBorder(lineWidth: 0.7)
-    //                .frame(width: width * 0.1, height: width * 0.1)
-    //                .foregroundColor(.white)
-
-                Image(systemName: "xmark")
-                    .font(.system(size: width * 0.075, weight: .thin))
-                    .foregroundColor(.primary)
-            }
-//            .padding(.trailing)
+            Image(systemName: "xmark")
+                .font(.system(size: width * 0.075, weight: .thin))
+                .foregroundColor(.primary)
         }
         .preferredColorScheme(.dark)
     }
 }
 
-struct CloseButton_Previews: PreviewProvider {
-    static var previews: some View {
-        CloseButton(showFSC: .constant(true))
-    }
+#Preview {
+    CloseButton(showFSC: .constant(false))
 }

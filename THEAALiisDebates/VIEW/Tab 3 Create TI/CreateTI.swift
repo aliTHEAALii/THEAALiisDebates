@@ -13,9 +13,11 @@ struct CreateTI: View {
     var currentUser: UserModel? {
         return UserVM().getUser(userUID: currentUserUID)
     }
+    
     //TI
     let tiID = UUID().uuidString
     @State private var tiInteractionType: TIType = .d1
+    @State private var tiAdminsUIDs: [String] = []
     @State private var verticalListAccess: VerticalListAccess = .open
     
     @State private var tiThumbnailData: Data? = nil
@@ -39,7 +41,6 @@ struct CreateTI: View {
     
     @State private var isLoading = false
     
-    let steps = ["TI Type", "Interaction Info", "Admins"]
     @State var indexStep = 0
     
     //MARK: View
@@ -129,7 +130,12 @@ struct CreateTI: View {
                 
             } else if indexStep == 2 {
                 
-                CTiStep3(tiDescription: $tiDescription)
+                CTiStep3(
+                    currentUser: currentUser,
+                    tiAdminsUIDs: $tiAdminsUIDs,
+                    tiInteractionType: $tiInteractionType,
+                    tiDescription: $tiDescription,
+                    verticalListAccess: $verticalListAccess)
                 
             }
             

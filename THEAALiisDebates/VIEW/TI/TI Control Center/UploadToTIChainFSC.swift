@@ -254,7 +254,7 @@ struct EnterDescriptionButton: View {
                         
                         //FIXME: - BIO from database
                         if description == "" {
-                            Text("Enter First Video Description")
+                            Text("Enter Post Description")
                                 .foregroundColor(.secondary.opacity(0.5))
                                 .frame(width: width * 0.85, height: width * 1.3, alignment: .top)
                         }

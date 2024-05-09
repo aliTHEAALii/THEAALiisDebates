@@ -19,8 +19,7 @@ struct UserModel: Codable {
 
     var name: String = ""   //displayName
     var bio: String = ""    //
-//    var profileImageURL: URL? = nil
-    var profileImageURLString: String? = nil //change name to url
+    var profileImageURLString: String? = nil
     
 //    var userLabel: 
     
@@ -30,12 +29,12 @@ struct UserModel: Codable {
     var createdTIsIDs : [String] = []                //MARK: - Fetching if nil
                                                     //FIXME: Participatied TI's
     
-    var savedUsers:     [String?]? = []
+    var savedUsers:     [String?] = []
     var observingTITs: [String] = []
 
     enum CodingKeys: String, CodingKey {
-        case id //FIXME: - id????
-        case userUID = "user_id"
+        case id
+        case userUID = "user_id" //FIXME: UID
         case email = "email"
         
         case name = "name"
@@ -48,7 +47,7 @@ struct UserModel: Codable {
         case createdTIsIDs = "created_tis_ids"      //FIXME: Check if it crashes the code!!!!!!!
         
         case savedUsers = "saved_users"
-        case observingTITs = "observing_tits"
+        case observingTITs = "observing_tits"       //FIXME: TIT == TI
     }
     
     var dictionary: [String: Any] {
@@ -91,7 +90,7 @@ struct UserModel: Codable {
         self.following     = following
         self.followers     = followers
         self.createdTIsIDs = createdTIsIDs
-        self.savedUsers    = savedUsers
+        self.savedUsers    = savedUsers ?? []
         self.observingTITs = observingTITs
     }
     

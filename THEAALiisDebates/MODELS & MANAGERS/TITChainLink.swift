@@ -26,11 +26,11 @@ struct TITChainLinkModel: Identifiable, Codable {
         ]
     }
     
-    init(id: String, videoID: String, responseList: [String]) {
+    init(id: String, postID: String, verticalList: [String]) {
         self.documentID = id
         self.id = id
-        self.videoID = videoID
-        self.responseList = responseList
+        self.videoID = postID
+        self.responseList = verticalList
     }
 }
 
@@ -70,7 +70,7 @@ final class TITChainLinkManager {
         //Optional
         let responseList = data["response_list"] as? [String] ?? []
 
-        return TITChainLinkModel(id: id, videoID: videoID, responseList: responseList)
+        return TITChainLinkModel(id: id, postID: videoID, verticalList: responseList)
     }
     
     //3. Update

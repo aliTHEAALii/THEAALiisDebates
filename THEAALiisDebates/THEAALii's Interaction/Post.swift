@@ -20,7 +20,7 @@ struct Post: Identifiable, Codable {
     var title: String
     
     var type       : PostType
-    var description: String
+    var description: String?
     var imageURL   : String? /// "image
     var videoURL   : String?
     
@@ -59,31 +59,53 @@ struct Post: Identifiable, Codable {
         case commentsArray = "comments"
     }
     
+    
     //MARK: Decode
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.id = try container.decode(String.self, forKey: .id)
+        self.id    = try container.decode(String.self, forKey: .id)
         self.title = try container.decode(String.self, forKey: .title)
         //Type
         self.type         = try container.decode(PostType.self, forKey: .type)
-        self.description  = try container.decode(String.self, forKey: .description)
-        self.imageURL = try container.decodeIfPresent(String.self, forKey: .imageURL)
+        self.description  = try container.decodeIfPresent(String.self, forKey: .description)
+        self.imageURL     = try container.decodeIfPresent(String.self, forKey: .imageURL)
         self.videoURL     = try container.decodeIfPresent(String.self, forKey: .videoURL)
         //
         self.creatorUID  = try container.decode(String.self, forKey: .creatorUID)
         self.dateCreated = try container.decode(Date.self, forKey: .dateCreated)
         
-        self.cLinkID = try container.decodeIfPresent(String.self, forKey: .cLinkID)
+        self.cLinkID      = try container.decodeIfPresent(String.self, forKey: .cLinkID)
         self.addedToChain = try container.decode(Bool.self, forKey: .addedToChain)
         //Votes
         self.totalVotes = try container.decode(Int.self, forKey: .totalVotes)
-        self.upVotes = try container.decode(Int.self, forKey: .upVotes)
-        self.downVotes = try container.decode(Int.self, forKey: .downVotes)
-        self.upVotersUIDsArray = try container.decode([String].self, forKey: .upVotersUIDsArray)
+        self.upVotes    = try container.decode(Int.self, forKey: .upVotes)
+        self.downVotes  = try container.decode(Int.self, forKey: .downVotes)
+        self.upVotersUIDsArray   = try container.decode([String].self, forKey: .upVotersUIDsArray)
         self.downVotersUIDsArray = try container.decode([String].self, forKey: .downVotersUIDsArray)
         //Commets
         self.commentsArray = try container.decode([String].self, forKey: .commentsArray)
+    }
+    
+    //MARK: - inits
+    init(id: String, title: String, type: PostType, description: String?, imageURL: String?, videoURL: String?, creatorUID: String, dateCreated: Date, cLinkID: String, addedToChain: Bool,
+         totalVotes: Int, upVotes: Int, downVotes: Int, upVotersUIDsArray: [String], downVotersUIDsArray: [String], commentsArray: [String]) {
+        self.id = id
+        self.title = title
+        self.type = type
+        self.description = description
+        self.imageURL = imageURL
+        self.videoURL = videoURL
+        self.creatorUID = creatorUID
+        self.dateCreated = dateCreated
+        self.cLinkID = cLinkID
+        self.addedToChain = addedToChain
+        self.totalVotes = totalVotes
+        self.upVotes = upVotes
+        self.downVotes = downVotes
+        self.upVotersUIDsArray = upVotersUIDsArray
+        self.downVotersUIDsArray = downVotersUIDsArray
+        self.commentsArray = commentsArray
     }
 }
 

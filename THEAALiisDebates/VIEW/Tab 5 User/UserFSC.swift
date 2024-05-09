@@ -212,7 +212,7 @@ struct SaveUserButton: View {
     //F
     var userSaved: Bool {
         if let userId = user.id {
-            return currentUser.savedUsers?.contains(userId) ?? false
+            return currentUser.savedUsers.contains(userId)
         } else { return false }
     }
     
@@ -224,12 +224,12 @@ struct SaveUserButton: View {
                     try await UserManager.shared.updateSavedUsers(currentUserId: currentUserId ,userIdForArray: userId,addOrRemove: (userSaved ? .remove : .remove))
                     print("🍌 🫒 saved user remove! 🫒 🍌")
                     
-                    currentUser.savedUsers?.remove(object: userId)
+                    currentUser.savedUsers.remove(object: userId)
                 } else {
                     try await UserManager.shared.updateSavedUsers(currentUserId: currentUserId ,userIdForArray: userId,addOrRemove: (userSaved ? .remove : .add))
                     print("🍌 🫒 saved user add! 🫒 🍌")
                     
-                    currentUser.savedUsers?.append(userId)
+                    currentUser.savedUsers.append(userId)
                     showSavedUsersSheet.toggle()
                 }
             }

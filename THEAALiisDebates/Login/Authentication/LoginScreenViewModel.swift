@@ -29,7 +29,7 @@ final class LoginScreenViewModel: ObservableObject {
 //            print("⚽️🦠 3")
             
             //        let user = DBUser(auth: authDataResult)
-            let user : UserModel? = await UserManager.shared.getUser(userId: authDataResult.uid)
+            let user : UserModel? = try await UserManager.shared.getUser(userId: authDataResult.uid)
 //            print("⚽️🦠 user")
             
             if user == nil {
@@ -60,7 +60,7 @@ final class LoginScreenViewModel: ObservableObject {
         let helper = SignInAppleHelper()
         let tokens = try await helper.startSignInWithAppleFlow()
         let authDataResult = try await AuthenticationManager.shared.signInWithApple(tokens: tokens)
-        let user : UserModel? = await UserManager.shared.getUser(userId: authDataResult.uid)
+        let user : UserModel? = try await UserManager.shared.getUser(userId: authDataResult.uid)
         if user == nil {
             let user = UserModel(authUser: authDataResult)
             try await UserManager.shared.createNewUser(user: user)

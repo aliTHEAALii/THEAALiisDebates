@@ -10,8 +10,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 enum TIType   : String, Codable { case post = "post",  d1 = "thread", d2 = "vs" }
-enum ResponseListAccess: String, Codable { case open = "open", restricted = "restricted", closed = "closed" }
-enum RightOrLeft { case right, left }
+enum VerticalListAccess: String, Codable { case open = "open", restricted = "restricted", closed = "closed" }
+enum LeftOrRight { case left, right }
 
 struct TI: Identifiable, Codable {
     
@@ -36,32 +36,34 @@ struct TI: Identifiable, Codable {
     var tiType: TIType = .d1
     
     var rightChain: [String] = []               //Chain IDs
+    //  var rightChain Admins UIDs
     var rightChainUsersUIDs: [String] = []
     
     var leftChain: [String] = []                //Chain IDs
+    //  var leftChain Admins UIDs
     var leftChainUsersUIDs: [String] = []
     
-    var responseListAccess: ResponseListAccess = .open
-    var responseListUsersUIDs: [String] = []
+    var verticalListAccess: VerticalListAccess = .open
+    var verticalListUsersUIDs: [String] = []
     
     var tiObserversUIDs: [String] = []
 
     
     // - create init - //
     init(ID: String, title: String, description: String, thumbnailURL: String?, introCLinkID: String, creatorUID: String,
-         tiType: TIType, responseListAccess: ResponseListAccess) {
+         tiType: TIType, responseListAccess: VerticalListAccess) {
         self.documentID = ID
         self.id = ID
         self.title = title; self.description = description;
         self.thumbnailURL = thumbnailURL; self.introCLinkID = introCLinkID
         self.creatorUID = creatorUID; self.tiAdminsUIDs = [creatorUID]
         self.dateCreated = Date()
-        self.tiType = tiType; self.responseListAccess = responseListAccess
+        self.tiType = tiType; self.verticalListAccess = responseListAccess
     }
     
     // - Read init - //
     init(id: String, title: String, description: String, thumbnailURL: String?, introCLinkID: String, creatorUID: String, tiAdminsUIDs: [String], dateCreated: Date,
-         tiType: TIType, rightChain: [String], leftChain: [String], responseListAccess: ResponseListAccess) {
+         tiType: TIType, rightChain: [String], leftChain: [String], responseListAccess: VerticalListAccess) {
         self.documentID = id
         self.id = id
         self.title = title; self.description = description;
@@ -70,7 +72,7 @@ struct TI: Identifiable, Codable {
         self.tiAdminsUIDs = tiAdminsUIDs
         self.dateCreated = dateCreated
         self.tiType = tiType; self.rightChain = rightChain; self.leftChain = leftChain
-        self.responseListAccess = responseListAccess
+        self.verticalListAccess = responseListAccess
     }
     
     //MARK: - Coding Keys
@@ -84,15 +86,14 @@ struct TI: Identifiable, Codable {
         case tiAdminsUIDs       = "ti_admins_uids"
         case dateCreated        = "date_created"
         case tiType             = "ti_type"
-//        case interactionType    = "interaction_type"
-        //
+
         case rightChain           = "right_chain"
         case rightChainAdminsUIDs = "right_chain_users_uids"
         case leftChain            = "left_chain"
         case leftChainAdminsUIDs  = "left_chain_users_uids"
         
-        case responseListAccess    = "response_list_access"
-        case responseListUsersUIDs = "response_list_users_uids"
+        case verticalListAccess    = "vertical_list_access"
+        case verticalListUsersUIDs = "vertical_list_users_uids"
         
         case tiObserversUIDs      = "ti_observers_uids"
     }
@@ -100,6 +101,7 @@ struct TI: Identifiable, Codable {
     //MARK: Decoder
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
         self.id = try container.decode(String.self, forKey: .id)
         self.title = try container.decode(String.self, forKey: .title)
         self.description = try container.decode(String.self, forKey: .description)
@@ -116,8 +118,8 @@ struct TI: Identifiable, Codable {
         self.leftChain = try container.decode([String].self, forKey: .leftChain)
         self.leftChainUsersUIDs = try container.decode([String].self, forKey: .leftChainAdminsUIDs)
         
-        self.responseListAccess = try container.decode(ResponseListAccess.self, forKey: .responseListAccess)
-        self.responseListUsersUIDs = try container.decode([String].self, forKey: .responseListUsersUIDs)
+        self.verticalListAccess = try container.decode(VerticalListAccess.self, forKey: .verticalListAccess)
+        self.verticalListUsersUIDs = try container.decode([String].self, forKey: .verticalListUsersUIDs)
 
         self.tiObserversUIDs = try container.decode([String].self, forKey: .tiObserversUIDs)
     }
@@ -125,6 +127,7 @@ struct TI: Identifiable, Codable {
     //MARK: Encoder
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        
         try container.encode(self.id, forKey: .id)
         try container.encode(self.title, forKey: .title)
         try container.encode(self.description, forKey: .description)
@@ -141,8 +144,8 @@ struct TI: Identifiable, Codable {
         try container.encode(self.leftChain, forKey: .leftChain)
         try container.encode(self.leftChainUsersUIDs, forKey: .leftChainAdminsUIDs)
 
-        try container.encodeIfPresent(self.responseListAccess, forKey: .responseListAccess)
-        try container.encodeIfPresent(self.responseListUsersUIDs, forKey: .responseListUsersUIDs)
+        try container.encodeIfPresent(self.verticalListAccess, forKey: .verticalListAccess)
+        try container.encodeIfPresent(self.verticalListUsersUIDs, forKey: .verticalListUsersUIDs)
         
         try container.encodeIfPresent(self.tiObserversUIDs, forKey: .tiObserversUIDs)
     }
@@ -173,7 +176,7 @@ final class TIManager {
     // - 3. Update
     
     //MARK: add ti video to chain
-    func addToChain(tiID: String, CLinkID: String, rightOrLeft: RightOrLeft) async throws {
+    func addToChain(tiID: String, CLinkID: String, rightOrLeft: LeftOrRight) async throws {
         var chainData = [String: Any]()
         
         if rightOrLeft == .right {
@@ -187,7 +190,7 @@ final class TIManager {
     }
     
     //MARK: Edit Admins
-    func editAdmins(tiID: String, userUID: String, chainDirection: RightOrLeft , addOrRemove: AddOrRemove) async throws {
+    func editAdmins(tiID: String, userUID: String, chainDirection: LeftOrRight , addOrRemove: AddOrRemove) async throws {
         
         var adminsData = [String: Any]()
         

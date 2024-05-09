@@ -63,11 +63,11 @@ struct iiFSC: View {
                     .frame(width: width * 0.9, height: width * 0.08)
 
                 HStack {
-                    UserButton(userID: nil)
+                    UserButton(userUID: nil)
                     Spacer()
                     TIIcon()
                     Spacer()
-                    UserButton(userID: nil)
+                    UserButton(userUID: nil)
                 }
             }
             
@@ -84,5 +84,5 @@ struct iiFSC: View {
 //}
 
 #Preview {
-    iiButton(ti: .constant(TestingComponents().testTI0))
+    iiButton(ti: .constant(TestingModels().testTI0))
 }

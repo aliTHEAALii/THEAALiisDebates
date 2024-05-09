@@ -9,10 +9,6 @@ import SwiftUI
 
 struct TIIcon: View {
     
-    enum TIIconType {
-        case circle, d1, d2
-    }
-    
     var scale: CGFloat = 1
     var rotationDegree: CGFloat = 180
     var timeLapseWeight: Font.Weight = .thin
@@ -49,7 +45,9 @@ struct TIIcon: View {
 struct TIIcon_Previews: PreviewProvider {
     static var previews: some View {
 //        TIIcon()
-        TIIconD2()
+//        TIIconD2()
+        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2), indexStep: 1)
+
     }
 }
 
@@ -88,6 +86,7 @@ struct TIIconD2: View {
     var timeLapseWeight: Font.Weight = .thin
     var triangleWeight:  Font.Weight = .light
 
+    var showTwoSides = true
     
     var body: some View {
         
@@ -98,10 +97,39 @@ struct TIIconD2: View {
                 .trim(from: 0, to: 0.5)
                 .stroke(lineWidth: 1 * scale)
                 .offset(y: width * -0.03 *  scale)
-                .frame(width: width * 0.8 * scale, height: width * 0.15 * scale)
+                .frame(width: width * 0.7 * scale, height: width * 0.15 * scale)
                 .foregroundColor(.primary)
             
             TIIcon(scale: scale, rotationDegree: rotationDegree, timeLapseWeight: timeLapseWeight, triangleWeight: triangleWeight)
+            
+            //MARK: - Left & Right Users
+            if showTwoSides {
+                HStack {
+                    
+                    ZStack {
+                        Circle()
+                            .frame(width: width * 0.1 * scale)
+                            .padding(.leading, width * 0.01 * scale)
+                        Circle()
+                            .stroke(lineWidth: 2 * scale)
+                            .frame(width: width * 0.1 * scale)
+                            .padding(.leading, width * 0.01 * scale)
+                    }
+                    
+                    Spacer()
+                    
+                    ZStack {
+                        Circle()
+                            .frame(width: width * 0.1 * scale)
+                            .padding(.leading, width * 0.01 * scale)
+                        Circle()
+                            .stroke(lineWidth: 2 * scale)
+                            .frame(width: width * 0.1 * scale)
+                            .padding(.trailing, width * 0.01 * scale)
+                    }
+                }
+                .frame(width: width * scale, height: width * 0.15 * scale)
+            }
         }
     }
 }

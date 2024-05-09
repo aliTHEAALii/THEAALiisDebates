@@ -9,7 +9,7 @@ import SwiftUI
 
 struct THEAALiiInteractionView: View {
     
-    @State var ti: TI = TestingComponents().testTI0
+    @State var ti: TI = TestingModels().testTI0
     
     @State private var tiCLink: TITChainLinkModel? = nil
     @State private var tiVideo: TIVideoModel? = nil

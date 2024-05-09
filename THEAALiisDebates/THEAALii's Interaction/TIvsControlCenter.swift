@@ -37,7 +37,7 @@ struct TIvsControlCenter: View {
                     
                     //Bottom Buttons
                     HStack(spacing: 0) {
-                        UserButton(userID: "")
+                        UserButton(userUID: "")
                             .frame(width: width * 0.15)
                         AddButtonSV()
                             .frame(width: width * 0.15)
@@ -74,7 +74,7 @@ struct TIvsControlCenter: View {
                         AddButtonSV()
                             .frame(width: width * 0.15)
                         
-                        UserButton(userID: "")
+                        UserButton(userUID: "")
                             .frame(width: width * 0.15)
                         
                     }

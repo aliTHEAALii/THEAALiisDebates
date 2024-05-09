@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: - Button
 struct PickUserButton: View {
     
     
@@ -61,10 +62,9 @@ struct PickUserButton: View {
 }
 
 
-//MARK: Pick User Icon
+//MARK: - Icon
 struct PickTiUserIcon: View {
     
-//    var savedUserUID: String
     @Binding var pickedUser: UserModel?
     
     @Binding var showPickUserFSC: Bool
@@ -102,7 +102,7 @@ struct PickTiUserIcon: View {
                     //User with Nil image
                 } else { PersonTITIconSV(scale: 1.3) }
                 
-            }//Werks
+            }
         }
         .frame(height: width * 0.15)
     }
@@ -110,14 +110,17 @@ struct PickTiUserIcon: View {
 
 
 
-//MARK: Pick User Cell
+//MARK: - Cell
 struct PickTiUserCell: View {
     
     var savedUserUID: String
+    var savedUser: UserModel? {
+
+        return UserVM().getUser(userUID: savedUserUID)
+    }
     @Binding var pickedUser: UserModel?
     
     @Binding var showPickUserFSC: Bool
-    
     
     var body: some View {
         
@@ -127,7 +130,7 @@ struct PickTiUserCell: View {
             
             Button {
 
-                pickedUser = computedUser
+                pickedUser = savedUser
                 showPickUserFSC = false
                 
             } label: {
@@ -142,23 +145,5 @@ struct PickTiUserCell: View {
             UserButton(userUID: savedUserUID, horizontalName: true)
         }
         .frame(height: width * 0.15)
-    }
-    
-    
-    //MARK: - Computed Properties
-    var computedUser: UserModel? {
-
-#if DEBUG
-            return TestingModels().user2
-#else
-            do {
-                return try await UserManager.shared.getUser(userId: savedUserUID ?? "")
-            } catch {
-                print("🏀🟠🏀 Couln't get saved user")
-                print(error.localizedDescription)
-                return nil
-            }
-#endif
-
     }
 }

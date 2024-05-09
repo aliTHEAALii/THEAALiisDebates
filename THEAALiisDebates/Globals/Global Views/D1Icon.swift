@@ -10,6 +10,7 @@ import SwiftUI
 struct D1Icon: View {
     
     var sf: CGFloat = 1
+    var showPersonIcon = true
 
     
     var body: some View {
@@ -18,15 +19,6 @@ struct D1Icon: View {
         ZStack(alignment: .bottom) {
             
             //FIXME: Debate Chains Count
-//            DebateCardIndicatorCirclesSV(debateChainsCount: 1)
-//            
-//            //Border
-//            RoundedRectangle(cornerRadius: 8)
-//                .trim(from: 0, to: 0.5)
-//                .stroke(lineWidth: 1)
-//                .frame(width: width * 0.45, height: width * 0.15)
-//                .foregroundColor(.primary)
-
             
             VStack(spacing: 0) {
                 
@@ -38,10 +30,21 @@ struct D1Icon: View {
                 Spacer()
             }
             
-//            TIIcon(scale:0.7)
-//                .offset(x: -width * 0.25, y: width * 0.03)
             
             TIIconD1(scale: 0.8 * sf)
+            
+            //Left & Right User Icons
+            if showPersonIcon {
+                HStack {
+//                    PersonIcon(circle: true, scale: 0.2 * sf)
+//                        .padding(.leading, width * 0.01 * sf)
+                    
+                    Spacer()
+                    
+                    PersonIcon(circle: true, scale: 0.15 * sf)
+                        .padding(.trailing, width * 0.01 * sf)
+                }
+            }
         }
         .frame(width: width * sf, height: width * 0.68 * sf)
 
@@ -49,13 +52,15 @@ struct D1Icon: View {
 }
 
 #Preview {
-    D2Icon()
+    D1Icon()
+//    D2Icon()
 }
 
 
 struct D2Icon: View {
     
     var sf: CGFloat = 1
+    var showPersonIcon = true
 
     
     var body: some View {
@@ -84,12 +89,25 @@ struct D2Icon: View {
                 Spacer()
             }
             
-//            TIIcon(scale:0.7)
-//                .offset(x: -width * 0.25, y: width * 0.03)
             
-            TIIconD2(scale: 0.8 * sf)
+            TIIconD2(scale: 1 * sf, showTwoSides: false)
+            
+            
+            //Left & Right User Icons
+            if showPersonIcon {
+                HStack {
+                    PersonIcon(circle: true, scale: 0.2 * sf)
+                        .padding(.leading, width * 0.01 * sf)
+                    
+                    Spacer()
+                    
+                    PersonIcon(circle: true, scale: 0.2 * sf)
+                        .padding(.trailing, width * 0.01 * sf)
+                }
+            }
+            
         }
-        .frame(width: width * sf, height: width * 0.68 * sf)
+        .frame(width: width * sf, height: width * 0.7 * sf)
 
     }
 }

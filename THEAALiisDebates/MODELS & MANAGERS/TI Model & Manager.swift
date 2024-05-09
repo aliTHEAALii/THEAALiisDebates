@@ -10,6 +10,10 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+
+enum TIVerticalAccess: String {
+    case open, restricted, closed
+}
 //MARK: - TI Model
 struct TIModel: Identifiable, Codable, Hashable {
     
@@ -17,13 +21,22 @@ struct TIModel: Identifiable, Codable, Hashable {
     var id: String                                  //Pay to set your own ID
     
     var name: String
-    var description: String
-    var thumbnailURLString: String?
+    var description: String = ""
+    var thumbnailURLString: String? = nil
     
     var creatorUID: String?
     var administratorsUID: [String] = []            //FIXME: UIDs
     
+    //horizontal chain
     var interactionChain: [String]                  //FIXME: UID or ID
+    var leftChain : [String] = []
+    var leftChainUsersUIDs: [String] = []
+    var rightChain: [String] = []
+    var rightChainUsersUIDs: [String] = []
+
+    //Vertical
+    var verticalAccess: TIVerticalAccess = .open
+    var verticalUsersUIDs: [String] = []
     
     var observersUIDs: [String]? = []
     
