@@ -56,8 +56,8 @@ struct UserFSC: View {
                 if user != nil {
                     VStack(spacing: 15) {
                         
-                        Text(user!.name != "" ? user!.name : "No Name")
-                            .foregroundColor(user!.name != "" ? .primary : .secondary)
+                        Text(user!.displayName != "" ? user!.displayName : "No Name")
+                            .foregroundColor(user!.displayName != "" ? .primary : .secondary)
                             .font(.title)
                         
                         Text("Future Feature")
@@ -212,7 +212,7 @@ struct SaveUserButton: View {
     //F
     var userSaved: Bool {
         if let userId = user.id {
-            return currentUser.savedUsers.contains(userId)
+            return currentUser.savedUsersUIDs.contains(userId)
         } else { return false }
     }
     
@@ -224,12 +224,12 @@ struct SaveUserButton: View {
                     try await UserManager.shared.updateSavedUsers(currentUserId: currentUserId ,userIdForArray: userId,addOrRemove: (userSaved ? .remove : .remove))
                     print("🍌 🫒 saved user remove! 🫒 🍌")
                     
-                    currentUser.savedUsers.remove(object: userId)
+                    currentUser.savedUsersUIDs.remove(object: userId)
                 } else {
                     try await UserManager.shared.updateSavedUsers(currentUserId: currentUserId ,userIdForArray: userId,addOrRemove: (userSaved ? .remove : .add))
                     print("🍌 🫒 saved user add! 🫒 🍌")
                     
-                    currentUser.savedUsers.append(userId)
+                    currentUser.savedUsersUIDs.append(userId)
                     showSavedUsersSheet.toggle()
                 }
             }

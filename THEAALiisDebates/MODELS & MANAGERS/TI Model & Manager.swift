@@ -126,12 +126,12 @@ final class TITManager {
         TITCollection.document(TITid)
     }
     
-    ///1. Create
+    //1. Create
     func createTIT(TITModel: TIModel) async throws {
         try TITDocument(TITid: TITModel.id).setData(from: TITModel, merge: false) //should have [ await ]
     }
     
-    ///2. Read
+    //2. Read
     func getTIT(TITid: String) async throws -> TIModel {
         do {
             return try await TITDocument(TITid: TITid).getDocument(as: TIModel.self)
@@ -141,7 +141,7 @@ final class TITManager {
         }
     }
     
-    ///3. Update
+    //3. Update
     func addToChain(titId: String, chainId: String) async throws {
         let chainLink: [String : Any] = [
             TIModel.CodingKeys.interactionChain.rawValue : FieldValue.arrayUnion([chainId])
@@ -163,6 +163,7 @@ final class TITManager {
             try await TITDocument(TITid: tiId).updateData(adminsData)
         }
     }
+    
     //4. Delete
 }
 

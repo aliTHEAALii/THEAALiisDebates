@@ -277,7 +277,7 @@ struct VSMap: View {
             mapArray.append(id)
         }
         
-        mapArray.append(ti.introCLinkID ?? "")
+        mapArray.append(ti.introPostID)
         
         for id in ti.rightChain {
             mapArray.append(id)

@@ -263,7 +263,7 @@ final class TiCreatingVM {
             let ti = TI(
                 id: tiID, title: tiTitle, description: "No TI Description Yet",
                 thumbnailURL: "",
-                introCLinkID: introChLink.id,
+                introPostID: introChLink.id,
                 creatorUID: currentUserUID,
                 tiAdminsUIDs: tiAdmins,
                 dateCreated: Date.now, tiType: tiType,

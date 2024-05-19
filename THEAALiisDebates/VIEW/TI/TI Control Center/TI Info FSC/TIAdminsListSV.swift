@@ -152,7 +152,7 @@ struct AddAdminsButton: View {
                 
                 ScrollView {
                     LazyVStack(spacing: 0) {
-                        ForEach(currentUser.savedUsers ?? [], id: \.self) { userId in
+                        ForEach(currentUser.savedUsersUIDs ?? [], id: \.self) { userId in
                             
                             if !ti.administratorsUID.contains(userId ?? "") {
                                 

@@ -67,17 +67,35 @@ struct EditTIAdminsSV: View {
                 
                 Divider()
                 
-                //admins
+                //Admins
+                HStack(spacing: 0) {
+                    
+                    //Admins
+                    ForEach(tiAdminsUIDs, id: \.self) { adminUID in
+                        
+                        UserButton(userUID: adminUID)
+                            .padding(.leading, width * 0.02)
+                    }
+                }
+                .frame(width: width * 0.85, height: width * 0.15, alignment: .leading)
+                
+                Divider()
+                
+                
+                Text("Saved Users")
+                    .font(.title)
+
+                //AddOrRemove Saved Users
                 if let currentUser = currentUser {
-                    ForEach(currentUser.savedUsers, id: \.self) { savedUserUID in
+                    ForEach(currentUser.savedUsersUIDs, id: \.self) { savedUserUID in
                         HStack {
                             
-//                            UserButton(userUID: savedUserUID, horizontalName: true)
 
                             AddRemoveCTiAdminCell(
                                 currentUser: .constant(currentUser),
-                                userUID: savedUserUID,
-                                addOrRemove: .add)
+                                tiAdminsUIDs: $tiAdminsUIDs,
+                                userUID: savedUserUID
+                            )
                         }
                         .frame(width: width, height: width * 0.15, alignment: .trailing)
                     }
@@ -92,11 +110,11 @@ struct EditTIAdminsSV: View {
     func addOrRemoveAdmin(adminUID: String) {
         guard let currentUser else { return }
         
-        if currentUser.savedUsers.contains(adminUID) {
+        if currentUser.savedUsersUIDs.contains(adminUID) {
             tiAdminsUIDs.remove(object: adminUID)
         }
         
-        if !currentUser.savedUsers.contains(adminUID) {
+        if !currentUser.savedUsersUIDs.contains(adminUID) {
             tiAdminsUIDs.append(adminUID)
         }
     }
@@ -115,11 +133,10 @@ struct AddRemoveCTiAdminCell: View {
     
     
     @Binding var currentUser: UserModel
+    @Binding var tiAdminsUIDs: [String]
     
     let userUID: String?
-    
-    let addOrRemove: AddOrRemove
-    
+        
     var body: some View {
         
         
@@ -129,9 +146,13 @@ struct AddRemoveCTiAdminCell: View {
             Button {
                 Task {
                     if addOrRemove == .add {
-                        try await addUserToAdmins()
+                        if let userUID {
+                            tiAdminsUIDs.append(userUID)
+                        }
                     } else if addOrRemove == .remove {
-                       try await removeAdmin()
+                        if let userUID {
+                            tiAdminsUIDs.remove(object: userUID)
+                        }
                     }
                 }
             } label: {
@@ -141,26 +162,20 @@ struct AddRemoveCTiAdminCell: View {
             }
             .padding()
             
+            
             Spacer()
+            
             
             UserButton(userUID: userUID, horizontalName: true)
         }
     }
     
-    private func addUserToAdmins() async throws {
-        guard let userUID else { return }
+    var addOrRemove: AddOrRemove {
         
-//        tr/*y await TITManager.shared.addOrRemoveAdmin(tiId: ti.id, userId: userUID, addO*/rRemove: .add)
-        
-//        ti.administratorsUID.append(userUID)
-    }
-    
-    private func removeAdmin() async throws {
-        guard let userUID else { return }
-
-//        try await TITManager.shared.addOrRemoveAdmin(tiId: ti.id, userId: userUID, addOrRemove: .remove)
-
-        
-//        ti.administratorsUID.remove(object: userUID)
+        if !tiAdminsUIDs.contains(userUID ?? "No User UID" ) {
+            return .add
+        } else {
+            return .remove
+        }
     }
 }

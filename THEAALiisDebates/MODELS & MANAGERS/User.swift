@@ -10,105 +10,124 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+enum userLabel {
+    case creator, observer
+}
+
+
 //MARK: - User Model
 struct UserModel: Codable {
     
     @DocumentID var id: String?
+    let dataJoined: Date
     var userUID: String = ""
-    var email: String = ""
+    var email  : String = ""
 
-    var name: String = ""   //displayName
-    var bio: String = ""    //
+    var displayName: String = ""
+    var bio        : String = ""
     var profileImageURLString: String? = nil
     
-//    var userLabel: 
+    var userLabel: String = "Observer"
     
-    var following:     [String] = []                //FIXME: IDs
-    var followers:     [String] = []                //FIXME: IDs
+    var followingUIDs:     [String] = []
+    var followersUIDs:     [String] = []
     
-    var createdTIsIDs : [String] = []                //MARK: - Fetching if nil
-                                                    //FIXME: Participatied TI's
+    var createdTIsIDs : [String] = []
+    var participatedTIsIDs : [String] = []
     
-    var savedUsers:     [String?] = []
-    var observingTITs: [String] = []
+    var savedUsersUIDs:     [String?] = []
+    var observingTIsIDs  :     [String]  = []
 
+    //MARK: -  Coding Keys
     enum CodingKeys: String, CodingKey {
         case id
-        case userUID = "user_id" //FIXME: UID
+        case dataJoined = "date_joined"
+        case userUID = "user_uid"
         case email = "email"
         
-        case name = "name"
+        case displayName = "display_name"
         case bio = "bio"
         case profileImageURLString = "profile_image_url"
         
-        case following = "following"
-        case followers = "followers"
+        case userLabel = "user_label"
+        
+        case followingUIDs = "following_uids"
+        case followersUIDs = "followers_uids"
         
         case createdTIsIDs = "created_tis_ids"      //FIXME: Check if it crashes the code!!!!!!!
+        case participatedTIsIDs = "participated_tis_ids"
         
-        case savedUsers = "saved_users"
-        case observingTITs = "observing_tits"       //FIXME: TIT == TI
+        case savedUsersUIDs = "saved_users_uids"
+        case observingTIsIDs = "observing_tis_ids"
     }
     
-    var dictionary: [String: Any] {
-        return ["userUID": userUID, "email": email, "name": name, "bio": bio, "profileImageURLString": profileImageURLString ?? ""]
-    }
+//    var dictionary: [String: Any] {
+//        return ["userUID": userUID, 
+//                "email": email,
+//                "name": displayName,
+//                "bio": bio,
+//                "profileImageURLString": profileImageURLString ?? ""]
+//    }
     
-    //MARK: - Auth init
-    init(authUser: AuthDataResultModel) {
-        self.userUID = authUser.uid
-        self.email = authUser.email ?? ""
-        self.profileImageURLString = authUser.photoUrl
-        self.name = authUser.displayName ?? "No Name"
-        self.bio = ""
-        
-        self.following     = [String]()
-        self.followers     = [String]()
-        
-        self.savedUsers    = [String]()
-        self.observingTITs = [String]()
-    }
     
     //MARK: init
     init(
-        userUID: String,
-        email: String?,
-        name: String,
-        bio: String,
-        profileImageURLString: String?,
-        following:     [String],
-        followers:     [String],
-        createdTIsIDs: [String],
-        savedUsers:    [String?]?,
-        observingTITs: [String])
+        userUID: String  ,
+        email:   String? ,
+        dateJoined: Date ,
+        
+        displayName:           String  ,
+        bio:                   String  ,
+        profileImageURLString: String? ,
+        userLabel:             String  ,
+        
+        createdTIsIDs:      [String] ,
+        participatedTIsIDs: [String] ,
+        
+        followingUIDs:     [String] ,
+        followersUIDs:     [String] ,
+        
+        savedUsersUIDs:    [String] ,
+        observingTIs: [String]
+    )
     {
+        self.dataJoined = dateJoined
         self.userUID = userUID
         self.email = email ?? ""
-        self.profileImageURLString = profileImageURLString
-        self.name = name
+        
+        self.displayName = displayName
         self.bio = bio
-        self.following     = following
-        self.followers     = followers
+        self.profileImageURLString = profileImageURLString
+        self.userLabel = userLabel
+        
         self.createdTIsIDs = createdTIsIDs
-        self.savedUsers    = savedUsers ?? []
-        self.observingTITs = observingTITs
+        self.participatedTIsIDs = participatedTIsIDs
+        
+        self.followingUIDs     = followingUIDs
+        self.followersUIDs     = followersUIDs
+        
+        self.savedUsersUIDs    = savedUsersUIDs
+        self.observingTIsIDs = observingTIs
     }
     
-    //MARK: init email
-    init(
-        userUID: String,
-        email: String?
-        )
-    {
-        self.userUID = userUID
-        self.email = email ?? ""
-        self.profileImageURLString = nil
-        self.name = ""
+    
+    //MARK: - Auth init
+    init(authUser: AuthDataResultModel) {
+        self.dataJoined = {
+            guard let user = Auth.auth().currentUser else { return Date.now }
+            return user.metadata.creationDate ?? Date.now
+        }()
+        self.userUID = authUser.uid
+        self.email = authUser.email ?? ""
+        self.profileImageURLString = authUser.photoUrl
+        self.displayName = authUser.displayName ?? "No Name"
         self.bio = ""
-        self.following     = []
-        self.followers     = []
-        self.savedUsers    = []
-        self.observingTITs = []
+        
+        self.followingUIDs     = [String]()
+        self.followersUIDs     = [String]()
+        
+        self.savedUsersUIDs    = [String]()
+        self.observingTIsIDs = [String]()
     }
 }
 
@@ -120,18 +139,18 @@ final class UserManager {
     private init() { }
     
     private let userCollection: CollectionReference = Firestore.firestore().collection("Users")
-    private func userDocument(userId: String) -> DocumentReference { userCollection.document(userId) }
+    private func userDocument(userUID: String) -> DocumentReference { userCollection.document(userUID) }
     
     //1. - Create
     func createNewUser(user: UserModel) async throws {
         print("🦠😎 created User")
-        try userDocument(userId: user.userUID).setData(from: user, merge: false)
+        try userDocument(userUID: user.userUID).setData(from: user, merge: false)
     }
     
     //2. - Read
     func getUser(userId: String) async throws -> UserModel? {
         do {
-            return try await userDocument(userId: userId).getDocument(as: UserModel.self)
+            return try await userDocument(userUID: userId).getDocument(as: UserModel.self)
         } catch {
             return nil
         }
@@ -139,14 +158,18 @@ final class UserManager {
     
     
     //3. - Update
-    enum AddOrRemove { case add, remove }
     func updateSavedUsers(currentUserId: String, userIdForArray: String, addOrRemove: AddOrRemove) async throws {
         if addOrRemove == .add {
-            try await userDocument(userId: currentUserId).updateData([UserModel.CodingKeys.savedUsers.rawValue : FieldValue.arrayUnion([userIdForArray] as! [Any])] )
+            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayUnion([userIdForArray] as! [Any])] )
         } else {
-            try await userDocument(userId: currentUserId).updateData([UserModel.CodingKeys.savedUsers.rawValue : FieldValue.arrayRemove([userIdForArray] as! [Any])])
+            try await userDocument(userUID: currentUserId).updateData([UserModel.CodingKeys.savedUsersUIDs.rawValue : FieldValue.arrayRemove([userIdForArray] as! [Any])])
 
         }
+    }
+    
+    //4. - Delete
+    func deleteUser(userUID: String) async throws {
+        try await userDocument(userUID: userUID).delete()
     }
 }
 
@@ -277,3 +300,20 @@ final class UserManager {
 //}
 
 
+
+//MARK: init email
+//    init(
+//        userUID: String,
+//        email: String?
+//        )
+//    {
+//        self.userUID = userUID
+//        self.email = email ?? ""
+//        self.profileImageURLString = nil
+//        self.displayName = ""
+//        self.bio = ""
+//        self.followingUIDs     = []
+//        self.followersUIDs     = []
+//        self.savedUsersUIDs    = []
+//        self.observingTIs = []
+//    }

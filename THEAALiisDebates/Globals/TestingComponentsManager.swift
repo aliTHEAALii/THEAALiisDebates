@@ -54,18 +54,30 @@ final class TestingModels {
     
 //    let user1 = UserModel(userUID: "meaw", email: "meaw@paw", name: "Kat Katerson", bio: "Likes dogs!")
     //MARK: - USER
-    let user1 = UserModel(userUID: "meaw", email: "meaw@paw", name: "Kat Katerson 1", bio: "Hates dogs!",
-                         profileImageURLString: TestingImagesVideos().imageURLStringDesignnCode,
-                         following: [], followers: [],  createdTIsIDs: ["ti"],
-                         savedUsers: ["meaw meawerson", "lll", "wow", "mal"], observingTITs: [])
-    let user2 = UserModel(userUID: "meaw", email: "meaw@paw", name: "Dog Mc Dogin 02", bio: "Hates Cats!",
-                         profileImageURLString: TestingImagesVideos().imageURLStringpaulI,
-                         following: [], followers: [], createdTIsIDs: [],
-                          savedUsers: ["meaw meawerson", "lll", "wow", "mal"], observingTITs: [])
-    let user3 = UserModel(userUID: "meaw", email: "meaw@paw", name: "Miki Mousin 003", bio: "Hates Everyone",
-                         profileImageURLString: TestingImagesVideos().imageURL,
-                         following: [], followers: [], createdTIsIDs: [],
-                          savedUsers: ["meaw meawerson", "lll", "wow", "mal"], observingTITs: [])
+    let user1 = UserModel(userUID: "meaw", email: "meaw@paw", dateJoined: Date.now,
+                      displayName: "Kat Katerson 1", bio: "Hates dogs!",
+                      profileImageURLString: TestingImagesVideos().imageURLStringDesignnCode,
+                      userLabel: "Observer",
+                      createdTIsIDs: [], participatedTIsIDs: [],
+                      followingUIDs: [], followersUIDs: [],
+                          savedUsersUIDs: ["llll", "kkk", "a", "k", "jj"], observingTIs: [])
+
+    let user2 = UserModel(userUID: "Dog Mc Dogin 02", email: "meaw@paw", dateJoined: Date.now,
+                      displayName: "Dog Mc Dogin 02", bio: "Hates Cats!",
+                      profileImageURLString: TestingImagesVideos().imageURLStringDesignnCode,
+                      userLabel: "Observer",
+                      createdTIsIDs: [], participatedTIsIDs: [],
+                      followingUIDs: [], followersUIDs: [],
+                          savedUsersUIDs: ["llll", "kkk", "a", "k", "jj"], observingTIs: [])
+
+    let user3 = UserModel(userUID: "Dog Mc Dogin", email: "meaw@paw", dateJoined: Date.now,
+                      displayName: "Miki Mousin 003", bio: "Hates Everyone",
+                      profileImageURLString: TestingImagesVideos().imageURLStringDesignnCode,
+                      userLabel: "Creator",
+                      createdTIsIDs: [], participatedTIsIDs: [],
+                      followingUIDs: [], followersUIDs: [],
+                      savedUsersUIDs: ["llll", "kkk", "a", "k", "jj"], observingTIs: [])
+    
     
     //MARK: - VIDEO
 //    let videoLink1 = "https://firebasestorage.googleapis.com/v0/b/theaaliidebates.appspot.com/o/Videos%2Fvideo1.mp4?alt=media&token=a0cb419d-5e41-47ef-bcf7-ad2d0ff0647c"
@@ -74,10 +86,10 @@ final class TestingModels {
     
     //MARK: - TI
     let testTI0 = TI(id: "id", title: "testing TI title", description: "testing ti Description", thumbnailURL: "https://images.ctfassets.net/ooa29xqb8tix/J6KiaOqQyBtSa84hx6fuI/2cd1d475743a2a42c8643b2a69e88547/Advanced_React_Hooks_800x600_cover.png?w=400&q=50"
-                     , introCLinkID: "ti video id", creatorUID: "uid", tiAdminsUIDs: [], dateCreated: Date.now.addingTimeInterval(86400), tiType: .d2, rightChain: ["m", "l"], leftChain: ["t", "o", "p"], responseListAccess: .restricted)
+                     , introPostID: "ti video id", creatorUID: "uid", tiAdminsUIDs: [], dateCreated: Date.now.addingTimeInterval(86400), tiType: .d2, rightChain: ["m", "l"], leftChain: ["t", "o", "p"], responseListAccess: .restricted)
     
     let testTI1nil = TI(id: "id", title: "testing TI title", description: "testing ti Description", thumbnailURL: nil //"https://images.ctfassets.net/ooa29xqb8tix/J6KiaOqQyBtSa84hx6fuI/2cd1d475743a2a42c8643b2a69e88547/Advanced_React_Hooks_800x600_cover.png?w=400&q=50"
-                        , introCLinkID: "ti video id", creatorUID: "uid", tiAdminsUIDs: [], dateCreated: Date.now.addingTimeInterval(86400), tiType: .d2, rightChain: ["m", "l"], leftChain: ["t", "o", "p"], responseListAccess: .restricted)
+                        , introPostID: "ti video id", creatorUID: "uid", tiAdminsUIDs: [], dateCreated: Date.now.addingTimeInterval(86400), tiType: .d2, rightChain: ["m", "l"], leftChain: ["t", "o", "p"], responseListAccess: .restricted)
     
 }
 

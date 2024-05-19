@@ -21,53 +21,81 @@ struct TI: Identifiable, Codable {
     let title: String
     var description: String                 //FIXME: - Remove
     var thumbnailURL: String?
+    let dateCreated: Date
+
     //FIXME: - change order
-    //    var tiType: TIType = .d1
+    var tiType: TIType = .d1
     
     
-    let introCLinkID: String?               ///date - Chain
+//    let introCLinkID: String?               ///date - Chain
+    let introPostID: String //same as the TI ID
     
     let creatorUID: String
     var tiAdminsUIDs: [String]
 
-    let dateCreated: Date
     
-    //chain
-    var tiType: TIType = .d1
+    // - Right Side -
+    var RightSideChain: [String: [String]] = [:]
+
+    var rsUserUID        :  String
+    var rsLevel1UsersUIDs       : [String] = [] //Team (Main Debaters) (max 3 + user = 4 )
     
-    var rightChain: [String] = []               //Chain IDs
-    //  var rightChain Admins UIDs
-    var rightChainUsersUIDs: [String] = []
+    var rsLevel2UsersUIDs       : [String] = [] //Support (Secondary )
+    var rsLevel3UsersUIDs       : [String] = [] //Admins  (Tertiary  )
+
+    var rsSponsorsUIDs          : [String] = [] // [ SponsorUID : $400 ]
     
-    var leftChain: [String] = []                //Chain IDs
-    //  var leftChain Admins UIDs
-    var leftChainUsersUIDs: [String] = []
+    var rsVerticalListAccess: VerticalListAccess = .open
     
-    var verticalListAccess: VerticalListAccess = .open
-    var verticalListUsersUIDs: [String] = []
+    // - Left Side - //
+    var leftSideChain: [String: [String]] = [:]
+
+    var lsUserUID        :  String
+    var lsLevel1UsersUIDs       : [String] = [] //Team (Main Debaters) (max 3 + user = 4 )
+    
+    var lsLevel2UsersUIDs       : [String] = [] //Support (secondary )
+    var lsLevel3UsersUIDs       : [String] = [] //Admins  (Tertiary  )
+    
+    var lsSponsorsUIDs          : [String: Int] = [:] // [ SponsorUID : $400 ]
+    
+    var lsVerticalListAccess: VerticalListAccess = .open
+
+    
+    // -------- //
+//    var rightChain: [String] = []               //Chain IDs
+//    //  var rightChain Admins UIDs
+//    var rightChainUsersUIDs: [String] = []
+//    
+//    var leftChain: [String] = []                //Chain IDs
+//    //  var leftChain Admins UIDs
+//    var leftChainUsersUIDs: [String] = []
+//    
+//    var verticalListAccess: VerticalListAccess = .open
+//    var verticalListUsersUIDs: [String] = []
     
     var tiObserversUIDs: [String] = []
 
-    
+    //MARK: - [ inits ] -
     // - create init - //
-    init(ID: String, title: String, description: String, thumbnailURL: String?, introCLinkID: String, creatorUID: String,
+    init(ID: String, title: String, description: String, thumbnailURL: String?, creatorUID: String,
          tiType: TIType, responseListAccess: VerticalListAccess) {
         self.documentID = ID
         self.id = ID
         self.title = title; self.description = description;
-        self.thumbnailURL = thumbnailURL; self.introCLinkID = introCLinkID
+        self.thumbnailURL = thumbnailURL;
+        self.introPostID = ID
         self.creatorUID = creatorUID; self.tiAdminsUIDs = [creatorUID]
         self.dateCreated = Date()
-        self.tiType = tiType; self.verticalListAccess = responseListAccess
+        self.tiType = tiType; self.rsVerticalListAccess = responseListAccess
     }
     
     // - Read init - //
-    init(id: String, title: String, description: String, thumbnailURL: String?, introCLinkID: String, creatorUID: String, tiAdminsUIDs: [String], dateCreated: Date,
+    init(id: String, title: String, description: String, thumbnailURL: String?, introPostID: String, creatorUID: String, tiAdminsUIDs: [String], dateCreated: Date,
          tiType: TIType, rightChain: [String], leftChain: [String], responseListAccess: VerticalListAccess) {
         self.documentID = id
         self.id = id
         self.title = title; self.description = description;
-        self.thumbnailURL = thumbnailURL; self.introCLinkID = introCLinkID
+        self.thumbnailURL = thumbnailURL; self.introPostID = introPostID
         self.creatorUID = creatorUID
         self.tiAdminsUIDs = tiAdminsUIDs
         self.dateCreated = dateCreated
@@ -81,7 +109,7 @@ struct TI: Identifiable, Codable {
         case title              = "title"
         case description        = "description"
         case thumbnailURL       = "thumbnail_url"
-        case introCLinkID       = "intro_chain_link_id"
+        case introPostID        = "intro_post_id"
         case creatorUID         = "creator_uid"
         case tiAdminsUIDs       = "ti_admins_uids"
         case dateCreated        = "date_created"
@@ -106,7 +134,7 @@ struct TI: Identifiable, Codable {
         self.title = try container.decode(String.self, forKey: .title)
         self.description = try container.decode(String.self, forKey: .description)
         self.thumbnailURL = try container.decodeIfPresent(String.self, forKey: .thumbnailURL)
-        self.introCLinkID = try container.decode(String.self, forKey: .introCLinkID)
+        self.introPostID = try container.decode(String.self, forKey: .introPostID)
         
         self.creatorUID = try container.decode(String.self, forKey: .creatorUID)
         self.tiAdminsUIDs = try container.decode([String].self, forKey: .tiAdminsUIDs)
@@ -132,7 +160,7 @@ struct TI: Identifiable, Codable {
         try container.encode(self.title, forKey: .title)
         try container.encode(self.description, forKey: .description)
         try container.encode(self.thumbnailURL, forKey: .thumbnailURL)
-        try container.encode(self.introCLinkID, forKey: .introCLinkID)
+        try container.encode(self.introPostID, forKey: .introPostID)
         try container.encode(self.creatorUID, forKey: .creatorUID)
         try container.encode(self.tiAdminsUIDs, forKey: .tiAdminsUIDs)
 
@@ -153,7 +181,7 @@ struct TI: Identifiable, Codable {
 
 
 
-
+//MARK: - [ MANAGER ]
 final class TIManager {
     
     static let shared = TIManager()

@@ -147,7 +147,7 @@ struct UserButton: View {
                         VStack(spacing: 0) {
                             
                             //User Name
-                            Text(computedUser?.name ?? "No User")
+                            Text(computedUser?.displayName ?? "No User")
                                 .foregroundStyle(.white)
                                 .padding(.trailing, width * 0.01)
                                 .frame(width: width * 0.4, height: width * 0.07, alignment: .trailing)

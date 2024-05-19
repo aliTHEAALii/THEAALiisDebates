@@ -164,6 +164,8 @@ final class TITChainLManager {
         ]
         
 //        try await TITManager.shared.addToChain(titId: tiId, chainId: tiChainId).updateData(tiChainIdData)
+        try await TITManager.shared.addToChain(titId: tiId, chainId: tiChainId)
+
     }
     
     func addToResponseList(tiId: String, tiChainId: String, tiVideoId: String) async throws {

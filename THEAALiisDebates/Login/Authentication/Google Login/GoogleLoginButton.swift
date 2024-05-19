@@ -43,7 +43,7 @@ struct GoogleLoginButton: View {
 //            print("⚽️🦠 signed In")
 
             currentUserUID = vm.currentUserId ?? "no User ID"
-            currentUserName = vm.currentUser?.name ?? "No Name"
+            currentUserName = vm.currentUser?.displayName ?? "No Name"
 //            print("⚽️🦠 Id : " + currentUserUID)
 
             //image

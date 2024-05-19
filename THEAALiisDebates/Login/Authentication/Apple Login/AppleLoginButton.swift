@@ -27,7 +27,7 @@ struct AppleLoginButton: View {
 //                    logStatus = true
                     
                     currentUserUID = vm.currentUserId ?? "no User ID"
-                    currentUserName = vm.currentUser?.name ?? "No Name"
+                    currentUserName = vm.currentUser?.displayName ?? "No Name"
                     //image
                     let imageString = vm.currentUser?.profileImageURLString
                     currentUserProfilePicData = await ImageManager.shared.getImage(urlString: imageString)
@@ -55,7 +55,7 @@ struct AppleLoginButton: View {
             try await vm.signInGoogle()
 
             currentUserUID = vm.currentUserId ?? "no User ID"
-            currentUserName = vm.currentUser?.name ?? "No Name"
+            currentUserName = vm.currentUser?.displayName ?? "No Name"
 
             //image
             let imageString = vm.currentUser?.profileImageURLString

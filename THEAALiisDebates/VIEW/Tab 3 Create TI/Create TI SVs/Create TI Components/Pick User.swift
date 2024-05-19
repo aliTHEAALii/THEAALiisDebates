@@ -37,7 +37,7 @@ struct PickUserButton: View {
                 
                 Divider()
                 
-                ForEach(currentUser.savedUsers ?? [], id: \.self) { savedUserUID in
+                ForEach(currentUser.savedUsersUIDs, id: \.self) { savedUserUID in
                     
                     if pickedUser?.userUID == savedUserUID {
                         
