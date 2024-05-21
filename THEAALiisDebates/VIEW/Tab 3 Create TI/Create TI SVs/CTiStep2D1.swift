@@ -62,24 +62,7 @@ struct CTiStep2D1: View {
             
             
             //MARK: TI Title
-            ZStack {
-                //Border
-                RoundedRectangle(cornerRadius: 8)
-                    .strokeBorder(lineWidth: 0.5)
-                    .foregroundColor(tiTitle != "" ? .primary : .red)
-                    .frame(width: width * 0.9, height: width * 0.2)
-                
-                if tiTitle == "" {
-                    Text("TI Title")
-                }
-                
-                TextField("", text: $tiTitle, axis: .vertical)
-                    .multilineTextAlignment(.center)
-                    .frame(width: width * 0.88, height: width * 0.2, alignment: .center)
-                    .submitLabel(.done)
-
-            }
-            .padding(.top, width * 0.01)
+            AddTITitle(tiTitle: $tiTitle)
             
         }
 

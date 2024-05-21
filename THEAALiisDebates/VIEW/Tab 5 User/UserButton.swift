@@ -274,7 +274,9 @@ struct UserButton: View {
         
         if userUID != nil {
 #if DEBUG
-            return TestingModels().user1
+//            return TestingModels().user3
+            return TestingModels().userArray.randomElement()
+
 #else
             do {
                 /*

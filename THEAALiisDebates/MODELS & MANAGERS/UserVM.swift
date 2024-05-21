@@ -18,7 +18,7 @@ final class UserVM: ObservableObject {
         guard let userUID else { return nil }
         
 #if DEBUG
-        return TestingModels().user1
+        return TestingModels().userArray.randomElement()
 #else
         do {
             return try await UserManager.shared.getUser(userId: userUID ?? "")
@@ -31,11 +31,13 @@ final class UserVM: ObservableObject {
 
     }
     
+    
+    //MARK: - set VM Users
     func setVMCurrentUser(userUID: String?) {
         guard let userUID else { return }
         
 #if DEBUG
-        currentUser = TestingModels().user1
+        currentUser = TestingModels().userArray.randomElement()
 #else
         do {
             currentUser = try await UserManager.shared.getUser(userId: userUID ?? "")
@@ -52,7 +54,7 @@ final class UserVM: ObservableObject {
         guard let userUID else { return }
         
 #if DEBUG
-        user = TestingModels().user1
+        user = TestingModels().userArray.randomElement()
 #else
         do {
             user = try await UserManager.shared.getUser(userId: userUID ?? "")

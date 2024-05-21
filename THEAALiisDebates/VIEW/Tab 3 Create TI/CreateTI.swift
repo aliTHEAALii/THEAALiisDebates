@@ -14,6 +14,9 @@ struct CreateTI: View {
         return UserVM().getUser(userUID: currentUserUID)
     }
     
+    // - //
+    var vm = CreateTiVM()
+    
     //TI
     let tiID = UUID().uuidString
     @State private var tiInteractionType: TIType = .d1
@@ -146,9 +149,22 @@ struct CreateTI: View {
             
             //Next Step Button
             Button {
-                if indexStep < 2 { indexStep += 1 }
-                if indexStep == 2 && nextStepText == "CREATE TI" {
-                    
+                if indexStep < 2 { indexStep += 1
+                } else if indexStep == 2 && nextStepText == "CREATE TI" {
+                    Task {
+                        await createTI() ///
+//                        await createTI { success  in
+//                          if success {
+//                            // Handle successful creation
+//                            print("TI created successfully!")
+//                              showFSC = false
+//                              selectedTabIndex = 4
+//                          } else {
+//                            // Handle creation failure
+//                            print("Error creating TI")
+//                          }
+//                        }
+                    }
                 }
             } label: {
                 ZStack {
@@ -214,7 +230,23 @@ struct CreateTI: View {
         return "UPLOAD THEAALii's Interaction"
     }
     
-
+    //MARK: - Create Ti
+    func createTI() async {
+        if tiInteractionType == .d1 {
+            
+            var success = await vm.createD1Ti(title: tiTitle, description: tiDescription,
+                                              thumbnailURL: tiID, //FIXME: dataaaaa!
+                                              creatorUID: currentUserUID, tiAdminsUIDs: tiAdminsUIDs, rsLevel1UsersUIDs: [], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: verticalListAccess
+            ) { success in
+                if success {
+                    showFSC = false
+                    selectedTabIndex = 4
+                    print("success = \(success)" + " ✅✅🚪🔥")
+                    
+                }
+            }
+        }
+    }
 }
 
 #Preview {
@@ -249,10 +281,10 @@ final class TiCreatingVM {
             
             //FIXME: - ti Post Type
             
-            let post = Post(id: tiID, title: "Intro", type: .text, description: introDescription, imageURL: nil, videoURL: nil, creatorUID: currentUserUID, dateCreated: Date.now, cLinkID: tiID, addedToChain: true, totalVotes: 0, upVotes: 0, downVotes: 0, upVotersUIDsArray: [], downVotersUIDsArray: [], commentsArray: []
+            _ = Post(id: tiID, title: "Intro", type: .text, description: introDescription, imageURL: nil, videoURL: nil, creatorUID: currentUserUID, dateCreated: Date.now, cLinkID: tiID, addedToChain: true, totalVotes: 0, upVotes: 0, downVotes: 0, upVotersUIDsArray: [], downVotersUIDsArray: [], commentsArray: []
             )
             
-            let introChLink = TITChainLinkModel(
+            _ = TITChainLinkModel(
                 id: tiID,
                 postID: tiID,
                 verticalList: []
@@ -260,35 +292,37 @@ final class TiCreatingVM {
             //            TITChainLModel(id: <#T##String#>, videoId: <#T##String#>, videoTitle: <#T##String#>, videoThumbnail: <#T##String?#>, responseList: <#T##[String]#>)
             
             
-            let ti = TI(
-                id: tiID, title: tiTitle, description: "No TI Description Yet",
-                thumbnailURL: "",
-                introPostID: introChLink.id,
-                creatorUID: currentUserUID,
-                tiAdminsUIDs: tiAdmins,
-                dateCreated: Date.now, tiType: tiType,
-                rightChain: [], leftChain: [],
-                responseListAccess: verticalListAccess
-            )
+//            let ti = TI(
+//                id: tiID, title: tiTitle, description: "No TI Description Yet",
+//                thumbnailURL: "",
+//                introPostID: introChLink.id,
+//                creatorUID: currentUserUID,
+//                tiAdminsUIDs: tiAdmins,
+//                dateCreated: Date.now, tiType: tiType,
+//                rightChain: [], leftChain: [],
+//                responseListAccess: verticalListAccess
+//            )
             
             Task {
-                do {
-                    try await TIManager.shared.createTI(ti: ti)
-                    try await PostManager.shared.createTI(tiID: ti.id, post: post)
-                    try await TITChainLinkManager.shared.createTITChainLink(TITid: tiID, TITChainLink: introChLink)
+//                do {
+//                    try await TIManager.shared.createTI(ti: ti)
+//                    try await PostManager.shared.createTI(tiID: ti.id, post: post)
+//                    try await TITChainLinkManager.shared.createTITChainLink(TITid: tiID, TITChainLink: introChLink)
+                    
+                    
                     //                    (titId: ti.id, titCL: introChLink)
                     //                try await TITVideoManager.shared.createTitVideo(titID: tit.id, titVideo: titVideo)
                     //                try await TITChainLinkManager.shared.createTITChainLink(TITid: tit.id, TITChainLink: titChainLink)
                     
                     //                try await TITManager.shared.addToChain(titId: tit.id, chainId: titChainLink.id)
                     
-                } catch {
-                    print("❌❌❌ Error: Couldn't Create TI ❌❌❌")
-                }
+//                } catch {
+//                    print("❌❌❌ Error: Couldn't Create TI ❌❌❌")
+//                }
             }
             
         } else if tiType == .d2 {
-            
+//
         }
     }
 }

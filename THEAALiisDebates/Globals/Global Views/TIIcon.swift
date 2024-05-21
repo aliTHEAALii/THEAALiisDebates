@@ -13,7 +13,8 @@ struct TIIcon: View {
     var rotationDegree: CGFloat = 180
     var timeLapseWeight: Font.Weight = .thin
     var triangleWeight:  Font.Weight = .light
-
+    
+    @State var showTriangle: Bool = true
     
     var body: some View {
         
@@ -30,12 +31,13 @@ struct TIIcon: View {
             Image(systemName: "timelapse")
                 .foregroundColor(.gray)
                 .font(.system(size: width * 0.16 * scale, weight: timeLapseWeight))
-            
-            Image(systemName: "triangle")
-                .foregroundColor(.ADColors.green)
-                .font(.system(size: width * 0.06 * scale, weight: triangleWeight))
-                .offset(y: -3)
-                .rotationEffect(.degrees(rotationDegree))
+            if showTriangle {
+                Image(systemName: "triangle")
+                    .foregroundColor(.ADColors.green)
+                    .font(.system(size: width * 0.06 * scale, weight: triangleWeight))
+                    .offset(y: -3)
+                    .rotationEffect(.degrees(rotationDegree))
+            }
         }
         .foregroundColor(.primary)
         .preferredColorScheme(.dark)
@@ -44,14 +46,14 @@ struct TIIcon: View {
 
 struct TIIcon_Previews: PreviewProvider {
     static var previews: some View {
-//        TIIcon()
+        TIIcon()
 //        TIIconD2()
-        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2), indexStep: 1)
+//        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2), indexStep: 1)
 
     }
 }
 
-
+//MARK: - D1 icon
 struct TIIconD1: View {
     
     var scale: CGFloat = 1
@@ -78,7 +80,7 @@ struct TIIconD1: View {
     }
 }
 
-
+//MARK: - D2 icon
 struct TIIconD2: View {
     
     var scale: CGFloat = 1

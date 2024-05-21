@@ -124,7 +124,8 @@ struct UserFSC: View {
     //MARK: Fetch
     func fetchCurrentUser() async throws {
 #if DEBUG
-        currentUser = TestingModels().user1
+//        currentUser = TestingModels().user1
+        currentUser = TestingModels().userArray.randomElement()
         
 #else
         do {

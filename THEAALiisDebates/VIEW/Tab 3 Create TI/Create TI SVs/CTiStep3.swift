@@ -22,6 +22,7 @@ struct CTiStep3: View {
         VStack(spacing: 0) {
             
             Text("TI Admins")
+                .foregroundStyle(.white)
                 .padding()
             
             
@@ -57,6 +58,7 @@ struct ChooseVerticalListAccess: View {
     var body: some View {
         HStack(spacing: width * 0.1) {
             Text("Vertical List Access")
+                .foregroundStyle(.white)
             
             Spacer()
             
@@ -73,7 +75,7 @@ struct ChooseVerticalListAccess: View {
                         .font(.system(size: width * 0.033))
                 }
                 .frame(width: width * 0.15, height: width * 0.15)
-                .foregroundStyle(.white, .white)
+                .foregroundStyle(.white)
             }
         }
         .sheet(isPresented: $showSheet) {
@@ -81,6 +83,7 @@ struct ChooseVerticalListAccess: View {
             VStack(spacing: width * 0.1) {
                 
                 Text("Note: You can change this at any time")
+                    .foregroundStyle(.white)
                     .padding(.vertical, width * 0.15)
                 
                 Button {

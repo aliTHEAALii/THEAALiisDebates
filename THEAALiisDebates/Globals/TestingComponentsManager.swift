@@ -9,13 +9,7 @@ import Foundation
 
 final class TestingModels {
     
-//    static let shared = TestingComponents()
-//    private init() { }
-    
-    //MARK: - Images
-//    let imageURLStringpaulI = "https://hws.dev/paul.jpg"
-//    let imageURLStringDesignnCode = "https://images.ctfassets.net/ooa29xqb8tix/J6KiaOqQyBtSa84hx6fuI/2cd1d475743a2a42c8643b2a69e88547/Advanced_React_Hooks_800x600_cover.png?w=400&q=50"
-//    let imageURL = "https://firebasestorage.googleapis.com/v0/b/theaaliidebates.appspot.com/o/Profile_Images%2FuqxQtBAOl0Yj2msXUX1WNzgcBii1?alt=media&token=c182a322-7496-4d45-b788-d50e46c062bd"
+
     
     //MARK: - TITs
     let testingTI = TIModel(
@@ -64,7 +58,7 @@ final class TestingModels {
 
     let user2 = UserModel(userUID: "Dog Mc Dogin 02", email: "meaw@paw", dateJoined: Date.now,
                       displayName: "Dog Mc Dogin 02", bio: "Hates Cats!",
-                      profileImageURLString: TestingImagesVideos().imageURLStringDesignnCode,
+                          profileImageURLString: TestingImagesVideos().imageURL,
                       userLabel: "Observer",
                       createdTIsIDs: [], participatedTIsIDs: [],
                       followingUIDs: [], followersUIDs: [],
@@ -72,25 +66,31 @@ final class TestingModels {
 
     let user3 = UserModel(userUID: "Dog Mc Dogin", email: "meaw@paw", dateJoined: Date.now,
                       displayName: "Miki Mousin 003", bio: "Hates Everyone",
-                      profileImageURLString: TestingImagesVideos().imageURLStringDesignnCode,
+                      profileImageURLString: TestingImagesVideos().imageURLStringpaulI,
                       userLabel: "Creator",
                       createdTIsIDs: [], participatedTIsIDs: [],
                       followingUIDs: [], followersUIDs: [],
                       savedUsersUIDs: ["llll", "kkk", "a", "k", "jj"], observingTIs: [])
     
-    
-    //MARK: - VIDEO
-//    let videoLink1 = "https://firebasestorage.googleapis.com/v0/b/theaaliidebates.appspot.com/o/Videos%2Fvideo1.mp4?alt=media&token=a0cb419d-5e41-47ef-bcf7-ad2d0ff0647c"
-//    let videoLink2 = "https://firebasestorage.googleapis.com/v0/b/theaaliidebates.appspot.com/o/Videos%2F4FA33DBB-17BF-407F-BC5D-1953FA2261FD?alt=media&token=1cc635f7-a095-4cff-a14f-bd2613c405a0"
-    
+    var userArray : [UserModel] { [user1, user2, user3] }
     
     //MARK: - TI
-    let testTI0 = TI(id: "id", title: "testing TI title", description: "testing ti Description", thumbnailURL: "https://images.ctfassets.net/ooa29xqb8tix/J6KiaOqQyBtSa84hx6fuI/2cd1d475743a2a42c8643b2a69e88547/Advanced_React_Hooks_800x600_cover.png?w=400&q=50"
-                     , introPostID: "ti video id", creatorUID: "uid", tiAdminsUIDs: [], dateCreated: Date.now.addingTimeInterval(86400), tiType: .d2, rightChain: ["m", "l"], leftChain: ["t", "o", "p"], responseListAccess: .restricted)
+    let testTI0 = TI(ID: "id", title: "testing TI title", description: "testing ti Description", thumbnailURL: "https://images.ctfassets.net/ooa29xqb8tix/J6KiaOqQyBtSa84hx6fuI/2cd1d475743a2a42c8643b2a69e88547/Advanced_React_Hooks_800x600_cover.png?w=400&q=50", creatorUID: "uid", tiAdminsUIDs: ["sdf", "asda"], rsLevel1UsersUIDs: ["asd", "sdfdas"], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: .open)
     
-    let testTI1nil = TI(id: "id", title: "testing TI title", description: "testing ti Description", thumbnailURL: nil //"https://images.ctfassets.net/ooa29xqb8tix/J6KiaOqQyBtSa84hx6fuI/2cd1d475743a2a42c8643b2a69e88547/Advanced_React_Hooks_800x600_cover.png?w=400&q=50"
-                        , introPostID: "ti video id", creatorUID: "uid", tiAdminsUIDs: [], dateCreated: Date.now.addingTimeInterval(86400), tiType: .d2, rightChain: ["m", "l"], leftChain: ["t", "o", "p"], responseListAccess: .restricted)
-    
+    let testTI1nil = TI(ID: "id", title: "testing TI 11 title", description: "testing TI 11 des", thumbnailURL: nil, creatorUID: "uid", tiAdminsUIDs: ["sadf"],
+                        rsUserUID: "uid", rsLevel1UsersUIDs: ["asdfa"], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: .open,
+                        lsUserUID: "uid2", lsLevel1UsersUIDs: ["oooo", "ppp"], lsLevel2UsersUIDs: [], lsLevel3UsersUIDs: [], lsVerticalListAccess: .restricted)
+    let testTId2 = TI(ID: "id", title: "test TI .d2", description: ".d2 description", thumbnailURL: nil, introPostID: "id", creatorUID: "id", tiAdminsUIDs: ["kkk"], dateCreated: Date.now, tiType: .d2, 
+                      ///right chain
+                      rightSideChain: [:],//["meaw": []],
+                        //["ha": ["meaw", "kkk", "lll"], "oo": [], "op": [], "od": [], "oa": [] ], //chain
+                      ///
+                      rsUserUID: "id", rsLevel1UsersUIDs: [], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: .open,
+                      ///left chain
+                      leftSideChain: ["meaw": []],
+                        //["ha": ["meaw", "kkk"], "pp": [] ],// "ii": []],  //chain
+                      //
+                      lsUserUID: "ud", lsLevel1UsersUIDs: [], lsLevel2UsersUIDs: [], lsLevel3UsersUIDs: [], lsVerticalListAccess: .restricted, tiObserversUIDs: ["id"])
 }
 
 final class TestingImagesVideos {
@@ -109,6 +109,4 @@ final class TestingImagesVideos {
     //MARK: - VIDEO
     let videoLink1 = "https://firebasestorage.googleapis.com/v0/b/theaaliidebates.appspot.com/o/Videos%2Fvideo1.mp4?alt=media&token=a0cb419d-5e41-47ef-bcf7-ad2d0ff0647c"
     let videoLink2 = "https://firebasestorage.googleapis.com/v0/b/theaaliidebates.appspot.com/o/Videos%2F4FA33DBB-17BF-407F-BC5D-1953FA2261FD?alt=media&token=1cc635f7-a095-4cff-a14f-bd2613c405a0"
-    
-    
 }

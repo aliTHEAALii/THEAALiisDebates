@@ -106,3 +106,45 @@ final class CreateTIVM: ObservableObject {
         }
     }
 }
+
+
+//@MainActor
+final class CreateTiVM {
+    
+     var tiID: String = UUID().uuidString
+    
+    func createD1Ti(
+        title: String, description: String, thumbnailURL: String?,
+        creatorUID: String, tiAdminsUIDs: [String],
+        
+        rsLevel1UsersUIDs : [String],
+        rsLevel2UsersUIDs : [String],
+        rsLevel3UsersUIDs : [String],
+        
+        rsVerticalListAccess: VerticalListAccess,
+        
+        completion: @escaping (_ success: Bool) -> Void
+    ) async -> Bool {
+        
+        let d1Ti = TI(ID: tiID, title: title, description: description,
+                      thumbnailURL: thumbnailURL, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
+                      rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess)
+        Task {
+            do {
+                try await TIManager.shared.createTI(ti: d1Ti)
+                
+                print("✅🔥🥬🔼 Success: uploaded d1Ti 🔼🥬🔥✅")
+                completion(true)
+                return true
+                
+            } catch {
+                print("❌🔥🍇🔼 Error: Couldn't upload d1Ti 🔼🍇🔥❌")
+                completion(false)
+                
+                return false
+            }
+        }
+        
+        return false
+    }
+}

@@ -18,6 +18,7 @@ struct FSCHeaderSV: View {
             
             Text(text)
                 .font(.title)
+                .foregroundStyle(.white)
                 .frame(width: width * 0.85, height: width * 0.15, alignment: .leading)
             CloseButton(showFSC: $showFSC)
         }

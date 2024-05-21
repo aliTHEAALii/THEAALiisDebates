@@ -61,14 +61,6 @@ struct UserModel: Codable {
         case observingTIsIDs = "observing_tis_ids"
     }
     
-//    var dictionary: [String: Any] {
-//        return ["userUID": userUID, 
-//                "email": email,
-//                "name": displayName,
-//                "bio": bio,
-//                "profileImageURLString": profileImageURLString ?? ""]
-//    }
-    
     
     //MARK: init
     init(
@@ -131,7 +123,7 @@ struct UserModel: Codable {
     }
 }
 
-//MARK: - User Manager
+//MARK: - User Manager -
 @MainActor
 final class UserManager {
     

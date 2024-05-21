@@ -48,7 +48,7 @@ struct EditTIAdminsSV: View {
                     Text("Edit")
                 }
                 .frame(width: width * 0.15, height: width * 0.15)
-                .foregroundStyle(.white, .white)
+                .foregroundStyle(.white)
             }
             //MARK: - Full Screen Cover
             .fullScreenCover(isPresented: $showEditAdmins) {
@@ -57,11 +57,13 @@ struct EditTIAdminsSV: View {
                 
                 HStack {
                     Text("TI Creator")
+                        
                     
                     Spacer()
                     
                     UserButton(user: currentUser, horizontalName: true)
                 }
+                .foregroundStyle(.white)
                 .frame(width: width, height: width * 0.15, alignment: .trailing)
                 .padding(.vertical)
                 
@@ -83,6 +85,7 @@ struct EditTIAdminsSV: View {
                 
                 
                 Text("Saved Users")
+                    .foregroundStyle(.white)
                     .font(.title)
 
                 //AddOrRemove Saved Users

@@ -27,6 +27,7 @@ struct AddTITitle: View {
                 
                 if tiTitle == "" {
                     Text("TI Title")
+                        .foregroundStyle(.white)
                 }
                 
                 TextField("", text: $tiTitle, axis: .vertical)

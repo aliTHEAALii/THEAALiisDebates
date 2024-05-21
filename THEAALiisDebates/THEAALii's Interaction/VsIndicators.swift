@@ -44,7 +44,7 @@ struct VsIndicators: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(0..<ti.leftChain.count, id: \.self) { i in
+                            ForEach(0..<ti.leftSideChain.count, id: \.self) { i in
                                 if leftIndex == i {
                                     Image(systemName: "triangle")
                                         .foregroundColor(.ADColors.green)
@@ -95,7 +95,7 @@ struct VsIndicators: View {
                     //MARK: Right
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(0..<ti.rightChain.count, id: \.self) { i in
+                            ForEach(0..<ti.rightSideChain.count, id: \.self) { i in
                                 if rightIndex == i {
                                     Image(systemName: "triangle")
                                         .foregroundColor(.ADColors.green)

@@ -31,41 +31,43 @@ struct CreateDebateButton: View {
         }
         //MARK: - FSC
         .fullScreenCover(isPresented: $showCreateTITFSC) {
-            ZStack(alignment: .topTrailing) {
-                
-                //Create TIT View
-                CreateDebateFSC(selectedTabIndex: $selectedTabIndex, showFullScreenCover: $showCreateTITFSC)
-                
-                
-                //MARK: - Close Button
-                Button {
-                    Task {
-                        if uploadedVideoID != nil {
-//                            print("🧀🧀🧀🦠 uploaded_video_id: \(uploadedVideoID)")
-                            try await createTitVM.deleteVideo(videoID: uploadedVideoID!)
-                        }
-                        showCreateTITFSC = false
-                        selectedTabIndex = 0
-                    }
-                } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: width * 0.1, height: width * 0.1)
-                            .foregroundColor(.black)
-                        
-                        RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(lineWidth: 0.7)
-                            .frame(width: width * 0.1, height: width * 0.1)
-                            .foregroundColor(.white)
-                        
-                        Image(systemName: "xmark")
-                            .font(.system(size: width * 0.075, weight: .thin))
-                            .foregroundColor(.primary)
-                    }
-                    .padding(.trailing)
-                    
-                }
-            }
+//            ZStack(alignment: .topTrailing) {
+//                
+//                //Create TIT View
+//                CreateDebateFSC(selectedTabIndex: $selectedTabIndex, showFullScreenCover: $showCreateTITFSC)
+//                
+//                
+//                //MARK: - Close Button
+//                Button {
+//                    Task {
+//                        if uploadedVideoID != nil {
+////                            print("🧀🧀🧀🦠 uploaded_video_id: \(uploadedVideoID)")
+//                            try await createTitVM.deleteVideo(videoID: uploadedVideoID!)
+//                        }
+//                        showCreateTITFSC = false
+//                        selectedTabIndex = 0
+//                    }
+//                } label: {
+//                    ZStack {
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .frame(width: width * 0.1, height: width * 0.1)
+//                            .foregroundColor(.black)
+//                        
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .strokeBorder(lineWidth: 0.7)
+//                            .frame(width: width * 0.1, height: width * 0.1)
+//                            .foregroundColor(.white)
+//                        
+//                        Image(systemName: "xmark")
+//                            .font(.system(size: width * 0.075, weight: .thin))
+//                            .foregroundColor(.primary)
+//                    }
+//                    .padding(.trailing)
+//                    
+//                }
+//            }
+            
+            CreateTI(showFSC: $showCreateTITFSC, selectedTabIndex: $selectedTabIndex)
         }
     }
 }
