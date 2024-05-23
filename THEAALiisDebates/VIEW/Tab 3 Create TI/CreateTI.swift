@@ -153,17 +153,6 @@ struct CreateTI: View {
                 } else if indexStep == 2 && nextStepText == "CREATE TI" {
                     Task {
                         await createTI() ///
-//                        await createTI { success  in
-//                          if success {
-//                            // Handle successful creation
-//                            print("TI created successfully!")
-//                              showFSC = false
-//                              selectedTabIndex = 4
-//                          } else {
-//                            // Handle creation failure
-//                            print("Error creating TI")
-//                          }
-//                        }
                     }
                 }
             } label: {
@@ -234,7 +223,7 @@ struct CreateTI: View {
     func createTI() async {
         if tiInteractionType == .d1 {
             
-            var success = await vm.createD1Ti(title: tiTitle, description: tiDescription,
+            let _ = await vm.createD1Ti(title: tiTitle, description: tiDescription,
                                               thumbnailURL: tiID, //FIXME: dataaaaa!
                                               creatorUID: currentUserUID, tiAdminsUIDs: tiAdminsUIDs, rsLevel1UsersUIDs: [], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: verticalListAccess
             ) { success in
@@ -245,6 +234,9 @@ struct CreateTI: View {
                     
                 }
             }
+        } else if tiInteractionType == .d2 {
+            
+            //TODO: vm.createD2Ti
         }
     }
 }

@@ -48,13 +48,20 @@ struct CTiStep2D1: View {
                                 .resizable()
                                 .clipShape( Circle() )
                                 .scaledToFit()
-                                .frame(width: width * 0.125)
+                                .frame(width: width * 0.11)
+                            
+                            
                             
                         } placeholder: {
                             ProgressView()
                         }
                         //User with Nil image
                     } else { PersonTITIconSV(scale: 1.3) }
+                    
+                    Circle()
+                        .stroke(lineWidth: 0.4)
+                        .frame(width: width * 0.11)
+
                 }
                 .frame(width: width, height: width * 0.68, alignment: .bottomTrailing)
             }
