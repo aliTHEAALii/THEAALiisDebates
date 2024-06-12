@@ -72,7 +72,7 @@ struct TIView: View {
                     Divider()
                     
                     //MARK: - Response Videos
-                    if let tiChainL {
+                    if tiChainL != nil {
 //                        ForEach(0..<tiChainL.responseList!.count, id: \.self) { i in
 //
 //                            VotingVideoCard(tiID: ti.id, tiChainLId: tiChainL.id, tiVideoID: tiChainL.responseList![i], order: i + 1, isAdmin: isAdmin)
@@ -88,7 +88,7 @@ struct TIView: View {
             }
         }// - VStack - //
         .onAppear{ Task { try await onAppearFetch() } }
-        .onChange(of: currentIndex) { _ in Task { try await onChangeOfIndex() } }
+        .onChange(of: currentIndex) { _, _ in Task { try await onChangeOfIndex() } }
     }
     
     //MARK: - Functions
@@ -115,11 +115,11 @@ struct TIView: View {
 }
 
 //MARK: Preview
-struct TIView_Previews: PreviewProvider {
-    static var previews: some View {
-        TIView(ti: TestingModels().testingTI, showTIFSC: .constant(true))
-    }
-}
+//struct TIView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TIView(ti: TestingModels().testingTI, showTIFSC: .constant(true))
+//    }
+//}
 
 //MARK: - TI View ViewModel
 //@MainActor

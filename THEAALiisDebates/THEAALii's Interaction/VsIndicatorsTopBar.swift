@@ -9,18 +9,18 @@ import SwiftUI
 
 
 //MARK: - VS Indicators
-struct VsIndicators: View {
+struct VsIndicatorsTopBar: View {
     
     @Binding var ti: TI
     @Binding var rightIndex: Int?
     @Binding var leftIndex: Int?
     
-    @Binding var expandTIControls: Bool
+    @Binding var expandTiControls: Bool
     
     var body: some View {
         
         Button {
-            expandTIControls.toggle()
+            expandTiControls.toggle()
         } label: {
             
             ZStack {
@@ -44,7 +44,7 @@ struct VsIndicators: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            ForEach(0..<ti.leftSideChain.count, id: \.self) { i in
+                            ForEach(0..<(ti.leftSideChain?.count ?? 0), id: \.self) { i in
                                 if leftIndex == i {
                                     Image(systemName: "triangle")
                                         .foregroundColor(.ADColors.green)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 //MARK: - Add TIT Title
-struct AddTITitle: View {
+struct EnterTiTitle: View {
     
     @Binding var tiTitle: String
     
