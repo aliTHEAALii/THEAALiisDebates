@@ -9,11 +9,11 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-enum TIType   : String, Codable { case post = "post",  d1 = "thread", d2 = "vs" }
+enum TIType   : String, Codable { case post = "post",  d1 = "D-1", d2 = "D-2" }
 enum VerticalListAccess: String, Codable { case open = "open", restricted = "restricted", closed = "closed" }
 enum LeftOrRight { case left, right }
 
-struct TI: Identifiable, Codable {
+struct TI: Identifiable, Codable, Hashable {
     
     @DocumentID var documentID: String?
     var id: String
@@ -25,37 +25,47 @@ struct TI: Identifiable, Codable {
 
     //FIXME: - change order
     var tiType: TIType = .d1
-    let introPostID: String //same as the TI ID
+    
+    var tiTotalVotes: Int = 0
+    var tiAbsoluteVotes: Int = 0
+    var tiUpVotes   : Int = 0
+    var tiDownVotes : Int = 0
+    
     
     let creatorUID: String
     var tiAdminsUIDs: [String]
+    
+    
+    // --- Chain --- \\
+    let introPostID: String //same as the TI ID
+    var chainLinks: [String: [String]]? = nil
 
     
     // - Right Side - //
-    var rightSideChain: [String: [String]] = [:]
+    var rightSideChain: [String] = []
 
     var rsUserUID        :  String
-    var rsLevel1UsersUIDs       : [String] = [] //Team (Main Debaters) (max 3 + user = 4 )
+    var rsLevel1UsersUIDs       : [String]? = nil //Team (Main Debaters) (max 3 + user = 4 )
     
-    var rsLevel2UsersUIDs       : [String] = [] //Support (Secondary )
-    var rsLevel3UsersUIDs       : [String] = [] //Admins  (Tertiary  )
+    var rsLevel2UsersUIDs       : [String]? = nil //Support (Secondary )
+    var rsLevel3UsersUIDs       : [String]? = nil //Admins  (Tertiary  )
 
-    var rsSponsorsUIDs          : [String: Int] = [:] // [ SponsorUID : $400 ]
+    var rsSponsorsUIDs          : [String: Int]? = nil // [ SponsorUID : $400 ]
     
     var rsVerticalListAccess: VerticalListAccess = .open
     
     // - Left Side - //
-    var leftSideChain: [String: [String]] = [:]
+    var leftSideChain: [String]? = nil
 
     var lsUserUID        :  String?
-    var lsLevel1UsersUIDs       : [String] = [] //Team (Main Debaters) (max 3 + user = 4 )
+    var lsLevel1UsersUIDs       : [String]? = nil //Team (Main Debaters) (max 3 + user = 4 )
     
-    var lsLevel2UsersUIDs       : [String] = [] //Support (secondary )
-    var lsLevel3UsersUIDs       : [String] = [] //Admins  (Tertiary  )
+    var lsLevel2UsersUIDs       : [String]? = nil //Support (secondary )
+    var lsLevel3UsersUIDs       : [String]? = nil //Admins  (Tertiary  )
     
-    var lsSponsorsUIDs          : [String: Int] = [:] // [ SponsorUID : $400 ]
+    var lsSponsorsUIDs          : [String: Int]? = nil // [ SponsorUID : $400 ]
     
-    var lsVerticalListAccess: VerticalListAccess = .open
+    var lsVerticalListAccess: VerticalListAccess? = nil
     
     var tiObserversUIDs: [String] = []
 
@@ -70,8 +80,14 @@ struct TI: Identifiable, Codable {
         case dateCreated        = "date_created"
         
         case tiType             = "ti_type"
+        
+        case tiTotalVotes    = "ti_total_votes"
+        case tiAbsoluteVotes = "ti_absolute_votes"
+        case tiUpVotes       = "ti_up_votes"
+        case tiDownVotes     = "ti_down_votes"
 
         case introPostID        = "intro_post_id"
+        case chainLinks         = "chain_links"
         case creatorUID         = "creator_uid"
         case tiAdminsUIDs       = "ti_admins_uids"
 
@@ -116,26 +132,35 @@ struct TI: Identifiable, Codable {
         self.dateCreated = try container.decode(Date.self, forKey: .dateCreated)
         
         self.tiType = try container.decode(TIType.self, forKey: .tiType)
-        //right side
-        self.rightSideChain = try container.decode([String: [String]].self, forKey: .rightSideChain)
-        self.rsUserUID = try container.decode(String.self, forKey: .rsUserUID)
-        self.rsLevel1UsersUIDs = try container.decode([String].self, forKey: .rsLevel1UsersUIDs)
-        self.rsLevel2UsersUIDs = try container.decode([String].self, forKey: .rsLevel2UsersUIDs)
-        self.rsLevel3UsersUIDs = try container.decode([String].self, forKey: .rsLevel3UsersUIDs)
+        self.chainLinks = try container.decodeIfPresent([String: [String]].self, forKey: .chainLinks)
+
         
-        self.rsSponsorsUIDs = try container.decode([String: Int].self, forKey: .rsSponsorsUIDs)
+        //Votes
+        self.tiTotalVotes = try container.decode(Int.self, forKey: .tiTotalVotes)
+        self.tiAbsoluteVotes = try container.decode(Int.self, forKey: .tiAbsoluteVotes)
+        self.tiUpVotes = try container.decode(Int.self, forKey: .tiUpVotes)
+        self.tiDownVotes = try container.decode(Int.self, forKey: .tiDownVotes)
+        
+        //right side
+        self.rightSideChain = try container.decode([String].self, forKey: .rightSideChain)
+        self.rsUserUID = try container.decode(String.self, forKey: .rsUserUID)
+        self.rsLevel1UsersUIDs = try container.decodeIfPresent([String].self, forKey: .rsLevel1UsersUIDs)
+        self.rsLevel2UsersUIDs = try container.decodeIfPresent([String].self, forKey: .rsLevel2UsersUIDs)
+        self.rsLevel3UsersUIDs = try container.decodeIfPresent([String].self, forKey: .rsLevel3UsersUIDs)
+        
+        self.rsSponsorsUIDs = try container.decodeIfPresent([String: Int].self, forKey: .rsSponsorsUIDs)
         self.rsVerticalListAccess = try container.decode(VerticalListAccess.self, forKey: .rsVerticalListAccess)
 
         
         //left side
-        self.leftSideChain = try container.decode([String: [String]].self, forKey: .leftSideChain)
-        self.lsUserUID = try container.decode(String.self, forKey: .lsUserUID)
-        self.lsLevel1UsersUIDs = try container.decode([String].self, forKey: .lsLevel1UsersUIDs)
-        self.lsLevel2UsersUIDs = try container.decode([String].self, forKey: .lsLevel2UsersUIDs)
-        self.lsLevel3UsersUIDs = try container.decode([String].self, forKey: .lsLevel3UsersUIDs)
+        self.leftSideChain = try container.decodeIfPresent([String].self, forKey: .leftSideChain)
+        self.lsUserUID = try container.decodeIfPresent(String.self, forKey: .lsUserUID)
+        self.lsLevel1UsersUIDs = try container.decodeIfPresent([String].self, forKey: .lsLevel1UsersUIDs)
+        self.lsLevel2UsersUIDs = try container.decodeIfPresent([String].self, forKey: .lsLevel2UsersUIDs)
+        self.lsLevel3UsersUIDs = try container.decodeIfPresent([String].self, forKey: .lsLevel3UsersUIDs)
         
-        self.lsSponsorsUIDs = try container.decode([String: Int].self, forKey: .lsSponsorsUIDs)
-        self.lsVerticalListAccess = try container.decode(VerticalListAccess.self, forKey: .lsVerticalListAccess)
+        self.lsSponsorsUIDs = try container.decodeIfPresent([String: Int].self, forKey: .lsSponsorsUIDs)
+        self.lsVerticalListAccess = try container.decodeIfPresent(VerticalListAccess.self, forKey: .lsVerticalListAccess)
 
         self.tiObserversUIDs = try container.decode([String].self, forKey: .tiObserversUIDs)
     }
@@ -154,39 +179,49 @@ struct TI: Identifiable, Codable {
 
         try container.encode(self.dateCreated, forKey: .dateCreated)
         try container.encode(self.tiType, forKey: .tiType)
+        try container.encodeIfPresent(self.chainLinks, forKey: .chainLinks)
+
+        
+        try container.encode(self.tiTotalVotes, forKey: .tiTotalVotes)
+        try container.encode(self.tiAbsoluteVotes, forKey: .tiAbsoluteVotes)
+        try container.encode(self.tiUpVotes, forKey: .tiUpVotes)
+        try container.encode(self.tiDownVotes, forKey: .tiDownVotes)
+
         
         //right side
         try container.encode(self.rightSideChain, forKey: .rightSideChain)
         try container.encode(self.rsUserUID, forKey: .rsUserUID)
-        try container.encode(self.rsLevel1UsersUIDs, forKey: .rsLevel1UsersUIDs)
-        try container.encode(self.rsLevel2UsersUIDs, forKey: .rsLevel2UsersUIDs)
-        try container.encode(self.rsLevel3UsersUIDs, forKey: .rsLevel3UsersUIDs)
+        try container.encodeIfPresent(self.rsLevel1UsersUIDs, forKey: .rsLevel1UsersUIDs)
+        try container.encodeIfPresent(self.rsLevel2UsersUIDs, forKey: .rsLevel2UsersUIDs)
+        try container.encodeIfPresent(self.rsLevel3UsersUIDs, forKey: .rsLevel3UsersUIDs)
 
-        try container.encode(self.rsSponsorsUIDs, forKey: .rsSponsorsUIDs)
+        try container.encodeIfPresent(self.rsSponsorsUIDs, forKey: .rsSponsorsUIDs)
         try container.encode(self.rsVerticalListAccess, forKey: .rsVerticalListAccess)
 
         //left side
-        try container.encode(self.leftSideChain, forKey: .leftSideChain)
+        try container.encodeIfPresent(self.leftSideChain, forKey: .leftSideChain)
         try container.encodeIfPresent(self.lsUserUID, forKey: .lsUserUID)
-        try container.encode(self.rsLevel1UsersUIDs, forKey: .rsLevel1UsersUIDs)
-        try container.encode(self.rsLevel2UsersUIDs, forKey: .rsLevel2UsersUIDs)
-        try container.encode(self.rsLevel3UsersUIDs, forKey: .rsLevel3UsersUIDs)
+        try container.encodeIfPresent(self.lsLevel1UsersUIDs, forKey: .lsLevel1UsersUIDs)
+        try container.encodeIfPresent(self.lsLevel2UsersUIDs, forKey: .lsLevel2UsersUIDs)
+        try container.encodeIfPresent(self.lsLevel3UsersUIDs, forKey: .lsLevel3UsersUIDs)
 
-        try container.encode(self.rsSponsorsUIDs, forKey: .rsSponsorsUIDs)
-        try container.encode(self.lsVerticalListAccess, forKey: .lsVerticalListAccess)
+        try container.encodeIfPresent(self.lsSponsorsUIDs, forKey: .lsSponsorsUIDs)
+        try container.encodeIfPresent(self.lsVerticalListAccess, forKey: .lsVerticalListAccess)
         
-        try container.encodeIfPresent(self.tiObserversUIDs, forKey: .tiObserversUIDs)
+        try container.encode(self.tiObserversUIDs, forKey: .tiObserversUIDs)
     }
     
     //MARK: - [ inits ] -
     // - create init - //
     // .d1
+    /// --- Creates a D-1 TI init ---
+
     init(ID: String, title: String, description: String, thumbnailURL: String?,
          creatorUID: String, tiAdminsUIDs: [String],
-        
-         rsLevel1UsersUIDs : [String],
-         rsLevel2UsersUIDs : [String],
-         rsLevel3UsersUIDs : [String],
+         
+         rsLevel1UsersUIDs : [String]?,
+         rsLevel2UsersUIDs : [String]?,
+         rsLevel3UsersUIDs : [String]?,
          
          rsVerticalListAccess: VerticalListAccess
     ) {
@@ -201,7 +236,7 @@ struct TI: Identifiable, Codable {
         self.introPostID = ID
         self.creatorUID = creatorUID; self.tiAdminsUIDs = tiAdminsUIDs
         //chain
-        self.rightSideChain = [:]
+        self.rightSideChain = []
         self.rsUserUID = creatorUID
         self.rsLevel1UsersUIDs = rsLevel1UsersUIDs
         
@@ -211,22 +246,24 @@ struct TI: Identifiable, Codable {
     }
     
     //.d2
+    /// --- Creates a D-2 TI init ---
+
     init(ID: String, title: String, description: String, thumbnailURL: String?,
          creatorUID: String, tiAdminsUIDs: [String],
          
          //right
          rsUserUID : String          ,
-         rsLevel1UsersUIDs : [String],
-         rsLevel2UsersUIDs : [String],
-         rsLevel3UsersUIDs : [String],
+         rsLevel1UsersUIDs : [String]?,
+         rsLevel2UsersUIDs : [String]?,
+         rsLevel3UsersUIDs : [String]?,
          
          rsVerticalListAccess: VerticalListAccess,
          
          //left
          lsUserUID : String          ,
-         lsLevel1UsersUIDs : [String],
-         lsLevel2UsersUIDs : [String],
-         lsLevel3UsersUIDs : [String],
+         lsLevel1UsersUIDs : [String]?,
+         lsLevel2UsersUIDs : [String]?,
+         lsLevel3UsersUIDs : [String]?,
          
          lsVerticalListAccess: VerticalListAccess
     ) {
@@ -238,11 +275,12 @@ struct TI: Identifiable, Codable {
         
         self.tiType = .d2
         
+        
         self.introPostID = ID
         self.creatorUID = creatorUID; self.tiAdminsUIDs = tiAdminsUIDs
         
         //right Side
-        self.rightSideChain = [:]
+        self.rightSideChain = []
         self.rsUserUID = rsUserUID
         self.rsLevel1UsersUIDs = rsLevel1UsersUIDs
         self.rsLevel2UsersUIDs = rsLevel2UsersUIDs
@@ -251,37 +289,49 @@ struct TI: Identifiable, Codable {
         self.rsVerticalListAccess = rsVerticalListAccess
         
         //left side
-        self.leftSideChain = [:]
+        self.leftSideChain = []
         self.lsUserUID = lsUserUID
-        self.lsLevel1UsersUIDs = rsLevel1UsersUIDs
-        self.lsLevel2UsersUIDs = rsLevel2UsersUIDs
-        self.lsLevel3UsersUIDs = rsLevel3UsersUIDs
+        self.lsLevel1UsersUIDs = lsLevel1UsersUIDs
+        self.lsLevel2UsersUIDs = lsLevel2UsersUIDs
+        self.lsLevel3UsersUIDs = lsLevel3UsersUIDs
 
-        self.lsVerticalListAccess = rsVerticalListAccess
+        self.lsVerticalListAccess = lsVerticalListAccess
         
         self.tiObserversUIDs = [creatorUID]
     }
     
     // - Read init - //
-    init(ID: String, title: String, description: String, thumbnailURL: String?, introPostID: String, 
+    /// --- Reads [  TI ]  ---
+    ///
+    init(ID: String, title: String, description: String, thumbnailURL: String?, introPostID: String,
          creatorUID: String, tiAdminsUIDs: [String], dateCreated: Date,
          tiType: TIType, 
-         //right Side
-         rightSideChain: [String: [String]],
-         rsUserUID : String          ,
-         rsLevel1UsersUIDs : [String],
-         rsLevel2UsersUIDs : [String],
-         rsLevel3UsersUIDs : [String],
+         chainLinks: [String: [String]]?,
          
+         //ti Votes
+         tiTotalVotes   : Int,
+         tiAbsoluteVotes: Int,
+         tiUpVotes      : Int,
+         tiDownVotes    : Int,
+         
+         //right Side
+         rightSideChain: [String]     ,
+         rsUserUID : String           ,
+         rsLevel1UsersUIDs : [String]?,
+         rsLevel2UsersUIDs : [String]?,
+         rsLevel3UsersUIDs : [String]?,
+         
+         rsSponsorsUIDs : [String: Int]? ,
          rsVerticalListAccess: VerticalListAccess,
          
          
-         leftSideChain: [String: [String]],
-         lsUserUID : String          ,
-         lsLevel1UsersUIDs : [String],
-         lsLevel2UsersUIDs : [String],
-         lsLevel3UsersUIDs : [String],
+         leftSideChain: [String],
+         lsUserUID : String?          ,
+         lsLevel1UsersUIDs : [String]?,
+         lsLevel2UsersUIDs : [String]?,
+         lsLevel3UsersUIDs : [String]?,
          
+         lsSponsorsUIDs: [String: Int]? ,
          lsVerticalListAccess: VerticalListAccess,
          
          tiObserversUIDs: [String]
@@ -292,6 +342,12 @@ struct TI: Identifiable, Codable {
         self.thumbnailURL = thumbnailURL; 
         
         self.tiType = tiType
+        self.chainLinks = chainLinks
+        
+        self.tiTotalVotes    = tiTotalVotes
+        self.tiAbsoluteVotes = tiAbsoluteVotes
+        self.tiUpVotes       = tiUpVotes
+        self.tiDownVotes     = tiDownVotes
 
         self.introPostID = introPostID
         self.creatorUID = creatorUID
@@ -305,16 +361,18 @@ struct TI: Identifiable, Codable {
         self.rsLevel2UsersUIDs = rsLevel2UsersUIDs
         self.rsLevel3UsersUIDs = rsLevel3UsersUIDs
 
+        self.rsSponsorsUIDs = rsSponsorsUIDs
         self.rsVerticalListAccess = rsVerticalListAccess
         
         //left side
         self.leftSideChain = leftSideChain
         self.lsUserUID = lsUserUID
-        self.lsLevel1UsersUIDs = rsLevel1UsersUIDs
-        self.lsLevel2UsersUIDs = rsLevel2UsersUIDs
-        self.lsLevel3UsersUIDs = rsLevel3UsersUIDs
+        self.lsLevel1UsersUIDs = lsLevel1UsersUIDs
+        self.lsLevel2UsersUIDs = lsLevel2UsersUIDs
+        self.lsLevel3UsersUIDs = lsLevel3UsersUIDs
 
-        self.lsVerticalListAccess = rsVerticalListAccess
+        self.lsSponsorsUIDs = lsSponsorsUIDs
+        self.lsVerticalListAccess = lsVerticalListAccess
         
         self.tiObserversUIDs = [creatorUID]
     }
@@ -341,21 +399,48 @@ final class TIManager {
     func fetchTI(tiID: String) async throws -> TI? {
         try await TIDocument(tiID: tiID).getDocument(as: TI.self)
     }
+    func getTi(tiID: String, completion: @escaping (Result<TI, Error>) -> Void) {
+        TIDocument(tiID: tiID).getDocument(as: TI.self) { result in
+            switch result {
+                
+            case .success(let ti):
+                print("✅⬇️🫖💎⚛️ Success getting Ti🫖💎 ⚛️💎🫖⬇️✅")
+                completion(.success(ti))
+                
+            case .failure(let error):
+                print("❌⬇️🫖💎⚛️ Error getting Ti🫖💎: \(error.localizedDescription) ⚛️💎🫖⬇️❌")
+                completion(.failure(error))
+                
+            }
+        }
+    }
     
     // - 3. Update
     
-    //MARK: add ti video to chain
-    func addToChain(tiID: String, CLinkID: String, rightOrLeft: LeftOrRight) async throws {
-        var chainData = [String: Any]()
+    //MARK: add post to chain
+    func addToChain(tiID: String, cLinkID: String, rightOrLeft: LeftOrRight) async throws {
+//        var chainData = [String: Any]()
+//        
+//        if rightOrLeft == .right {
+//            chainData = [ TI.CodingKeys.rightSideChain.rawValue : FieldValue.arrayUnion([cLinkID]) ]
+//        } else if rightOrLeft == .left {
+//            chainData = [ TI.CodingKeys.leftSideChain.rawValue : FieldValue.arrayUnion([cLinkID]) ]
+//        }
+//        
+//        try await TIDocument(tiID: tiID).updateData(chainData)
         
         if rightOrLeft == .right {
-            chainData = [ TI.CodingKeys.rightSideChain.rawValue : FieldValue.arrayUnion([CLinkID]) ]
             
+            try await TIDocument(tiID: tiID).updateData([ TI.CodingKeys.rightSideChain.rawValue : FieldValue.arrayUnion([cLinkID]) ])
         } else if rightOrLeft == .left {
-            chainData = [ TI.CodingKeys.leftSideChain.rawValue : FieldValue.arrayRemove([CLinkID]) ]
+            
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.leftSideChain.rawValue : FieldValue.arrayUnion([cLinkID])])
+
         }
+    }
+    //TODO: - 
+    func addLinkToChain(tiID: String, chainLinkID: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
-        try await TIDocument(tiID: tiID).updateData(chainData)
     }
     
     //FIXME: - This is all wrong (Edit Admins) Obsolete
