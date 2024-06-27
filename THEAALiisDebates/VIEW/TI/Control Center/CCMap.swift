@@ -1,18 +1,18 @@
 //
-//  AppendToChain.swift
+//  CCMap.swift
 //  THEAALiisDebates
 //
-//  Created by Ali Kadhum on 6/5/24.
+//  Created by Ali Kadhum on 6/22/24.
 //
 
 import SwiftUI
 
-struct AppendToChain: View {
+struct CCMap: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    AppendToChain()
+    CCMap()
 }

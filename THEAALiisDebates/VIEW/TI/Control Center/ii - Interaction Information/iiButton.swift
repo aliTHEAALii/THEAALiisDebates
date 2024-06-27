@@ -1,8 +1,8 @@
 //
-//  ii.swift
-//  TheAaliiDebates
+//  iiButton.swift
+//  THEAALiisDebates
 //
-//  Created by Ali Abraham on 8/24/23.
+//  Created by Ali Kadhum on 6/19/24.
 //
 
 import SwiftUI
@@ -12,7 +12,7 @@ import SwiftUI
 struct iiButton: View {
     
     @Binding var ti : TI
-    @State private var iiShowFSC = true
+    @State private var iiShowFSC = false
     
     var body: some View {
         
@@ -43,46 +43,11 @@ struct iiButton: View {
         .frame(width: width * 0.4)
         .preferredColorScheme(.dark)
         .fullScreenCover(isPresented: $iiShowFSC) {
-            iiFSC(ti: $ti)
+            FSCHeaderSV(showFSC: $iiShowFSC, text: "Interaction Information")
+            iiView(ti: $ti)
         }
     }
 }
-
-//MARK: - ii FSC -
-struct iiFSC: View {
-    
-    @Binding var ti: TI
-    
-    var body: some View {
-        
-        VStack(spacing: 0) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(lineWidth: 0.5)
-                    .foregroundColor(.gray)
-                    .frame(width: width * 0.9, height: width * 0.08)
-
-                HStack {
-                    UserButton(userUID: nil)
-                    Spacer()
-                    TIIcon()
-                    Spacer()
-                    UserButton(userUID: nil)
-                }
-            }
-            
-            
-        }
-        .preferredColorScheme(.dark)
-    }
-}
-
-//struct ii_Previews: PreviewProvider {
-//    static var previews: some View {
-//        iiButton(ti: .constant(TestingComponents().testTI0))
-//    }
-//}
-
 #Preview {
     iiButton(ti: .constant(TestingModels().testTI0))
 }

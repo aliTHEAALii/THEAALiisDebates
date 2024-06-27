@@ -1,18 +1,18 @@
 //
-//  TiControlCenter.swift
+//  ControlCenter.swift
 //  THEAALiisDebates
 //
-//  Created by Ali Kadhum on 6/2/24.
+//  Created by Ali Kadhum on 6/18/24.
 //
 
 import SwiftUI
 
-struct TiControlCenter: View {
+struct ControlCenter: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    TiControlCenter()
+    ControlCenter()
 }

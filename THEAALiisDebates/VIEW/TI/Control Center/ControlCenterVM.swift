@@ -8,8 +8,7 @@
 import Foundation
 
 
-@MainActor
-final class TIControlCenterViewModel: ObservableObject {
+final class ControlCenterViewModel {
     
     
 }
