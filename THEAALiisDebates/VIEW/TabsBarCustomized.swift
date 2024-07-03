@@ -54,7 +54,7 @@ struct TabsBarCustomized: View {
                     UserTabView()
                     
                 default :
-                    FeedTabView(showTITView: $showDebateView)
+                    FeedTabView()
                 }
                 
                 //MARK: - Debate View (& mini Player)

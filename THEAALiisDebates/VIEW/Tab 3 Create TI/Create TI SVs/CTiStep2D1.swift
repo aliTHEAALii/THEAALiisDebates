@@ -28,8 +28,11 @@ struct CTiStep2D1: View {
     var body: some View {
         
         VStack(spacing: 10) {
+            
+            //Pick thumbnail - D1 Icon - Creator Pic
             ZStack(alignment: .bottom) {
                 
+                //Pick thumbnail
                 VStack(spacing: 0) {
                     
                     PickThumbnailButton(thumbnailFor: .TI, thumbnailForTypeID: tiID, imageData: $tiThumbnailData, buttonText: "TI \nThumbnail")
@@ -39,6 +42,7 @@ struct CTiStep2D1: View {
                 
                 TIIconD1(scale: 0.8)
 
+                //Creator Pic
                 ZStack {
                     if let profileImageURLString = currentUser?.profileImageURLString {
                         
@@ -48,8 +52,8 @@ struct CTiStep2D1: View {
                                 .resizable()
                                 .clipShape( Circle() )
                                 .scaledToFit()
-                                .frame(width: width * 0.11)
-                            
+                                .frame(width: width * 0.11, height: width * 0.11)
+
                             
                             
                         } placeholder: {
@@ -58,18 +62,21 @@ struct CTiStep2D1: View {
                         //User with Nil image
                     } else { PersonTITIconSV(scale: 1.3) }
                     
+                    //Border
                     Circle()
                         .stroke(lineWidth: 0.4)
+                        .foregroundStyle(.white)
                         .frame(width: width * 0.11)
 
                 }
-                .frame(width: width, height: width * 0.68, alignment: .bottomTrailing)
+                .frame(width: width * 0.99, height: width * 0.68, alignment: .bottomTrailing)
+
             }
             .frame(width: width, height: width * 0.68)
             
             
             //MARK: TI Title
-            AddTITitle(tiTitle: $tiTitle)
+            EnterTiTitle(tiTitle: $tiTitle)
             
         }
 

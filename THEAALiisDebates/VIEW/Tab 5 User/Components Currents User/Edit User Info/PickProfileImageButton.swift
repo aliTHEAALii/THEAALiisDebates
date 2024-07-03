@@ -57,7 +57,7 @@ struct PickProfileImageButton: View {
         .frame(width: width, height: width * 0.75)
         //MARK: Pick Image
         .photosPicker(isPresented: $showImagePicker, selection: $selectedPhoto)
-        .onChange(of: selectedPhoto) { newValue in
+        .onChange(of: selectedPhoto) { newValue , _ in
             //extracting uiImage from photoItem
             if let newValue {
                 Task {

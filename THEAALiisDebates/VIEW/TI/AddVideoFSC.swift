@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 //MARK: - ADD VIDEO FSC
 struct AddVideoFSC: View {
     
@@ -13,14 +14,14 @@ struct AddVideoFSC: View {
     let tiChainLID: String
     
     let toWhat: String = "To Response List"
-    @AppStorage("current_user_id") var currentUserID: String = ""
+    @AppStorage("current_user_id") var currentUserUID: String = ""
 
     @Binding var showFullScreenCover: Bool
 
     @ObservedObject private var addVideoVM = AddVideoViewModel()
     @State private var videoURL: String? = nil
 
-    @State var videoThumbnailData: Data? = nil//URL
+    @State var videoThumbnailData: Data? = nil                  //URL
     @State private var videoTitle              = ""
     @State private var videoDescription        = ""
     
@@ -38,7 +39,11 @@ struct AddVideoFSC: View {
                 Text(toWhat)
                     .font(.title2)
                 
-                PickThumbnailSV(thumbnailFor: .video, thumbnailForTypeId: "change!", imageData: $videoThumbnailData, buttonText: "Pick Video Thumbnail")
+                
+                PickThumbnailSV(thumbnailFor: .video,
+                                thumbnailForTypeId: "change!",
+                                imageData: $videoThumbnailData,
+                                buttonText: "Pick Video Thumbnail")
                 
                 PickVideoButton(videoURL: $videoURL)
                     .padding(.vertical)
@@ -97,7 +102,7 @@ struct AddVideoFSC: View {
                             do {
                                 let videoThumbnailURL = await ImageManager.shared.saveImage(imageData: videoThumbnailData, thumbnailFor: .video, thumbnailForTypeId: addVideoVM.videoId)
                                 
-                                try await addVideoVM.addVideo(tiId: tiID, chainLId: tiChainLID, videoURL: videoURL!, title: videoTitle, description: videoDescription, thumbnailURL: videoThumbnailURL, creatorId: currentUserID)
+                                try await addVideoVM.addVideo(tiId: tiID, chainLId: tiChainLID, videoURL: videoURL!, title: videoTitle, description: videoDescription, thumbnailURL: videoThumbnailURL, creatorId: currentUserUID)
                                 
                                 showFullScreenCover = false
                             }

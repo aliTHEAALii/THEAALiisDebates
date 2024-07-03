@@ -106,7 +106,7 @@ final class TIContolsViewModel: ObservableObject {
         
         Task {
             
-            try await getChainVideo(tiId: ti.id, chainLId: ti.interactionChain[0])
+            let _ = try await getChainVideo(tiId: ti.id, chainLId: ti.interactionChain[0])
 
             //1. create  TI Video in DB
             try await TITVideoManager.shared.createTitVideo(titID: ti.id, titVideo: tiVideo)

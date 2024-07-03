@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TIView: View {
+struct TIViewOld: View {
     
     @AppStorage("current_user_id") var currentUserId: String = ""
     
@@ -115,11 +115,11 @@ struct TIView: View {
 }
 
 //MARK: Preview
-//struct TIView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TIView(ti: TestingModels().testingTI, showTIFSC: .constant(true))
-//    }
-//}
+struct TIView_Previews: PreviewProvider {
+    static var previews: some View {
+        TIViewOld(ti: TestingModels().testingTIModel, showTIFSC: .constant(true))
+    }
+}
 
 //MARK: - TI View ViewModel
 //@MainActor

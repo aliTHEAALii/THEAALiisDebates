@@ -16,7 +16,6 @@ final class ImageManager {
     enum ThumbnailFor: String {
         case TI = "TIs_Thumbnails"
         case post = "Posts_Thumbnails"
-        case TIT = "TIT_Thumbnails"
         case video = "Video_Thumbnails"
         case user = "Profile_Images"
     }
@@ -53,7 +52,7 @@ final class ImageManager {
         //MARK: Upload Data
         do {
             let _ = try await storageReference.putDataAsync(resizedImage, metadata: metadata)
-            print ("📸 a Image Saved!")
+            print ("🥬📸 Image Saved! 📸🥬")
             
             //MARK: get URL
             do {
@@ -116,7 +115,7 @@ final class ImageManager {
     
     
     //MARK: Delete
-    func deleteImage(imageId: String, thumbnailFor: ThumbnailFor) async throws {
-        try await imageStorageRef(imageId: imageId, thumbnailFor: thumbnailFor).delete()
+    func deleteImage(imageID: String, thumbnailFor: ThumbnailFor) async throws {
+        try await imageStorageRef(imageId: imageID, thumbnailFor: thumbnailFor).delete()
     }
 }

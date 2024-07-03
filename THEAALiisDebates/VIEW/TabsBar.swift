@@ -22,30 +22,30 @@ struct TabsBar: View {
             
             switch selectedIndex {
             case 0 :
-                FeedTabView(showTITView: $presentedAddDebateView)
-
+                FeedTabView()
+                
             case 1 :
                 VStack {
                     Spacer()
                     Text("search")
                     Spacer()
                 }
-
+                
                 ///case 2 :
-
+                
             case 3 :
                 LibraryTabView()
-
+                
             case 4 :
                 UserTabView()
-
+                
             default :
-                FeedTabView(showTITView: $presentedAddDebateView)
+                FeedTabView()
             }
             
             //Debate View (& mini Player)
-//            DebateView(showDebateView: $showDebateView)
-//                .padding(.bottom, !isMiniPlayer ? 0 : height - width * 0.15)
+            //            DebateView(showDebateView: $showDebateView)
+            //                .padding(.bottom, !isMiniPlayer ? 0 : height - width * 0.15)
             //                .frame(height: height - width * 0.15)
             
             //MARK: - Bar
@@ -61,19 +61,10 @@ struct TabsBar: View {
                         if index == 4 {
                             
                             VStack() {
-//                                Image(systemName: "circle")
-//                                //                                    .font(.caption)
-//                                    .font(.system(size: width * 0.025, weight: .regular))
-//
-//                                Image(systemName: "triangle")
-//                                    .font(.system(size: width * 0.04, weight: .light))
-//                                    .rotationEffect(.degrees(180))
                                 
                                 PersonTITIconSV(color: selectedIndex == 4 ? .ADColors.green : .secondary, fill: false, scale: 1)
                                 
                             }
-//                            .foregroundColor(selectedIndex == 4 ? .ADColors.green : .secondary)
-                            
                             
                         } else if index == 2 {
                             CreateDebateButton(selectedTabIndex: $selectedIndex)
@@ -93,10 +84,10 @@ struct TabsBar: View {
             }//HStack
             .frame(height: width * 0.125)
             .background(.black)
-//            .padding(.top, 5)
-//            .padding(.top, width * 0.04)
+            //            .padding(.top, 5)
+            //            .padding(.top, width * 0.04)
         }
-//        .frame(width: width, height: height, alignment: .bottom)
+        //        .frame(width: width, height: height, alignment: .bottom)
         .preferredColorScheme(.dark)
     }
 }

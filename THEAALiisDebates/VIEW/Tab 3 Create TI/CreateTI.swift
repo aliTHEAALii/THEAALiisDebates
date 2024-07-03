@@ -92,11 +92,6 @@ struct CreateTI: View {
             }.frame(width: width, height: width * 0.08)
                 .padding(.bottom, width * 0.1)
             
-            //Title
-            //            Text( steps[indexStep] )
-            //                .font(.title)
-            //                .padding(.vertical)
-            
             
             //MARK: - Body ( Input )
             if indexStep == 0 {
@@ -149,12 +144,7 @@ struct CreateTI: View {
             
             //Next Step Button
             Button {
-                if indexStep < 2 { indexStep += 1
-                } else if indexStep == 2 && nextStepText == "CREATE TI" {
-                    Task {
-                        await createTI() ///
-                    }
-                }
+                nextStepButton()
             } label: {
                 ZStack {
                     Text(nextStepText)
@@ -166,6 +156,11 @@ struct CreateTI: View {
                 .foregroundStyle(Color.ADColors.green)
             }
             .padding(.vertical, width * 0.1)
+        }
+        .overlay {
+            if isLoading {
+                LoadingView()
+            }
         }
     }
     
@@ -179,7 +174,18 @@ struct CreateTI: View {
     }
     
     private func nextStepButton() {
-        
+        if indexStep == 0 {
+            indexStep += 1
+            
+        } else if indexStep == 1 {
+            guard nextStepText == "Next Step" else { return }
+            indexStep += 1
+            
+        } else if indexStep == 2 && nextStepText == "CREATE TI" {
+            Task {
+                await createTI() ///
+            }
+        }
     }
     var nextStepText: String {
         
@@ -223,9 +229,16 @@ struct CreateTI: View {
     func createTI() async {
         if tiInteractionType == .d1 {
             
-            let _ = await vm.createD1Ti(title: tiTitle, description: tiDescription,
-                                              thumbnailURL: tiID, //FIXME: dataaaaa!
-                                              creatorUID: currentUserUID, tiAdminsUIDs: tiAdminsUIDs, rsLevel1UsersUIDs: [], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: verticalListAccess
+            isLoading = true
+
+            let _ = await vm.createD1Ti(id: tiID, title: tiTitle, description: tiDescription,
+                                           tiThumbnailData: tiThumbnailData,
+                                           creatorUID: currentUserUID, 
+                                           tiAdminsUIDs: tiAdminsUIDs,
+                                           rsLevel1UsersUIDs: nil,
+                                           rsLevel2UsersUIDs: nil,
+                                           rsLevel3UsersUIDs: nil,
+                                           rsVerticalListAccess: verticalListAccess
             ) { success in
                 if success {
                     showFSC = false
@@ -234,9 +247,46 @@ struct CreateTI: View {
                     
                 }
             }
+            
+            isLoading = false
+            
         } else if tiInteractionType == .d2 {
             
             //TODO: vm.createD2Ti
+            isLoading = true
+
+            //extra security 
+            guard let _ = rightUser?.userUID , let _ = leftUser?.userUID else {
+                print("Error = right of left user is nil" + " ❌❌🚪🔥")
+                isLoading = false
+                return
+            }
+            let _ = await vm.createD2TiOld(id: tiID, title: tiTitle, description: tiDescription,
+                                        tiThumbnailData: tiThumbnailData,
+                                        creatorUID: currentUserUID, tiAdminsUIDs: tiAdminsUIDs,
+                                        //right
+                                        rsUserUID: rightUser!.userUID, //FIXME: userUID
+                                        rsLevel1UsersUIDs: nil,
+                                        rsLevel2UsersUIDs: nil,
+                                        rsLevel3UsersUIDs: nil,
+                                        rsVerticalListAccess: verticalListAccess,
+                                        //left
+                                        lsUserUID: leftUser!.userUID, //FIXME: userUID
+                                        lsLevel1UsersUIDs: nil,
+                                        lsLevel2UsersUIDs: nil,
+                                        lsLevel3UsersUIDs: nil,
+                                        lsVerticalListAccess: verticalListAccess) { success in
+                
+                    if success {
+                        showFSC = false
+                        selectedTabIndex = 4
+                        print("success = \(success)" + " ✅✅🚪🔥")
+                        
+                    }
+            }
+            
+            isLoading = false
+
         }
     }
 }
@@ -273,7 +323,7 @@ final class TiCreatingVM {
             
             //FIXME: - ti Post Type
             
-            _ = Post(id: tiID, title: "Intro", type: .text, description: introDescription, imageURL: nil, videoURL: nil, creatorUID: currentUserUID, dateCreated: Date.now, cLinkID: tiID, addedToChain: true, totalVotes: 0, upVotes: 0, downVotes: 0, upVotersUIDsArray: [], downVotersUIDsArray: [], commentsArray: []
+            _ = Post(id: tiID, title: "Intro", type: .text, text: introDescription, imageURL: nil, videoURL: nil, creatorUID: currentUserUID, dateCreated: Date.now, addedToChain: true, totalVotes: 0, upVotes: 0, downVotes: 0, upVotersUIDsArray: [], downVotersUIDsArray: [], commentsArray: []
             )
             
             _ = TITChainLinkModel(

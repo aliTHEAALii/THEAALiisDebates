@@ -158,7 +158,7 @@ struct CreateDebateFSC: View {
                         
                         Task {
                             do {
-                                let tURL = await ImageManager.shared.saveImage(imageData: titThumbnailData, thumbnailFor: .TIT, thumbnailForTypeId: createTitVM.TITId)
+                                let tURL = await ImageManager.shared.saveImage(imageData: titThumbnailData, thumbnailFor: .TI, thumbnailForTypeId: createTitVM.TITId)
                                 let vURL = await ImageManager.shared.saveImage(imageData: videoThumbnailData, thumbnailFor: .video, thumbnailForTypeId: createTitVM.videoId)
                                 
                                 try await createTitVM.createTIT(

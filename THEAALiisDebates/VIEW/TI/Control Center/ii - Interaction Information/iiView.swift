@@ -37,5 +37,5 @@ struct iiView: View {
 }
 
 #Preview {
-    iiView(ti: .constant(TestingModels().testTI0))
+    iiView(ti: .constant(TiViewModel().ti))
 }

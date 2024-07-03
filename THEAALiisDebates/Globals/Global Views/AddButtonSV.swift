@@ -10,18 +10,25 @@ import SwiftUI
 struct AddButtonSV: View {
     var body: some View {
         
-        ZStack {
-            RoundedRectangle(cornerRadius: 8)
-                .strokeBorder(lineWidth: 0.5)
-                .foregroundColor(.secondary)
-                .frame(width: width * 0.10, height: width * 0.10)
-            
-            Image(systemName: "plus")
-                .font(.system(size: width * 0.075, weight: .thin))
-                .frame(width: width * 0.1)
-                .foregroundColor(.primary)
-        }
-        .preferredColorScheme(.dark)
+//        Button{ 
+//            
+//        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(lineWidth: 0.5)
+                    .foregroundColor(.secondary)
+                    .frame(width: width * 0.10, height: width * 0.10)
+                
+                Image(systemName: "plus")
+                    .font(.system(size: width * 0.075, weight: .thin))
+                    .frame(width: width * 0.1)
+                    .foregroundColor(.primary)
+            }
+            .frame(width: width * 0.15)
+            .preferredColorScheme(.dark)
+//        }
+        
+        
     }
 }
 

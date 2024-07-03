@@ -113,7 +113,7 @@ struct TITCard_Previews: PreviewProvider {
 //        TabsBarCustomized()
         //        FeedTabView(showDebateView: .constant(false))
 
-        TITCard(showTITView: .constant(false), debateID: "debateID", debateName: "test Name", TIT: TestingModels().testingTI)
+        TITCard(showTITView: .constant(false), debateID: "debateID", debateName: "test Name", TIT: TestingModels().testingTIModel)
             .preferredColorScheme(.dark)
     }
 }

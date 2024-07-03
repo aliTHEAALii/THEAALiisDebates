@@ -8,11 +8,31 @@
 import SwiftUI
 
 struct CCAddToChainButton: View {
+    let rightOrLeft: LeftOrRight?
+    
+    @Binding var ti: TI?
+    @Binding var tiChainLink: ChainLink?
+    @Binding var tiChain: [String]
+    
+    @State private var showCreatePost: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            Button{
+                showCreatePost = true
+            } label: {
+                AddButtonSV()
+            }
+            .fullScreenCover(isPresented: $showCreatePost) {
+                CCAddToChain(leftOrRight: rightOrLeft, ti: $ti, tiChainLink: $tiChainLink, tiChain: $tiChain, showAddPostFSC: $showCreatePost)
+            }
+            
+        }
+        
     }
 }
 
 #Preview {
-    CCAddToChainButton()
+    CCAddToChainButton(rightOrLeft: .right, ti: .constant(TestingModels().testTI0), tiChainLink: .constant(nil), tiChain: .constant(["ii"]))
 }

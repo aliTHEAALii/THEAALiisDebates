@@ -227,14 +227,136 @@ final class PostManager {
     
     // - 3. Update
     
-    //Voting (up or down)
-    //add to Chain
+    //MARK: Voting
+    //1 - UP Voters Array
+    func updateUpVotersArray(tiID: String, postID: String, userUID: String, addOrRemove: AddOrRemove, completion: @escaping (Error?)->Void) {
+        
+        if addOrRemove == .add {
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.upVotersUIDsArray.rawValue : FieldValue.arrayUnion( [userUID] ) ] ) { error in
+                
+                if let error {
+                    print("🆘🔺⛓️☎️ ERROR adding post to vertical list: \(error.localizedDescription) ☎️⛓️🔺🆘")
+                    completion(error)
+                } else {
+                    print("✅⛓️🥒 Success added POST to VERTICAL LIST  🥒⛓️✅")
+                    completion(nil)
+                }
+            }
+            
+        } else if addOrRemove == .remove {
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.upVotersUIDsArray.rawValue : FieldValue.arrayRemove( [userUID] ) ] ) { error in
+                
+                if let error {
+                    print("🆘🔺⛓️☎️ ERROR adding post to vertical list: \(error.localizedDescription) ☎️⛓️🔺🆘")
+                    completion(error)
+                } else {
+                    print("✅⛓️🥒 Success added POST to VERTICAL LIST  🥒⛓️✅")
+                    completion(nil)
+                }
+            }
+        }
+    }
+    func updateDownVotersArray(tiID: String, postID: String, userUID: String, addOrRemove: AddOrRemove, completion: @escaping (Error?)->Void) {
+        if addOrRemove == .add {
+            
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.downVotersUIDsArray.rawValue : FieldValue.arrayUnion( [userUID] ) ] ) { error in
+                if let error {
+                    print("🆘🔺⛓️☎️ ERROR adding userUID to downVotersUIDsArray: \(error.localizedDescription) ☎️⛓️🔺🆘")
+                    completion(error)
+                } else {
+                    print("✅⛓️🥒 Success added POST to VERTICAL LIST  🥒⛓️✅")
+                    completion(nil)
+                }
+            }
+        } else if addOrRemove == .remove {
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.downVotersUIDsArray.rawValue : FieldValue.arrayRemove( [userUID] ) ] ) { error in
+                
+                if let error {
+                    print("🆘🔺⛓️☎️ ERROR removing userUID to downVotersUIDsArray: \(error.localizedDescription) ☎️⛓️🔺🆘")
+                    completion(error)
+                } else {
+                    print("✅⛓️🥒 Success added POST to VERTICAL LIST  🥒⛓️✅")
+                    completion(nil)
+                }
+            }
+        }
+    }
+    //Increment & Decrement Votes
+    //3.
+    
+//    func changeUpVotes(tiID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease) async throws {
+//        if increaseOrDecrease == .increase {
+//            try await PostDocument(tiID: tiID, postID: postID).updateData(["up_votes" : FieldValue.increment(Int64(1))])
+//            try await PostDocument(tiID: tiID, postID: postID).updateData(["total_votes" : FieldValue.increment(Int64(1))])
+//            
+//        } else {
+//            try await PostDocument(tiID: tiID, postID: postID).updateData(["up_votes" : FieldValue.increment(Int64(-1))])
+//            try await PostDocument(tiID: tiID, postID: postID).updateData(["total_votes" : FieldValue.increment(Int64(-1))])
+//        }
+//    }
+//    func changeDownVotes(tiID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease) async throws {
+//        if increaseOrDecrease == .increase {
+//            try await PostDocument(tiID: tiID, postID: postID).updateData(["down_votes" : FieldValue.increment(Int64(1))])
+//            try await PostDocument(tiID: tiID, postID: postID).updateData(["total_votes" : FieldValue.increment(Int64(-1))])
+//            
+//        } else {
+//            try await PostDocument(tiID: tiID, postID: postID).updateData(["down_votes" : FieldValue.increment(Int64(-1))])
+//            try await PostDocument(tiID: tiID, postID: postID).updateData(["total_votes" : FieldValue.increment(Int64(1))])
+//        }
+//    }
+    
+    //UP Votes
+    func changeUpVotes(tiID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease, completion: @escaping (Error?)->Void) {
+        if increaseOrDecrease == .increase {
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.upVotes.rawValue : FieldValue.increment( Int64(1) ) ] ) { error in
+                if let error { print("🔺⛓️ ERROR +1 UP-VOTE : \(error.localizedDescription) ⛓️🔺"); completion(error)
+                } else { print("🌲⛓️ Success +1 UP-VOTES : ⛓️🌲") } }
+            //total Votes
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.totalVotes.rawValue : FieldValue.increment( Int64(1) ) ] ) { error in
+                if let error { print("🔺⛓️ ERROR +1 TOTAL-VOTES : \(error.localizedDescription) ⛓️🔺"); completion(error)
+                } else { print("🌲⛓️ Success +1 TOTAL-VOTES : ⛓️🌲"); completion(nil) } }
+        
+        // DECREASE
+        } else if increaseOrDecrease == .decrease {
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.upVotes.rawValue : FieldValue.increment( Int64(-1) ) ] ) { error in
+                if let error { print("🔺⛓️ ERROR -1 UP-VOTE : \(error.localizedDescription) ⛓️🔺"); completion(error)
+                } else { print("🌲⛓️ Success -1 UP-VOTES : ⛓️🌲") } }
+            //total Votes
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.totalVotes.rawValue : FieldValue.increment( Int64(-1) ) ] ) { error in
+                if let error { print("🔺⛓️ ERROR -1 TOTAL-VOTES : \(error.localizedDescription) ⛓️🔺"); completion(error)
+                } else { print("🌲⛓️ Success -1 TOTAL-VOTES : ⛓️🌲"); completion(nil) } }
+        }
+    }
     
     
+    //DOWN Votes
+    func changeDownVotes(tiID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease, completion: @escaping (Error?)->Void) {
+        if increaseOrDecrease == .increase {
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.downVotes.rawValue : FieldValue.increment( Int64(1) ) ] ) { error in
+                if let error { print("🔺⛓️ ERROR +1 DOWN-VOTE : \(error.localizedDescription) ⛓️🔺"); completion(error)
+                } else { print("🌲⛓️ Success +1 DOWN-VOTES : ⛓️🌲") } }
+            
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.totalVotes.rawValue : FieldValue.increment( Int64(-1) ) ] ) { error in
+                if let error { print("🔺⛓️ ERROR -1 TOTAL-VOTES : \(error.localizedDescription) ⛓️🔺"); completion(error)
+                } else { print("🌲⛓️ Success -1 TOTAL-VOTES : ⛓️🌲"); completion(nil) } }
+           
+        //DECREASE
+        } else if increaseOrDecrease == .decrease {
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.downVotes.rawValue : FieldValue.increment( Int64(-1) ) ] ) { error in
+                if let error { print("🔺⛓️ ERROR -1 DOWN-VOTE : \(error.localizedDescription) ⛓️🔺"); completion(error)
+                } else { print("🌲⛓️ Success -1 DOWN-VOTES : ⛓️🌲") } }
+            
+            PostDocument(tiID: tiID, postID: postID).updateData( [Post.CodingKeys.totalVotes.rawValue : FieldValue.increment( Int64(1) ) ] ) { error in
+                if let error { print("🔺⛓️ ERROR +1 TOTAL-VOTES : \(error.localizedDescription) ⛓️🔺"); completion(error)
+                } else { print("🌲⛓️ Success +1 TOTAL-VOTES : ⛓️🌲"); completion(nil) } }
+        }
+    }
+
     // - 4. Delete
 //    func deletePost(tiID: String, postID: String) async throws {
 //        try await PostDocument(tiID: tiID, postID: postID).delete()
 //    }
+    
 
     func deletePost(tiID: String, postID: String, completion: @escaping (Result <Void, Error>) -> Void ) {
         

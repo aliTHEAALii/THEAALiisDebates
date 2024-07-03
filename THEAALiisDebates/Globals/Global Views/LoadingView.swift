@@ -11,10 +11,14 @@ struct LoadingView: View {
     
 //    @Binding var show: Bool
     @State private var rotation: Double = -360
+    var color: Color = .white
     
     var body: some View {
                
         ZStack {
+            
+            color.opacity(0.2)
+
             
 //            if show {
                 Rectangle()
@@ -51,6 +55,7 @@ struct LoadingView: View {
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView()
+        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2), indexStep: 2)
+//        LoadingView()
     }
 }

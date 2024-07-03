@@ -305,9 +305,7 @@ final class TITVideoManager {
     }
     
     //Increment & Decrement Votes
-    enum IncreaseOrDecrease {
-        case increase, decrease
-    }
+
     func changeUpVotes(tiId: String, tiVideoId: String, increaseOrDecrease: IncreaseOrDecrease) async throws {
         if increaseOrDecrease == .increase {
             try await TITVideoDocument(TITid: tiId, TITVideoID: tiVideoId).updateData(["up_votes" : FieldValue.increment(Int64(1))])

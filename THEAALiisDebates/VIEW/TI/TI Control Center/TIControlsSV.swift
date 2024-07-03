@@ -70,10 +70,10 @@ struct TIControlsSV: View {
 
 struct TIControlsSV_Previews: PreviewProvider {
     static var previews: some View {
-        TIControlsSV(ti: .constant(TestingModels().testingTI), currentIndex: .constant(0), isAdmin: true)
+        TIControlsSV(ti: .constant(TestingModels().testingTIModel), currentIndex: .constant(0), isAdmin: true)
             .preferredColorScheme(.dark)
         
-        TIMap(ti: .constant(TestingModels().testingTI),
+        TIMap(ti: .constant(TestingModels().testingTIModel),
               tiChain: .constant([TestingModels().testTIChainL]), currentIndex: .constant(0))
     }
 }

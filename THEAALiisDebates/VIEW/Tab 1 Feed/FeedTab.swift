@@ -98,12 +98,9 @@ struct FeedCard: View {
             }
             .foregroundColor(.primary)
         }
-        //MARK: - TI 🍃 Sheet
-//        .sheet(isPresented: $showTIT) {
-//            TIView(ti: tit)
-//        }
+        //MARK: - TI 🍃 FSC
         .fullScreenCover(isPresented: $showTIT) {
-            TIView(ti: tit, showTIFSC: $showTIT)
+//            TIView(ti: tit, showTIFSC: $showTIT)
         }
     }
 }

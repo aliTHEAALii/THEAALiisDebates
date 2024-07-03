@@ -10,11 +10,12 @@ import SwiftUI
 struct TIIcon: View {
     
     var scale: CGFloat = 1
+    var tiType: TIType = .d2
     var rotationDegree: CGFloat = 180
     var timeLapseWeight: Font.Weight = .thin
     var triangleWeight:  Font.Weight = .light
     
-    @State var showTriangle: Bool = true
+    var showTriangle: Bool = true
     
     var body: some View {
         
@@ -35,18 +36,50 @@ struct TIIcon: View {
                 Image(systemName: "triangle")
                     .foregroundColor(.ADColors.green)
                     .font(.system(size: width * 0.06 * scale, weight: triangleWeight))
-                    .offset(y: -3)
-                    .rotationEffect(.degrees(rotationDegree))
+                    .offset(y: -3 * scale)
+                    .rotationEffect(.degrees(tiType == .d2 ? 180 : 90))
             }
         }
         .foregroundColor(.primary)
         .preferredColorScheme(.dark)
     }
 }
+struct TiIconForMap: View {
+    
+    let tiType: TIType
+    var showTriangle: Bool = true
+    
+    var body: some View {
+        
+        ZStack {
+            Circle()
+                .fill(Color.black)
+                .frame(width: width * 0.25)
+            Circle()
+                .stroke(lineWidth: 0.7)
+                .frame(width: width * 0.25)
+            
+            Image(systemName: "timelapse")
+                .foregroundColor(.gray)
+                .font(.system(size: width * 0.21, weight: .ultraLight))
+            
+            if showTriangle {
+                Image(systemName: "triangle")
+                    .foregroundColor(.ADColors.green)
+                    .font(.system(size: width * 0.09, weight: .thin))
+                    .offset(y: -3)
+                    .rotationEffect(.degrees(tiType == .d2 ? 180 : 90))
+            }
+        }
+        .foregroundColor(.primary)
+
+    }
+}
 
 struct TIIcon_Previews: PreviewProvider {
     static var previews: some View {
-        TIIcon()
+//        TIIcon()
+        TIIconD1()
 //        TIIconD2()
 //        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2), indexStep: 1)
 
@@ -60,6 +93,7 @@ struct TIIconD1: View {
     var rotationDegree: CGFloat = 180
     var timeLapseWeight: Font.Weight = .thin
     var triangleWeight:  Font.Weight = .light
+    var showTiIcon = true
 
     
     var body: some View {
@@ -70,12 +104,19 @@ struct TIIconD1: View {
             RoundedRectangle(cornerRadius: 8 * scale)
                 .trim(from: 0, to: 0.5)
                 .stroke(lineWidth: 1 * scale)
-                .offset(y: width * -0.03)
+                .offset(y: width * -0.03 * scale)
                 .frame(width: width * 0.66 * scale, height: width * 0.15 * scale)
                 .foregroundColor(.primary)
             
-            TIIcon(scale: scale, rotationDegree: rotationDegree, timeLapseWeight: timeLapseWeight, triangleWeight: triangleWeight)
-                .offset(x: width * -0.1 * scale)
+//            if showTiIcon {
+//                TIIcon(scale: scale, rotationDegree: rotationDegree, timeLapseWeight: timeLapseWeight, triangleWeight: triangleWeight)
+//                    .offset(x: width * -0.1 * scale)
+//            }
+            
+            if showTiIcon {
+                TIIcon(scale: 0.7, rotationDegree: rotationDegree, timeLapseWeight: timeLapseWeight, triangleWeight: triangleWeight)
+                    .offset(x: width * -0.07 * scale, y: 0)
+            }
         }
     }
 }

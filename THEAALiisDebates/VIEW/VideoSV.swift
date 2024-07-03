@@ -48,16 +48,16 @@ struct VideoSV_Previews: PreviewProvider {
     static var previews: some View {
         //        VideoSV(urlString: TestingComponents().videoLink2)
         VotingVideoCard(tiID: "i", tiChainLId: "cid", tiVideoID: "v", tiVideo: TestingModels().titVideo, order: 3, isAdmin: true)
-        TIVideoPlayerSV(tiVideo: .constant(TestingModels().titVideo), urlString: "", sf: 0.85)
+        TIVideoPlayerViewOld(tiVideo: .constant(TestingModels().titVideo), urlString: "", sf: 0.85)
 
-        TIVideoPlayerSV(tiVideo: .constant(nil), urlString: "", sf: 0.85)
+        TIVideoPlayerViewOld(tiVideo: .constant(nil), urlString: "", sf: 0.85)
         VideoSV(urlString: "")
     }
 }
 
 
 //MARK: - TI Video Player SV
-struct TIVideoPlayerSV: View {
+struct TIVideoPlayerViewOld: View {
     
     @Binding var tiVideo: TIVideoModel?
     var urlString : String
@@ -164,22 +164,22 @@ struct TIVideoPlayerSV: View {
 
 
 //MARK: - Play Button SV -
-struct PlayButtonSV: View {
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.black)
-                .frame(width: width * 0.15, height: width * 0.12)
-            //Border
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(lineWidth: 1)
-                .fill(Color.primary)
-                .frame(width: width * 0.15, height: width * 0.12)
-            Image(systemName: "triangle")
-                .font(.title2)
-                .offset(y: width * -0.005)
-                .foregroundColor(.ADColors.green)
-                .rotationEffect(.degrees(90))
-        }
-    }
-}
+//struct PlayButtonSV: View {
+//    var body: some View {
+//        ZStack {
+//            RoundedRectangle(cornerRadius: 8)
+//                .fill(Color.black)
+//                .frame(width: width * 0.15, height: width * 0.12)
+//            //Border
+//            RoundedRectangle(cornerRadius: 8)
+//                .stroke(lineWidth: 1)
+//                .fill(Color.primary)
+//                .frame(width: width * 0.15, height: width * 0.12)
+//            Image(systemName: "triangle")
+//                .font(.title2)
+//                .offset(y: width * -0.005)
+//                .foregroundColor(.ADColors.green)
+//                .rotationEffect(.degrees(90))
+//        }
+//    }
+//}

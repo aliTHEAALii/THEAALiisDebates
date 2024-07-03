@@ -11,6 +11,7 @@ let width  = UIScreen.main.bounds.width
 let height = UIScreen.main.bounds.height
 
 enum AddOrRemove { case add, remove }
+enum IncreaseOrDecrease { case increase, decrease }
 
 extension Color {
     

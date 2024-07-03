@@ -91,9 +91,9 @@ struct TIInfoFSC: View {
 
 struct TIInfoFSC_Previews: PreviewProvider {
     static var previews: some View {
-        TIInfoButton(ti: .constant(TestingModels().testingTI))
+        TIInfoButton(ti: .constant(TestingModels().testingTIModel))
         
-        TIInfoFSC(ti: .constant(TestingModels().testingTI), showTIInfoFSC: .constant(true))
+        TIInfoFSC(ti: .constant(TestingModels().testingTIModel), showTIInfoFSC: .constant(true))
     }
 }
 

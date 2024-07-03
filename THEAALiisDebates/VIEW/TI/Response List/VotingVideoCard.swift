@@ -33,7 +33,7 @@ struct VotingVideoCard: View {
                     //MARK: Video
                     ZStack(alignment: .topLeading) {
                         if tiVideo != nil {
-                            TIVideoPlayerSV(tiVideo: $tiVideo, urlString: "", sf: 0.85)
+                            TIVideoPlayerViewOld(tiVideo: $tiVideo, urlString: "", sf: 0.85)
                         } else {
                             Rectangle()
                                 .fill(Color.gray.opacity(0.2))
@@ -46,7 +46,7 @@ struct VotingVideoCard: View {
                     
                     //MARK: - Voting
                     if tiVideo != nil {
-                        VotingSV(tiId: tiID, tiVideo: $tiVideo, showSideOptions: $showSideOptions)
+                        VotingSVOld(tiId: tiID, tiVideo: $tiVideo, showSideOptions: $showSideOptions)
                     } else {
                         ProgressView()
                             .frame(width: width * 0.15, height: width * 0.45)
@@ -186,7 +186,7 @@ struct VotingVideoCard: View {
 
 struct VotingVideoCard_Previews: PreviewProvider {
     static var previews: some View {
-        VotingVideoCard(tiID: TestingModels().testingTI.id, tiChainLId: "cId", tiVideoID: "256", order: 2, isAdmin: false)
+        VotingVideoCard(tiID: TestingModels().testingTIModel.id, tiChainLId: "cId", tiVideoID: "256", order: 2, isAdmin: false)
     }
 }
 
@@ -290,7 +290,7 @@ final class VotingCardViewModel: ObservableObject {
                 //4. delete thumbnail if exist
                 if let tiVideoThumbnailId {
                     print("🧐🧪👩‍🔬 entered image delete")
-                    try await ImageManager.shared.deleteImage(imageId: tiVideoThumbnailId, thumbnailFor: .video)
+                    try await ImageManager.shared.deleteImage(imageID: tiVideoThumbnailId, thumbnailFor: .video)
                     print("🧐🧪👩‍🔬 Done~~ image delete")
 
                 }

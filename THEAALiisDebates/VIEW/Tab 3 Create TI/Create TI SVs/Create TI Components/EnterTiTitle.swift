@@ -10,6 +10,7 @@ import SwiftUI
 //MARK: - Add TIT Title
 struct EnterTiTitle: View {
     
+    var placeholderText = "TI Title"
     @Binding var tiTitle: String
     
     enum Field { case tiTitle }
@@ -30,7 +31,7 @@ struct EnterTiTitle: View {
                     .frame(width: width * 0.9, height: width * 0.2)
                 
                 if tiTitle == "" {
-                    Text("TI Title")
+                    Text(placeholderText)
                         .foregroundStyle(.white)
                 }
                 
@@ -41,6 +42,7 @@ struct EnterTiTitle: View {
                     .frame(width: width * 0.9, height: width * 0.15, alignment: .center)
                     .focused($focusField, equals: .tiTitle)
                     .submitLabel(.done)
+                    //Logic
                     .onChange(of: tiTitle) { newValue, _ in
                         
                         if tiTitle.contains("\n") {

@@ -12,24 +12,17 @@ final class TiViewModel: ObservableObject {
     @Published var ti: TI = TestingModels().testTId2
     
     init() {
-        fetchTestTi { ti in
-            if ti != nil {
-                self.ti = ti!
-            }
+//        fetchTestTi { ti in
+//            if ti != nil {
+//                self.ti = ti!
+//            }
+//        }
+        Task {
+            try await getTestTi()
         }
     }
     
-//    func fetchTestTi() -> TI? {
-//        
-//        TIManager.shared.getTi(tiID: "7C3CF55B-7119-40BD-9709-E8D6EAB02353") { result in
-//            switch result {
-//            case .success(let ti):
-//                return ti
-//            case .failure(_):
-//                return nil
-//            }
-//        }
-//    }
+    
     func fetchTestTi(completion: @escaping (TI?) -> Void) {
         TIManager.shared.getTi(tiID: "7C3CF55B-7119-40BD-9709-E8D6EAB02353") { result in
             switch result {
@@ -38,6 +31,14 @@ final class TiViewModel: ObservableObject {
             case .failure(_):
                 completion(nil)
             }
+        }
+    }
+    
+    func getTestTi() async throws -> TI? {
+        do {
+            return try await TIManager.shared.fetchTI(tiID: "7C3CF55B-7119-40BD-9709-E8D6EAB02353")
+        } catch {
+            return nil
         }
     }
 }

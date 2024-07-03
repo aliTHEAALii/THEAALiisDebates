@@ -10,7 +10,7 @@ import SwiftUI
 struct TITView: View {
     
     //FIXME: - FIX This Line
-    @State var TIT : TIModel? = TestingModels().testingTI
+    @State var TIT : TIModel? = TestingModels().testingTIModel
     @AppStorage("tit_id") var TITid: String = ""
     
     @ObservedObject private var vmTIT = TITViewModel()

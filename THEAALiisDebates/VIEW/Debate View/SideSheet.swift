@@ -50,7 +50,7 @@ struct SideSheet: View {
                     //MARK: - Left Column
                     VStack(spacing: 0) {
                         
-                        // -
+                        // -LC top B
                         Button {
                             
                         } label: {
@@ -59,7 +59,7 @@ struct SideSheet: View {
                             FutureFeatureButton()
                         }
                         
-                        // -
+                        // - LC middle B
                         Button {
                             
                         } label: {
@@ -67,7 +67,7 @@ struct SideSheet: View {
                                 .frame(width: width * 0.15, height: width * 0.15)
                         }
                         
-                        // -
+                        // -LC bottom B
                         Button {
                             
                         } label: {
@@ -81,7 +81,7 @@ struct SideSheet: View {
                     //MARK: - Right Column
                     VStack(spacing: 0) {
                         
-                        // -
+                        // -RC top B
                         Button {
                             
                         } label: {
@@ -89,7 +89,7 @@ struct SideSheet: View {
                                 .frame(width: width * 0.15, height: width * 0.15)
                         }
                         
-                        // -
+                        // -RC middle B
                         Button {
                             
                         } label: {
@@ -98,7 +98,7 @@ struct SideSheet: View {
                             
                         }
                         
-                        // -
+                        // -RC bottom B
                         Button {
                             withAnimation(.spring()) {
                                 showSideSheet.toggle()
@@ -133,3 +133,9 @@ struct SideSheet: View {
 //            .preferredColorScheme(.dark)
 //    }
 //}
+
+
+//MARK: - Preview
+#Preview {
+    TiView(ti: TestingModels().testTI0, showTiView: .constant(true))
+}

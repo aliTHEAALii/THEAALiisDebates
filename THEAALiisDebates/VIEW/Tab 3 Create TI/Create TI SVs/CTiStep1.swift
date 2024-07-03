@@ -24,7 +24,7 @@ struct CTiStep1: View {
                             .foregroundStyle(.primary, .primary)
                         
                         
-                        Text("Mono Directional (D1)")
+                        Text("Mono Directional (D-1)")
                             .foregroundStyle(tiInteractionType == .d1 ? Color.ADColors.green : .primary)
                     }
                     if tiInteractionType == .d1 {
@@ -45,7 +45,6 @@ struct CTiStep1: View {
             }
             
             
-            
             Button {
                 tiInteractionType = .d2
             } label: {
@@ -53,7 +52,7 @@ struct CTiStep1: View {
                     VStack {
                         D2Icon(sf: 0.6)
                                                 
-                        Text("Bi Directional (D2)")
+                        Text("Bi Directional (D-2)")
                             .foregroundStyle(tiInteractionType == .d2 ? Color.ADColors.green : .primary)
                     }
                     if tiInteractionType == .d2 {

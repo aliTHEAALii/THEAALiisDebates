@@ -48,18 +48,19 @@ final class VideoManager {
     func imageStorageRef(imageID: String) -> StorageReference {
         storage.child("Thumbnails").child(imageID)
     }
-    //    let videoStorageRef = Storage.storage().reference().child("Videos").child(UUID().uuidString)
     
     //MARK: - 1. Create [ UP-Load ]
     func uploadVideo(video: VideoModel, videoID: String) async -> String? {
         
-        let metadata = StorageMetadata ()
+        let metadata = StorageMetadata()
         metadata.contentType = "video/mp4"
+        
         do {
             //uploadTask
             let _ = try await videoStorageRef(videoID: videoID).putFileAsync(from: video.url, metadata: metadata)
+//            let _ = try await videoStorageRef(videoID: videoID).putFile(
             
-            print ("😎🎥  Video Saved! 🎥😎")
+            print ("✅😎🎥  Video Saved! 🎥😎✅")
             
             //grab URL
             do {
@@ -69,7 +70,7 @@ final class VideoManager {
                 let videoURLString: String = videoURL.absoluteString
                 return videoURLString
             } catch {
-                print("❌🤬🎥 ERROR: Could not get videoURL after saving video \(error.localizedDescription) 🎥🤬❌")
+                print("🆘❌🤬🎥 ERROR: Could not get videoURL after saving video \(error.localizedDescription) 🎥🤬❌🆘")
                 return nil
             }
         } catch {
@@ -77,6 +78,39 @@ final class VideoManager {
             return nil
         }
     }
+    func uploadVideoWithHandler(video: VideoModel, videoID: String, completion: @escaping (Result<String?, Error>) -> Void) {
+        let metadata = StorageMetadata()
+        metadata.contentType = "video/mp4"
+
+        videoStorageRef(videoID: videoID).putFile(from: video.url, metadata: metadata) { _, putFileError in
+                if let putFileError = putFileError {
+                    print ("🆘🤬🎥 ERROR: uploading video to FirebaseStorage: \(putFileError.localizedDescription) 🎥🤬🆘")
+                    completion(.failure(putFileError))
+                    return
+                }
+                
+            //Get Video URL
+            self.videoStorageRef(videoID: videoID).downloadURL { url, downloadUrlError in
+                    if let downloadUrlError = downloadUrlError {
+                        print ("🆘🤬🎥 ERROR: getting download URL from FirebaseStorage: \(downloadUrlError.localizedDescription) 🎥🤬🆘")
+                        completion(.failure(downloadUrlError))
+                        return
+                    }
+                    
+                    guard let url = url else {
+                        print ("🆘🤬🎥 ERROR: URL is nil 🎥🤬🆘")
+                        completion(.failure(NSError(domain: "URL is nil", code: -1, userInfo: nil)))
+                        return
+                    }
+                    
+                    print ("✅😎🎥  Video Saved! 🎥😎✅")
+                    completion(.success(url.absoluteString))
+                }
+            }
+        
+    }
+    
+    
     //    // Pause the upload
     //    uploadTask.pause()
     //

@@ -129,7 +129,7 @@ struct UserFSC: View {
         
 #else
         do {
-            currentUser = try await UserManager.shared.getUser(userId: currentUserId)
+            currentUser = try await UserManager.shared.getUser(userId: currentUserUID)
         } catch {
             print("❌⬇️Error: Couldn't fetch current User \n❌[UserFSC]")
             currentUser = nil

@@ -159,7 +159,7 @@ final class TITChainLManager {
     
     //3. - Update
     func addtotiChain(tiId: String, tiChainId: String, tiVideoId: String) async throws {
-        let tiChainIdData: [String: Any] = [
+        let _: [String: Any] = [  //tiChainIdData
             TIModel.CodingKeys.interactionChain.rawValue : FieldValue.arrayUnion([tiChainId])
         ]
         

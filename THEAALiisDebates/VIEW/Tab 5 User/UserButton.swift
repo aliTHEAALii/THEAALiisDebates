@@ -102,27 +102,7 @@ struct UserButton: View {
     var userUID: String? = nil
     
     var horizontalName = false
-    
-    //inits
-//    init(user: UserModel?) {
-//        self.user = user
-//        self.userUID = user?.userUID
-//    }
-//    init(userUID: String?) {
-//        self.userUID = userUID
-//    }
-//    //With Horizontal Name
-//    init(user: UserModel?, horizontalName: Bool) {
-//        self.user = user
-//        self.userUID = user?.userUID
-//        self.horizontalName = horizontalName
-//        
-//    }
-//    init(userUID: String?, horizontalName: Bool) {
-//        self.userUID = userUID
-//        self.horizontalName = horizontalName
-//    }
-    
+    var scale: CGFloat = 1
     
     
     @State private var showUserSheet = false
@@ -130,10 +110,6 @@ struct UserButton: View {
     var body: some View {
         
         HStack(spacing: 0) {
-            
-            
-            
-            
             
             //MARK: - Button
             Button {
@@ -148,56 +124,57 @@ struct UserButton: View {
                             
                             //User Name
                             Text(computedUser?.displayName ?? "No User")
+                                .font(.system(size: width * 0.04 * scale, weight: .regular))
                                 .foregroundStyle(.white)
-                                .padding(.trailing, width * 0.01)
-                                .frame(width: width * 0.4, height: width * 0.07, alignment: .trailing)
+                                .padding(.trailing, width * 0.01 * scale)
+                                .frame(width: width * 0.4 * scale, height: width * 0.07 * scale, alignment: .trailing)
                             
                             Divider()
-                                .frame(width: width * 0.2, alignment: .trailing)
+//                                .frame(width: width * 0.2, alignment: .trailing)
 
                             
                             
                             //User Label
                             (Text(userLabel + " ") + Text(Image(systemName: userLabelIcon)))
                                 .foregroundStyle(.gray)
-                                .font(.system(size: width * 0.03, weight: .regular))
-                                .padding(.trailing, width * 0.01)
-                                .frame(width: width * 0.4, height: width * 0.04, alignment: .trailing)
+                                .font(.system(size: width * 0.03 * scale, weight: .regular))
+                                .padding(.trailing, width * 0.01 * scale)
+                                .frame(width: width * 0.4 * scale, height: width * 0.04 * scale, alignment: .trailing)
                         }
-                        .frame(width: width * 0.4, height: width * 0.12, alignment: .top)
+                        .frame(width: width * 0.4 * scale, height: width * 0.12 * scale, alignment: .top)
                     }
                     
                     ZStack {
                         
                         //Black Background
                         Circle()
-                            .frame(width: width * 0.12)
+                            .frame(width: width * 0.12 * scale)
                             .foregroundColor(.black)
                         
                         if let computedUser {
                             if let profileImageURLString = computedUser.profileImageURLString {
                                 
-                                AsyncImage(url: URL(string: profileImageURLString), scale: 0.5) { image in
+                                AsyncImage(url: URL(string: profileImageURLString), scale: 0.5 * scale) { image in
                                     image
                                         .resizable()
                                         .clipShape(Circle())
                                         .scaledToFit()
-                                        .frame(width: width * 0.12)
+                                        .frame(width: width * 0.12 * scale)
                                     
                                 } placeholder: {
                                     ProgressView()
                                 }
                                 
                                 //User with Nil image
-                            } else { PersonTITIconSV(scale: 1.3) }
+                            } else { PersonTITIconSV(scale: 1.3 * scale) }
                             
                             //User Doesn't exist
                         } else {
                             VStack {
                                 Text("No")
-                                    .font(.system(size: width * 0.03, weight: .light))
+                                    .font(.system(size: width * 0.03 * scale, weight: .light))
                                 Text("User")
-                                    .font(.system(size: width * 0.03, weight: .light))
+                                    .font(.system(size: width * 0.03 * scale, weight: .light))
                             }
                             .background(.black)
                             .foregroundColor(.secondary)
@@ -205,8 +182,8 @@ struct UserButton: View {
                         
                         //Border
                         Circle()
-                            .strokeBorder(lineWidth: 0.5)
-                            .frame(width: width * 0.12)
+                            .strokeBorder(lineWidth: 0.5 * scale)
+                            .frame(width: width * 0.12 * scale)
                             .foregroundColor(.primary)
                         
                     }

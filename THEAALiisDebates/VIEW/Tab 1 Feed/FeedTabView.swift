@@ -12,15 +12,18 @@ import FirebaseFirestoreSwift
 struct FeedTabView: View {
     
     //MARK: - John Gallaugher
-    @FirestoreQuery(collectionPath: "Interactions") var interactionsFeed: [TIModel]
+//    @FirestoreQuery(collectionPath: "Interactions") var interactionsFeed: [TIModel]
+    @FirestoreQuery(collectionPath: "THEAALii_Interactions") var interactionsFeed: [TI]
+//    @State private var tiFeedArray: [TI] = []
+
     
-    @Binding var showTITView: Bool
+//    @Binding var showTiTView: Bool
     
     var body: some View {
         
         ScrollView(showsIndicators: false) {
             
-            //Intro Video: How to use the app
+            //Intro Video: How to use the app //
             Rectangle()
                 .fill(.gray)
                 .frame(width: width, height: width * 0.5625)
@@ -28,26 +31,51 @@ struct FeedTabView: View {
             Text("THEAALii's Interaction Technology (TIT)\n Tutorial")
                 .font(.title2)
                 .multilineTextAlignment(.center)
+            // ------------ //
+            
             
             Divider()
             
+            
             //Interactions Feed
-            LazyVStack {
-                ForEach(interactionsFeed, id: \.id) { interaction in
+            //FIXME: LazyVStack & @FiretoreQuery
+            ///FSQ grabs everything in the db.
+            ///when LazyVStack updates forEach doesn't get the added stuff
+            ///
+//            LazyVStack {
+                ForEach(interactionsFeed, id: \.id) { ti in
+
+                    // Log the title of each TI
+
+                        TiCard(ti: ti)
+                        .onAppear {
+                            print("🐙☘️Rendering TiCard for title: \(ti.id)💥🥬")
+
+//                            print("🐙☘️Rendering TiCard for title: \(ti.title)💥🥬")
+//                            print("😅 \(interactionsFeed) 😄")
+                        }
                     
-                    TITCard(showTITView: $showTITView,
-                            debateID: interaction.id,
-                            debateName: interaction.name,
-                            TIT: interaction)
                 }
-            }
+//            }
+            
+            Rectangle()
+                .foregroundStyle(.white.opacity(0))
+                .frame(width: width, height: width * 0.5)
+
         }
         .preferredColorScheme(.dark)
         //TODO: Refreshable
-        .refreshable {
-            @FirestoreQuery(collectionPath: "Interactions") var interactionsFeed: [TIModel]
+//        .onAppear{
+//            Task {
+//                try? await FeedViewModel().fetchTIs() { tiFeed in
+//                    tiFeedArray = tiFeed
+//                }
+//            }
+//        }
+//        .refreshable {
+//            @FirestoreQuery(collectionPath: "THEAALii_Interactions") var interactionsFeed: [TI]
+//        }
 
-        }
     }
 }
 
@@ -56,7 +84,8 @@ struct FeedTabView_Previews: PreviewProvider {
         //        FeedTabView2(showDebateView: .constant(false))
         //            .environmentObject(DataManagerVM())
 
-        FeedTabView(showTITView: .constant(false))
+        RootView(logStatus: true)
+//        FeedTabView(showTITView: .constant(false))
         //            .environmentObject(DataManagerVM())
 
 
@@ -100,3 +129,93 @@ struct FeedTabView_Previews: PreviewProvider {
 //        .preferredColorScheme(.dark)
 //    }
 //}
+
+//MARK: - TiCard
+struct TiCard: View {
+    
+    var ti: TI
+    
+    @State private var showTiView: Bool = false
+    
+    var body: some View {
+        
+        
+        Button{
+            showTiView.toggle()
+        } label: {
+            
+            VStack(spacing: 0) {
+                ZStack(alignment: .bottom) {
+                    
+                    //Image
+                    VStack {
+                        //TODO: if thumbnail url is nil
+                        if let thumbnailURL = ti.thumbnailURL {
+                            AsyncImage(url: URL(string: thumbnailURL)) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: width, height: width * 0.5625)
+                                
+                            } placeholder: {
+                                LoadingView()
+                                    .frame(width: width, height: width * 0.5625)
+                            }
+                        } else {
+                            
+                        }
+                        
+                        //Bottom area (for the height of the ZStack
+                        Rectangle()
+                            .foregroundStyle(.white.opacity(0))
+                            .frame(height: ti.tiType == .d1 ? width * 0.125 : width * 0.125)
+                    }
+                    
+                    //Ti Icon
+                    if ti.tiType == .d1 {
+                        //                    TIIconD1(scale: 1.2, showTiIcon: false)
+                        RoundedRectangle(cornerRadius: 8)
+                            .trim(from: 0, to: 0.5)
+                            .stroke(lineWidth: 1 )
+                            .offset(y: width * -0.04 )
+                            .frame(width: width * 0.66, height: width * 0.2)
+                            .foregroundColor(.primary)
+                        
+                    } else if ti.tiType == .d2 {
+                        TIIconD2(showTwoSides: false)
+                        
+                    }
+                    
+                    
+                    
+                    //Users
+                    HStack(alignment: .bottom) {
+                        if ti.tiType == .d2 {
+                            UserButton(userUID: ti.lsUserUID)
+                                .padding(.horizontal, width * 0.005)
+                        }
+                        
+                        Spacer()
+                        
+                        UserButton()
+                            .padding(.horizontal, width * 0.005)
+                    }
+                    .frame(width: width, height: width * 0.15)
+                }//ZStack
+                
+                //Ti Title
+                Text(ti.title)
+                    .foregroundStyle(.white, .white)
+                    .frame(width: width * 0.97, alignment: ti.tiType == .d1 ? .center : .center )
+                    .multilineTextAlignment(ti.tiType == .d1 ? .center : .center)
+                    .padding(.top, width * 0.03)
+                    .padding(.bottom)
+            }
+            
+        }
+        //MARK: Ti FSC
+        .fullScreenCover(isPresented: $showTiView) {
+            TiView(ti: ti, showTiView: $showTiView)
+        }
+    }
+}

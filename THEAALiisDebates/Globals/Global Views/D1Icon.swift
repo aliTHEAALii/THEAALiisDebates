@@ -22,7 +22,7 @@ struct D1Icon: View {
             
             VStack(spacing: 0) {
                 
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: 8 * sf)
                     .stroke(lineWidth: 1 * sf)
                     .foregroundStyle(.white, .white)
                     .frame(width: width * sf, height: width * 0.5625 * sf)
@@ -52,8 +52,8 @@ struct D1Icon: View {
 }
 
 #Preview {
-    D1Icon()
-//    D2Icon()
+//    D1Icon()
+    D2Icon()
 }
 
 

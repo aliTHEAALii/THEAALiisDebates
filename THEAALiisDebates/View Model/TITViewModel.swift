@@ -82,7 +82,7 @@ final class TITViewModel: ObservableObject {
             self.titVideo = titVideo
             self.videoURL = titVideo.videoURL
             print("🦠🧬🔗⬇️ got TITVideo ⬇️🔗🧬🦠")
-            print(self.titVideo)
+            print(self.titVideo ?? "No tit Video")
 
         } catch TITError.serverError {
             print("❌🧬🔗⬇️ Error: getting TIT Chain Link [ TITVM.getCLink() ] ⬇️🔗🧬❌")

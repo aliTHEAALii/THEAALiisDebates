@@ -90,7 +90,8 @@ struct VotingSVOld: View {
                     tiVideo!.totalVotes += 1
 
                 }
-                    
+                
+                //if No-Vote
                 try await TITVideoManager.shared.updateUpVotersArray(tiId: tiId, tiVideoId: tiVideoId, userId: currentUserId, addOrRemove: .add)
                 try await TITVideoManager.shared.changeUpVotes(tiId: tiId, tiVideoId: tiVideoId, increaseOrDecrease: .increase)
 

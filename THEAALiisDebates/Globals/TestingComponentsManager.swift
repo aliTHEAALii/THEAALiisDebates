@@ -12,7 +12,22 @@ final class TestingModels {
 
     
     //MARK: - TITs
-    let testingTI = TIModel(
+    var tiFromDBID1 = "A194AC04-93FB-49D1-8F7A-DE1F9F468F79"
+    var tiFromDBID2 = "2A01BA5E-E8E1-4588-857F-DEE0A8A3FB8B"
+
+    
+    func tiFromFB(completion: @escaping (TI?) -> Void) {
+        TIManager.shared.getTi(tiID: self.tiFromDBID2) { result in
+            switch result {
+            case .success(let ti):
+                completion( ti )
+            case .failure(_):
+                completion( nil )//self.testTI0 )
+            }
+        }
+    }
+    
+    let testingTIModel = TIModel(
 //        id: "TIT_tutorial_Interaction_ID",
         id: "10A47E3F-5659-40C9-B14F-A0428390BDFA",
         //10A47E3F-5659-40C9-B14F-A0428390BDFA
@@ -44,7 +59,7 @@ final class TestingModels {
                                   name: "Testing TIT Video 1",
                                  description: "This TIT Video is for testing purposes only", chainLId: "wow2"
                                   )
-    
+        
     
 //    let user1 = UserModel(userUID: "meaw", email: "meaw@paw", name: "Kat Katerson", bio: "Likes dogs!")
     //MARK: - USER
@@ -72,7 +87,15 @@ final class TestingModels {
                       followingUIDs: [], followersUIDs: [],
                       savedUsersUIDs: ["llll", "kkk", "a", "k", "jj"], observingTIs: [])
     
-    var userArray : [UserModel] { [user1, user2, user3] }
+    let user4nil = UserModel(userUID: "Dog Mc Dogin", email: "meaw@paw", dateJoined: Date.now,
+                      displayName: "Miki Mousin 003", bio: "Hates Everyone",
+                      profileImageURLString: nil,
+                      userLabel: "Creator",
+                      createdTIsIDs: [], participatedTIsIDs: [],
+                      followingUIDs: [], followersUIDs: [],
+                      savedUsersUIDs: ["llll", "kkk", "a", "k", "jj"], observingTIs: [])
+    
+    var userArray : [UserModel] { [user1, user2, user3, user4nil] }
     
     //MARK: - TI
     let testTI0 = TI(ID: "id", title: "testing TI title", description: "testing ti Description", thumbnailURL: "https://images.ctfassets.net/ooa29xqb8tix/J6KiaOqQyBtSa84hx6fuI/2cd1d475743a2a42c8643b2a69e88547/Advanced_React_Hooks_800x600_cover.png?w=400&q=50", creatorUID: "uid", tiAdminsUIDs: ["sdf", "asda"], rsLevel1UsersUIDs: ["asd", "sdfdas"], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: .open)
@@ -80,17 +103,9 @@ final class TestingModels {
     let testTI1nil = TI(ID: "id", title: "testing TI 11 title", description: "testing TI 11 des", thumbnailURL: nil, creatorUID: "uid", tiAdminsUIDs: ["sadf"],
                         rsUserUID: "uid", rsLevel1UsersUIDs: ["asdfa"], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: .open,
                         lsUserUID: "uid2", lsLevel1UsersUIDs: ["oooo", "ppp"], lsLevel2UsersUIDs: [], lsLevel3UsersUIDs: [], lsVerticalListAccess: .restricted)
-    let testTId2 = TI(ID: "id", title: "test TI .d2", description: ".d2 description", thumbnailURL: nil, introPostID: "id", creatorUID: "id", tiAdminsUIDs: ["kkk"], dateCreated: Date.now, tiType: .d2, 
-                      ///right chain
-                      rightSideChain: [:],//["meaw": []],
-                        //["ha": ["meaw", "kkk", "lll"], "oo": [], "op": [], "od": [], "oa": [] ], //chain
-                      ///
-                      rsUserUID: "id", rsLevel1UsersUIDs: [], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: .open,
-                      ///left chain
-                      leftSideChain: ["meaw": []],
-                        //["ha": ["meaw", "kkk"], "pp": [] ],// "ii": []],  //chain
-                      //
-                      lsUserUID: "ud", lsLevel1UsersUIDs: [], lsLevel2UsersUIDs: [], lsLevel3UsersUIDs: [], lsVerticalListAccess: .restricted, tiObserversUIDs: ["id"])
+    
+    let testTId2 = TI(ID: "id", title: "test TI .d2", description: ".d2 description", thumbnailURL: nil, creatorUID: "uid", tiAdminsUIDs: ["kkk"], rsUserUID: "rs uid", rsLevel1UsersUIDs: nil, rsLevel2UsersUIDs: nil, rsLevel3UsersUIDs: nil, rsVerticalListAccess: .open, lsUserUID: "ls uid", lsLevel1UsersUIDs: nil, lsLevel2UsersUIDs: nil, lsLevel3UsersUIDs: nil, lsVerticalListAccess: .restricted)
+    
 }
 
 final class TestingImagesVideos {

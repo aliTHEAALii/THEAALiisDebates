@@ -24,7 +24,7 @@ struct PickThumbnailSV: View {
     
     let buttonText: String
     
-    @AppStorage("user_UID") var currentUserUID: String = ""
+    @AppStorage("current_user_id") var currentUserUID: String = ""
     
     @Environment(\.dismiss) var dismiss
     @State var showImagePicker = false
@@ -58,21 +58,24 @@ struct PickThumbnailSV: View {
             } label: {
                 if imageData == nil {
                     ZStack {
-                        Image(systemName: "photo")
-                            .foregroundColor(.secondary)
-                            .font(.system(size: width * 0.15, weight: .thin))
+                        
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(lineWidth: 1)
+                            .foregroundStyle(.red)
+                            .frame(width: width * 0.22, height: width * 0.5625 * 0.22)
+
                         
                     }
                 } else {
                     ZStack {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(lineWidth: 1)
-                            .frame(width: width * 0.3, height: width * 0.5625 * 0.3)
+                            .frame(width: width * 0.22, height: width * 0.5625 * 0.22)
                         
                         Image(uiImage: UIImage(data: imageData! )!)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: width * 0.3, height: width * 0.5625 * 0.3)
+                            .frame(width: width * 0.22, height: width * 0.5625 * 0.22)
                     }
                 }
             }
@@ -157,92 +160,10 @@ struct PickThumbnailSV: View {
 struct PickThumbnailSV_Previews: PreviewProvider {
     static var previews: some View {
         
-        CreateTIFSC(showFSC: .constant(true), selectedTabIndex: .constant(2))
+//        CreateTIFSC(showFSC: .constant(true), selectedTabIndex: .constant(2))
         CreateDebateFSC(selectedTabIndex: .constant(2), showFullScreenCover: .constant(true))
         
         //        PickThumbnailSV(imageURL: .constant(TestingComponents().imageURLStringDesignnCode), buttonText: "TIT Thumbnail")
         //        PickThumbnailSV(imageURL: .constant(nil), buttonText: "TIT Thumbnail")
     }
-}
-
-
-//MARK: - Pick Thumbnail Button
-struct PickThumbnailButton: View {
-    
-    //FIXME: TII - TI
-    enum ThumbnailFor: String {
-        case TI = "TI_Thumbnails", video = "Video_Thumbnails"
-    }
-    
-    let thumbnailFor: ThumbnailFor
-    let thumbnailForTypeID: String
-    
-    @Binding var imageData: Data? //URL
-    
-    let buttonText: String
-    
-    @AppStorage("current_user_id") var currentUserUID: String = ""
-    
-    @Environment(\.dismiss) var dismiss
-    @State var showImagePicker = false
-    @State var selectedPhoto: PhotosPickerItem?
-    
-    //MARK: View
-    var body: some View {
-
-        Button {
-            showImagePicker.toggle()
-        } label: {
-            ZStack {
-                
-                if imageData == nil {
-                    Text("THEAALii's Interaction \nThumbnail")
-                        .font(.title2)
-                        .foregroundColor(.primary)
-                } else {
-                    Image(uiImage: UIImage(data: imageData! )!)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-//                        .frame(width: width * 0.4, height: width * 0.5625 * 0.4)
-                        .frame(width: width, height: width * 0.5625)
-
-                }
-                
-                //Border
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(lineWidth: 0.5)
-                    .foregroundColor(imageData != nil ? .primary : .red)
-//                    .frame(width: width * 0.4, height: width * 0.5625 * 0.4)
-                    .frame(width: width, height: width * 0.5625)
-
-            }
-        }
-//        .frame(width: width, alignment: .leading)
-        .preferredColorScheme(.dark)
-        //MARK: pick
-        .photosPicker(isPresented: $showImagePicker, selection: $selectedPhoto)
-//        .onChange(of: selectedPhoto) { newValue in
-        .onChange(of: selectedPhoto) { oldValue, newValue in
-
-            //extracting uiImage from photoItem
-            if let newValue {
-                Task {
-                    do {
-                        guard let imageData = try await newValue.loadTransferable(type: Data.self) else { return }
-                        
-                        await MainActor.run(body: {
-                            self.imageData = imageData
-                        })
-                        
-                        //                        let _ = await saveImage(image: UIImage(data: imageData)!)
-                        
-                    } catch {
-                        print("❌🤬📸Error: selecting image failed\(error.localizedDescription)")
-                    }
-                }
-            }
-        }
-    }
-        
-    //MARK: - Function [ Save Image ]
 }

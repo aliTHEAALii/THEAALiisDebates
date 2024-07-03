@@ -111,29 +111,58 @@ final class CreateTIVM: ObservableObject {
 //@MainActor
 final class CreateTiVM {
     
-     var tiID: String = UUID().uuidString
-    
+    //MARK: - Create D1 Ti
     func createD1Ti(
-        title: String, description: String, thumbnailURL: String?,
+        id: String,
+        title: String, description: String, tiThumbnailData: Data?,
         creatorUID: String, tiAdminsUIDs: [String],
         
-        rsLevel1UsersUIDs : [String],
-        rsLevel2UsersUIDs : [String],
-        rsLevel3UsersUIDs : [String],
+        rsLevel1UsersUIDs : [String]?,
+        rsLevel2UsersUIDs : [String]?,
+        rsLevel3UsersUIDs : [String]?,
         
         rsVerticalListAccess: VerticalListAccess,
         
         completion: @escaping (_ success: Bool) -> Void
     ) async -> Bool {
         
-        let d1Ti = TI(ID: tiID, title: title, description: description,
-                      thumbnailURL: thumbnailURL, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
+        let thumbnailURLString: String? = await ImageManager.shared.saveImage(imageData: tiThumbnailData,
+                                                       thumbnailFor: .TI,
+                                                                     thumbnailForTypeId: id)
+        
+        guard let thumbnailURLString = thumbnailURLString else {
+            print("❌🔥🍒🔼📸 Error Creating D1Ti: Couldn't upload Image 📸🔼🍒🔥❌")
+            completion(false)
+            return false
+        }
+        
+        let introChainLink = ChainLink(id: id, title: "intro", thumbnailURL: thumbnailURLString)
+
+        let introPost = Post(id: id, title: "Intro", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
+        )
+        
+        let d1Ti = TI(ID: id, title: title, description: description,
+                      thumbnailURL: thumbnailURLString, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
                       rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess)
         Task {
             do {
                 try await TIManager.shared.createTI(ti: d1Ti)
-                
                 print("✅🔥🥬🔼 Success: uploaded d1Ti 🔼🥬🔥✅")
+
+                //chain
+                ChainLinkManager.shared.createChainLink(tiID: id, chainLink: introChainLink) { error in
+                    if error == nil {
+                        print("✅🔼⛓️🔥🐍 Success: uploaded d1Ti Chain Link 🐍🔥⛓️🔼✅")
+                        completion(true)
+                    } else {
+                        print("❌🔼⛓️🔥🐍 Error: uploaded d1Ti Chain Link 🐍🔥⛓️🔼❌")
+                        completion(false)
+                    }
+                }
+                
+                try await PostManager.shared.createPost(tiID: id, post: introPost)
+                
+                print("✅🔥🥬🔼 Success: uploaded [ introPost ] 🔼🥬🔥✅")
                 completion(true)
                 return true
                 
@@ -146,5 +175,164 @@ final class CreateTiVM {
         }
         
         return false
+    }
+    
+    
+    //MARK: - Create D2 Ti
+    func createD2TiOld(
+        id: String,
+        title: String, description: String, tiThumbnailData: Data?,
+        creatorUID: String, tiAdminsUIDs: [String],
+        
+        //right
+        rsUserUID : String          ,
+        rsLevel1UsersUIDs : [String]?,
+        rsLevel2UsersUIDs : [String]?,
+        rsLevel3UsersUIDs : [String]?,
+        
+        rsVerticalListAccess: VerticalListAccess,
+        
+        //left
+        lsUserUID : String          ,
+        lsLevel1UsersUIDs : [String]?,
+        lsLevel2UsersUIDs : [String]?,
+        lsLevel3UsersUIDs : [String]?,
+        
+        lsVerticalListAccess: VerticalListAccess,
+        
+        completion: @escaping (_ success: Bool) -> Void
+    ) async -> Bool {
+        
+        let thumbnailURLString: String? = await ImageManager.shared.saveImage(imageData: tiThumbnailData,
+                                                       thumbnailFor: .TI,
+                                                                     thumbnailForTypeId: id)
+        
+        guard let thumbnailURLString = thumbnailURLString else {
+            print("❌🔥🍒🔼📸 Error Creating D2Ti: Couldn't upload Image 📸🔼🍒🔥❌")
+            completion(false)
+            return false
+        }
+
+        let introPost = Post(id: id, title: "Intro", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
+        )
+        
+        let introChainLink = ChainLink(id: id, title: "Intro", thumbnailURL: thumbnailURLString)
+        
+        let d2Ti = TI(ID: id, title: title, description: description, thumbnailURL: thumbnailURLString, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
+                       rsUserUID: rsUserUID, rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess,
+                       lsUserUID: lsUserUID, lsLevel1UsersUIDs: lsLevel1UsersUIDs, lsLevel2UsersUIDs: lsLevel2UsersUIDs, lsLevel3UsersUIDs: lsLevel3UsersUIDs, lsVerticalListAccess: lsVerticalListAccess)
+        Task {
+            do {
+                try await TIManager.shared.createTI(ti: d2Ti)
+                
+                //TODO: - add Ti to current user's created Tis
+                
+                print("✅🔥🥬🔼 Success: uploaded d1Ti 🔼🥬🔥✅")
+                
+                //chain
+                ChainLinkManager.shared.createChainLink(tiID: id, chainLink: introChainLink) { error in
+                    if error == nil {
+                        print("✅🔼⛓️🔥🐍 Success: uploaded d1Ti Chain Link 🐍🔥⛓️🔼✅")
+                        completion(true)
+                    } else {
+                        print("❌🔼⛓️🔥🐍 Error: uploaded d1Ti Chain Link 🐍🔥⛓️🔼❌")
+                        completion(false)
+                    }
+                }
+                
+                print("✅🔥🥬🔼 Success: uploaded d1Ti 🔼🥬🔥✅")
+                
+                //post
+                try await PostManager.shared.createPost(tiID: id, post: introPost)
+                
+                print("✅🔥🥬🔼 Success: uploaded [ introPost ] 🔼🥬🔥✅")
+                completion(true)
+                return true
+                
+            } catch {
+                print("❌🔥🍇🔼 Error: Couldn't upload d1Ti 🔼🍇🔥❌")
+                completion(false)
+                
+                return false
+            }
+        }
+        
+        return false
+    }
+    
+    //New
+    func createD2Ti(
+        id: String,
+        title: String, description: String, tiThumbnailData: Data?,
+        creatorUID: String, tiAdminsUIDs: [String],
+        
+        //right
+        rsUserUID : String          ,
+        rsLevel1UsersUIDs : [String]?,
+        rsLevel2UsersUIDs : [String]?,
+        rsLevel3UsersUIDs : [String]?,
+        
+        rsVerticalListAccess: VerticalListAccess,
+        
+        //left
+        lsUserUID : String          ,
+        lsLevel1UsersUIDs : [String]?,
+        lsLevel2UsersUIDs : [String]?,
+        lsLevel3UsersUIDs : [String]?,
+        
+        lsVerticalListAccess: VerticalListAccess,
+        
+        completion: @escaping (Error?) -> Void ) async {
+        
+        let thumbnailURLString: String? = await ImageManager.shared.saveImage(imageData: tiThumbnailData,
+                                                       thumbnailFor: .TI,
+                                                                     thumbnailForTypeId: id)
+        
+        guard let thumbnailURLString = thumbnailURLString else {
+            print("❌🔥🍒🔼📸 Error Creating D2Ti: Couldn't upload Image 📸🔼🍒🔥❌")
+            return
+//            completion()
+        }
+
+        let introPost = Post(id: id, title: "Intro", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
+        )
+        
+        let introChainLink = ChainLink(id: id, title: "Intro", thumbnailURL: thumbnailURLString)
+        
+        let d2Ti = TI(ID: id, title: title, description: description, thumbnailURL: thumbnailURLString, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
+                       rsUserUID: rsUserUID, rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess,
+                       lsUserUID: lsUserUID, lsLevel1UsersUIDs: lsLevel1UsersUIDs, lsLevel2UsersUIDs: lsLevel2UsersUIDs, lsLevel3UsersUIDs: lsLevel3UsersUIDs, lsVerticalListAccess: lsVerticalListAccess)
+        Task {
+            do {
+                try await TIManager.shared.createTI(ti: d2Ti)
+                
+                //TODO: - add Ti to current user's created Tis
+                
+                print("✅🔥🥬🔼 Success: uploaded d1Ti 🔼🥬🔥✅")
+                
+                //chain
+                ChainLinkManager.shared.createChainLink(tiID: id, chainLink: introChainLink) { error in
+                    if error == nil {
+                        completion(nil)
+                    } else {
+                        completion(error)
+                    }
+                }
+                
+                print("✅🔥🥬🔼 Success: uploaded d1Ti 🔼🥬🔥✅")
+                
+                //post
+                try await PostManager.shared.createPost(tiID: id, post: introPost)
+                
+                print("✅🔥🥬🔼 Success: uploaded [ introPost ] 🔼🥬🔥✅")
+                completion(nil)
+                return true
+                
+            } catch {
+                print("❌🔥🍇🔼 Error: Couldn't upload d1Ti 🔼🍇🔥❌")
+                completion(error)
+                return false
+            }
+        }
     }
 }

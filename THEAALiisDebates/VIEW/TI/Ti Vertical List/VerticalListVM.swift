@@ -6,3 +6,52 @@
 //
 
 import Foundation
+
+
+final class VerticalListVM {
+    
+    
+    func uploadPostToChainLinkVerticalList(tiID: String, chainLinkID: String, postID: String,
+                                           
+                                           title: String,
+                                           postType: PostType,
+                                           description: String,
+                                           imageData: Data?,
+                                           videoURL: String?,
+                                           creatorUID: String,
+                                           completion: @escaping (Error?)->Void ) async throws {
+        
+        
+        let thumbnailURLString: String? = await ImageManager.shared.saveImage(imageData: imageData,
+                                                                              thumbnailFor: .post,
+                                                                              thumbnailForTypeId: postID)
+        guard let thumbnailURLString = thumbnailURLString else {
+            print("❌🔥🍒🔼📸 Error Creating D2Ti: Couldn't upload Image 📸🔼🍒🔥❌")
+            return
+        }
+        
+        
+        let post = Post(id: postID, title: title, type: postType, text: description, imageURL: thumbnailURLString, videoURL: videoURL, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
+        )
+        
+        PostManager.shared.createPost(tiID: tiID, post: post) { error in
+            if let error {
+                print("🆘🔺⛓️😶‍🌫️ ERROR creating post: \(error.localizedDescription) 😶‍🌫️⛓️🔺🆘")
+                completion(error)
+            } else {
+                
+                ChainLinkManager.shared.addPostToVerticalList(tiID: tiID, chainLinkID: chainLinkID, postID: postID) { error in
+                    
+                    if let error {
+                        print("🆘🔺⛓️🥩 ERROR adding post to vertical list: \(error.localizedDescription) 🥩⛓️🔺🆘")
+                        completion(error)
+                        
+                    } else {
+                        print("✅⛓️🦖 Success added POST to VERTICAL LIST  🦖⛓️✅")
+                        completion(nil)
+                    }
+                }
+            }
+        }
+    }
+}

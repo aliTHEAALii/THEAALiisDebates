@@ -57,13 +57,15 @@ struct CTiStep2D2: View {
 
                     //TI Icon
                     TIIconD2(scale: 0.95, showTwoSides: false)
+                        .offset(y: width * -0.026)
+                    
                 }
                 .frame(width: width, height: width * 0.7)
 
                 
                 
                 //MARK: TI Title
-                AddTITitle(tiTitle: $tiTitle)
+                EnterTiTitle(tiTitle: $tiTitle)
 //                    .offset(y: width * 0.03)
 
                 //MARK: Description
