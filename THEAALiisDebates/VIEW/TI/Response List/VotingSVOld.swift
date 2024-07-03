@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct VotingSV: View {
+struct VotingSVOld: View {
     
     let tiId: String
     @Binding var tiVideo: TIVideoModel?
@@ -147,7 +147,7 @@ struct VotingSV: View {
 //MARK: preview
 struct VotingSV_Previews: PreviewProvider {
     static var previews: some View {
-        VotingSV(tiId: "tiId", tiVideo: .constant(TestingModels().titVideo1), showSideOptions: .constant(false))
+        VotingSVOld(tiId: "tiId", tiVideo: .constant(TestingModels().titVideo1), showSideOptions: .constant(false))
     }
 }
 

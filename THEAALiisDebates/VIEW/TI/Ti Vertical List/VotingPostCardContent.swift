@@ -1,18 +1,18 @@
 //
-//  VerticalListView.swift
+//  VotingPostCardContent.swift
 //  THEAALiisDebates
 //
-//  Created by Ali Kadhum on 6/27/24.
+//  Created by Ali Kadhum on 6/30/24.
 //
 
 import SwiftUI
 
-struct VerticalListView: View {
+struct VotingPostCardContent: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    VerticalListView()
+    VotingPostCardContent()
 }
