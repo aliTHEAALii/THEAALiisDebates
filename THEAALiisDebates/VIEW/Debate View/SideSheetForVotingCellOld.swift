@@ -7,9 +7,12 @@
 
 import SwiftUI
 
-struct SideSheetForVotingCell: View {
+struct SideSheetForVotingCellOld: View {
     
     let isAdmin: Bool
+    
+    
+    
     @ObservedObject var cardVM = VotingCardViewModel()
     @Binding var showSideSheet: Bool
     
@@ -118,7 +121,7 @@ struct SideSheetForVotingCell_Previews: PreviewProvider {
         VotingCell()
             .preferredColorScheme(.dark)
 
-        SideSheetForVotingCell(isAdmin: true, showSideSheet: .constant(true))
+        SideSheetForVotingCellOld(isAdmin: true, showSideSheet: .constant(true))
             .preferredColorScheme(.dark)
     }
 }
