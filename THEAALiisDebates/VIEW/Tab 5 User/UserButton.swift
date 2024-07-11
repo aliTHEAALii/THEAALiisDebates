@@ -89,7 +89,9 @@ struct UserButton_Previews: PreviewProvider {
 //            //            imageURL: TestingComponents().imageURLStringDesignnCode
 //        )
         
-        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2))
+        TiCard(ti: TestingModels().testTI0)
+
+//        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2))
 
     }
 }
@@ -103,6 +105,7 @@ struct UserButton: View {
     
     var horizontalName = false
     var scale: CGFloat = 1
+    var horizontalWidth: CGFloat = width * 0.4
     
     
     @State private var showUserSheet = false
@@ -120,14 +123,14 @@ struct UserButton: View {
                     
                     //MARK: - Text & Icon
                     if horizontalName {
-                        VStack(spacing: 0) {
+                        VStack(alignment: .trailing, spacing: 0) {
                             
                             //User Name
                             Text(computedUser?.displayName ?? "No User")
-                                .font(.system(size: width * 0.04 * scale, weight: .regular))
+                                .font(.system(size: width * 0.045 * scale, weight: .regular))
                                 .foregroundStyle(.white)
                                 .padding(.trailing, width * 0.01 * scale)
-                                .frame(width: width * 0.4 * scale, height: width * 0.07 * scale, alignment: .trailing)
+//                                .frame(width: width * 0.4 * scale, height: width * 0.07 * scale, alignment: .trailing)
                             
                             Divider()
 //                                .frame(width: width * 0.2, alignment: .trailing)
@@ -139,11 +142,13 @@ struct UserButton: View {
                                 .foregroundStyle(.gray)
                                 .font(.system(size: width * 0.03 * scale, weight: .regular))
                                 .padding(.trailing, width * 0.01 * scale)
-                                .frame(width: width * 0.4 * scale, height: width * 0.04 * scale, alignment: .trailing)
+//                                .frame(width: width * 0.4 * scale, height: width * 0.04 * scale, alignment: .trailing)
                         }
-                        .frame(width: width * 0.4 * scale, height: width * 0.12 * scale, alignment: .top)
+                        .frame(width: horizontalWidth, height: width * 0.12 * scale, alignment: .topTrailing)
+//                        .frame(alignment: .topTrailing)
                     }
                     
+                    //MARK: - profile Pic Circle
                     ZStack {
                         
                         //Black Background

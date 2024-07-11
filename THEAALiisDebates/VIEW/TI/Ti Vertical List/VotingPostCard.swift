@@ -71,8 +71,12 @@ struct VotingPostCard: View {
                                            showSideSheet: $showSideOptions)
                     .offset(x: showSideOptions ? width * 0.275 : width * 0.777)
                 } else {
-                    SideSheetForVotingCell(isAdmin: isAdmin, showSideSheet: $showSideOptions)
+                    SideSheetForVotingCellOld(isAdmin: isAdmin, showSideSheet: $showSideOptions)
                         .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
+//                    VotingPostCardSideSheet(isAdmin: isAdmin, ti: $ti,
+//                                            tiChain: ,
+//                                            selectedChainLinkIndex: ,
+//                                            tiChainLink: $chainLink, tiPost: $tiPost, showSideSheet: $showSideOptions)
                 }
             }
             .frame(height: width * 0.5625 * 0.85)
@@ -210,10 +214,11 @@ struct VotingButtonsSV: View {
     
     //MARK: - UPVOTE func
     private func upVote() {
-        guard let tiID   = ti?.id else { return }
-        guard let vlPost = vlPost else { return }
-        
         loadingUpVote = true
+
+        guard let tiID   = ti?.id else { loadingUpVote = false; return }
+        guard let vlPost = vlPost else { loadingUpVote = false; return }
+        
         
         if vlPost.upVotersUIDsArray.contains(currentUserUID) {
             print("💃")
@@ -281,8 +286,10 @@ struct VotingButtonsSV: View {
     
     //MARK: - DOWNVOTE func
     private func downVote() {
-        guard let tiID   = ti?.id else { return }
-        guard let vlPost = vlPost else { return }
+        loadingDownVote = true
+
+        guard let tiID   = ti?.id else { loadingDownVote = false; return }
+        guard let vlPost = vlPost else { loadingDownVote = false; return }
         
         loadingDownVote = true
         
@@ -348,46 +355,6 @@ struct VotingButtonsSV: View {
         
         loadingDownVote = false
     }
-    
-    //    private func downVote() {
-    //        Task {
-    //            guard let tiVideoId = vlPost?.id else { return }
-    //
-    //            if vlPost!.downVotersIDArray.contains(currentUserId) {
-    //                //remove userId from array
-    //                try await TITVideoManager.shared.updateDownVotersArray(tiId: tiId, tiVideoId: tiVideoId, userId: currentUserId, addOrRemove: .remove)
-    //                try await TITVideoManager.shared.changeDownVotes(tiId: tiId, tiVideoId: tiVideoId, increaseOrDecrease: .decrease)
-    //
-    //
-    //                vlPost!.downVotersIDArray.remove(object: currentUserId)
-    //                vlPost!.downVotes -= 1
-    //                vlPost!.totalVotes += 1
-    //
-    //
-    //            } else {
-    //                //if upvoted
-    //                if vlPost!.upVotersIDArray.contains(currentUserId) {
-    //                    try await TITVideoManager.shared.updateUpVotersArray(tiId: tiId, tiVideoId: tiVideoId, userId: currentUserId, addOrRemove: .remove)
-    //                    try await TITVideoManager.shared.changeUpVotes(tiId: tiId, tiVideoId: tiVideoId, increaseOrDecrease: .decrease)
-    //
-    //                    vlPost!.upVotersIDArray.remove(object: currentUserId)
-    //                    vlPost!.upVotes -= 1
-    //                    vlPost!.totalVotes -= 1
-    //
-    //                }
-    //
-    //                try await TITVideoManager.shared.updateDownVotersArray(tiId: tiId, tiVideoId: tiVideoId, userId: currentUserId, addOrRemove: .add)
-    //                try await TITVideoManager.shared.changeDownVotes(tiId: tiId, tiVideoId: tiVideoId, increaseOrDecrease: .increase)
-    //
-    //
-    //                vlPost!.downVotersIDArray.append(currentUserId)
-    //                vlPost!.downVotes += 1
-    //                vlPost!.totalVotes -= 1
-    //
-    //            }
-    //        }
-    //    }
-    //MARK: - Voting Funcs end
 }
 
 

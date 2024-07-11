@@ -72,7 +72,7 @@ struct VotingCell: View {
                 .frame(width: width, alignment: .leading)
                 
 //                SideOptionsSheet(showSideSheet: $showSideOptions)
-                SideSheetForVotingCell(isAdmin: false, showSideSheet: $showSideOptions)
+                SideSheetForVotingCellOld(isAdmin: false, showSideSheet: $showSideOptions)
                                     .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
             }
             

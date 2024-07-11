@@ -10,6 +10,18 @@ import SwiftUI
 let width  = UIScreen.main.bounds.width
 let height = UIScreen.main.bounds.height
 
+struct FrameModifier: ViewModifier {
+    
+    var width: CGFloat = UIScreen.main.bounds.width
+    var height: CGFloat = UIScreen.main.bounds.height
+    
+    func body(content: Content) -> some View {
+
+        content
+            .frame(width: width, height: height)
+    }
+}
+
 enum AddOrRemove { case add, remove }
 enum IncreaseOrDecrease { case increase, decrease }
 
@@ -30,3 +42,5 @@ extension Array where Element: Equatable {
     }
 
 }
+
+

@@ -15,6 +15,10 @@ struct TiVerticalListView: View {
     @Binding var tiChainLink: ChainLink?
     @Binding var tiPost: Post?
     
+    @Binding var selectedChainLinkIndex: Int
+    
+    @State private var verticalListPosts: [Post] = []
+    
     
     var body: some View {
         VStack(spacing: 0) {
@@ -46,21 +50,81 @@ struct TiVerticalListView: View {
             }
             .padding(.vertical)
             
-            if let verticalList = tiChainLink?.verticalList {
-                
-                //ForEach(Array(zip(verticalList.indices, verticalList)), id: \.0) { index, postID in
-                ForEach(Array(verticalList.enumerated()), id: \.element) { index, postID in
+
+            if tiChainLink != nil {
+
+                //For the fetch
+                Rectangle()
+                    .frame(width: 0, height: 0)
+                    .foregroundStyle(.clear)
+                    .onAppear{ fetchSortVerticalList() }
+                    .onChange(of: selectedChainLinkIndex) { _, _ in
+                            fetchSortVerticalList()
+                    }
+
+                if  !verticalListPosts.isEmpty {
+
+                    //            if let vl = tiChainLink?.verticalList {
                     
-                    //                    VotingPostCard(postID: postID, ti: $ti, chainLink: $tiChainLink, 
+                    
+                    //ForEach(Array(zip(verticalList.indices, verticalList)), id: \.0) { index, postID in
+                    //                ForEach(Array(verticalList.enumerated()), id: \.element) { index, postID in
+                    //
+                    //                    //                    VotingPostCard(postID: postID, ti: $ti, chainLink: $tiChainLink,
+                    //                    //                                   tiPostID: postID,
+                    //                    //                                   order: index + 1, isAdmin: true)
+                    //                    //                            }
+                    //                    VotingPostCard(postID: postID,
+                    //                                   ti: $ti,
+                    //                                   chainLink: $tiChainLink,
                     //                                   tiPostID: postID,
-                    //                                   order: index + 1, isAdmin: true)
-                    //                            }
-                    VotingPostCard(postID: postID, 
-                                   ti: $ti,
-                                   chainLink: $tiChainLink,
-                                   tiPostID: postID,
-                                   order: index + 1, 
-                                   isAdmin: true)
+                    //                                   order: index + 1,
+                    //                                   isAdmin: true)
+                    //                }
+                    ForEach(Array(zip(verticalListPosts.indices, verticalListPosts)), id: \.1.id ) { index, post in
+                        VotingPostCard(postID: post.id,
+                                       ti: $ti,
+                                       chainLink: $tiChainLink,
+                                       tiPostID: post.id,
+                                       order: index + 1,
+                                       isAdmin: true)
+                    }
+                }
+
+            } else {
+                ProgressView()
+            }
+        }
+//        .onChange(of: selectedChainLinkIndex) { _, _ in
+//                fetchSortVerticalList()
+//        }
+        
+    }
+    
+    func fetchSortVerticalList() {
+        guard let ti else { return }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            
+            if let verticalListPostIDs = tiChainLink?.verticalList {
+                verticalListPosts = []
+                for (i, postID) in verticalListPostIDs.enumerated() {
+                    
+                    PostManager.shared.getPost(tiID: ti.id, postID: postID) { result in
+                        switch result{
+                        case .success(let post):
+                            verticalListPosts.append(post)
+                            
+                            if i == verticalListPostIDs.count - 2 {
+                                verticalListPosts.sort(by: { $0.totalVotes > $1.totalVotes } )
+                            } else if i == verticalListPostIDs.count - 1 {
+                                verticalListPosts.sort(by: { $0.totalVotes > $1.totalVotes } )
+                            }
+                            
+                        case .failure(_):
+                            tiPost = nil
+                        }
+                    }
                 }
             }
         }

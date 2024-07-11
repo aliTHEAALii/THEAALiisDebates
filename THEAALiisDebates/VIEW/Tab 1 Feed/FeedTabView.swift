@@ -12,8 +12,9 @@ import FirebaseFirestoreSwift
 struct FeedTabView: View {
     
     //MARK: - John Gallaugher
-//    @FirestoreQuery(collectionPath: "Interactions") var interactionsFeed: [TIModel]
-    @FirestoreQuery(collectionPath: "THEAALii_Interactions") var interactionsFeed: [TI]
+//    @FirestoreQuery(collectionPath: "THEAALii_Interactions") var interactionsFeed: [TI]
+    @State var interactionsFeed: [TI] = []
+
 //    @State private var tiFeedArray: [TI] = []
 
     
@@ -24,13 +25,13 @@ struct FeedTabView: View {
         ScrollView(showsIndicators: false) {
             
             //Intro Video: How to use the app //
-            Rectangle()
-                .fill(.gray)
-                .frame(width: width, height: width * 0.5625)
-            
-            Text("THEAALii's Interaction Technology (TIT)\n Tutorial")
-                .font(.title2)
-                .multilineTextAlignment(.center)
+//            Rectangle()
+//                .fill(.gray)
+//                .frame(width: width, height: width * 0.5625)
+//            
+//            Text("THEAALii's Interaction Technology (TI)\n Tutorial")
+//                .font(.title2)
+//                .multilineTextAlignment(.center)
             // ------------ //
             
             
@@ -47,13 +48,15 @@ struct FeedTabView: View {
 
                     // Log the title of each TI
 
-                        TiCard(ti: ti)
-                        .onAppear {
-                            print("🐙☘️Rendering TiCard for title: \(ti.id)💥🥬")
-
-//                            print("🐙☘️Rendering TiCard for title: \(ti.title)💥🥬")
-//                            print("😅 \(interactionsFeed) 😄")
-                        }
+                    TiCard(ti: ti)
+                    
+//                        TiCard(ti: ti)
+//                        .onAppear {
+//                            print("🐙☘️Rendering TiCard for title: \(ti.id)💥🥬")
+//
+////                            print("🐙☘️Rendering TiCard for title: \(ti.title)💥🥬")
+////                            print("😅 \(interactionsFeed) 😄")
+//                        }
                     
                 }
 //            }
@@ -64,19 +67,28 @@ struct FeedTabView: View {
 
         }
         .preferredColorScheme(.dark)
-        //TODO: Refreshable
-//        .onAppear{
-//            Task {
-//                try? await FeedViewModel().fetchTIs() { tiFeed in
-//                    tiFeedArray = tiFeed
-//                }
-//            }
-//        }
-//        .refreshable {
-//            @FirestoreQuery(collectionPath: "THEAALii_Interactions") var interactionsFeed: [TI]
-//        }
+        .onAppear{ Task { await onAppearFetch() } }
+        .refreshable { Task { await onAppearFetch() }  }
 
     }
+    
+    //MARK: - function
+    func onAppearFetch() async {
+        do {
+            let querySnapshot = try await Firestore.firestore()
+                .collection("THEAALii_Interactions")
+//                .whereField("ti_type", isEqualTo: "D-1") // Add condition
+                .order(by: "ti_absolute_votes", descending: true) // Sort by field
+                .getDocuments()
+            let fetchedInteractions = querySnapshot.documents.compactMap { document in
+                try? document.data(as: TI.self)
+            }
+            interactionsFeed = fetchedInteractions
+        } catch {
+            print("Error fetching interactions: \(error)")
+        }
+    }
+
 }
 
 struct FeedTabView_Previews: PreviewProvider {
@@ -131,7 +143,7 @@ struct FeedTabView_Previews: PreviewProvider {
 //}
 
 //MARK: - TiCard
-struct TiCard: View {
+struct TiCardOld: View {
     
     var ti: TI
     

@@ -107,7 +107,7 @@ struct VotingVideoCard: View {
                                            showSideSheet: $showSideOptions)
                         .offset(x: showSideOptions ? width * 0.275 : width * 0.777)
                 } else {
-                    SideSheetForVotingCell(isAdmin: isAdmin, showSideSheet: $showSideOptions)
+                    SideSheetForVotingCellOld(isAdmin: isAdmin, showSideSheet: $showSideOptions)
                         .offset(x: showSideOptions ? width * 0.375 : width * 0.68)
                 }
             }

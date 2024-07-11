@@ -172,6 +172,9 @@ final class PostManager {
     private func PostDocument(tiID: String, postID: String) -> DocumentReference {
         TICollection.document(tiID).collection("Posts").document(postID)
     }
+    private func VLPostDocument(tiID: String, chainLinkID: String, postID: String) -> DocumentReference {
+        TICollection.document(tiID).collection("Chain_Links").document(chainLinkID).collection("Vertical_List_Posts").document(postID)
+    }
     ///-----
 //    private func TITVideoDocument(TITid: String, TITVideoID: String) -> DocumentReference {
 //        TITCollection.document(TITid).collection("TITVideos").document(TITVideoID)
@@ -193,6 +196,27 @@ final class PostManager {
                 if let error = error {
                     // Handle the error within the closure
                     print("🆘🔼🦞 Error Creating Post: \(error.localizedDescription) 🦞🔼🆘")
+                    completion(error)
+                } else {
+                    print("✅🔼🌴 Created Post 🌴🔼✅")
+                    completion(nil)
+                }
+            }
+        } catch {
+            // Handle the initial error
+            print("🆘🔼🦞 Error Creating Chain Link: \(error.localizedDescription) 🦞🔼🆘")
+            completion(error)
+        }
+    }
+    //MARK: - VL
+    func createVerticalListPost(tiID: String, chainLinkID: String, post: Post, completion: @escaping (Error?)->Void) {
+        do {
+            try VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: post.id).setData(from: post) { error in
+                
+                
+                if let error = error {
+                    // Handle the error within the closure
+                    print("🆘🔼🦞📜 Error Creating VL Post: \(error.localizedDescription) 📜🦞🔼🆘")
                     completion(error)
                 } else {
                     print("✅🔼🌴 Created Post 🌴🔼✅")

@@ -52,17 +52,17 @@ struct TiView: View {
                 }
             }
             
-            //MARK: Components SVs
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0){
                     
+                    //CC
                     ControlCenter(ti: $ti, tiChain: $tiChain, selectedChainLink: $selectedChainLinkIndex)
 
-                    
+                    //Selected Post Info
                     TiPostInfo(ti: $ti, tiPost: $tiPost)
                     
-                    
-                    TiVerticalListView(ti: $ti, tiChain: $tiChain, tiChainLink: $tiChainLink, tiPost: $tiPost)
+                    //Vertical List
+                    TiVerticalListView(ti: $ti, tiChain: $tiChain, tiChainLink: $tiChainLink, tiPost: $tiPost, selectedChainLinkIndex: $selectedChainLinkIndex)
                 }
             }
         }

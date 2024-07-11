@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RoundedTriangle: Shape {
+    
     let cornerRadius: CGFloat
     
     func path(in rect: CGRect) -> Path {

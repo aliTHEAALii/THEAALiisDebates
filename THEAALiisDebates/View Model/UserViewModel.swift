@@ -10,8 +10,26 @@ import FirebaseAuth
 import FirebaseFirestore
 
 
+//MARK: - New for Ti
+final class CurrentUserViewModel {
+    
+    var currentUser: UserModel?
+    
+    func fetchCurrentUser(ID: String) async {
+        Task {
+            currentUser = try await UserManager.shared.getUser(userId: ID)
+        }
+    }
+//    func getUser(ID: String) -> User {
+//
+//    }
+}
+
+
+
+//MARK: - OLD
 @MainActor
-final class CurrentUserViewModel: ObservableObject {
+final class CurrentUserViewModel2: ObservableObject {
     
     @Published private(set) var currentUser: UserModel? = nil
     

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 final class VerticalListVM {
     
     
@@ -34,9 +33,9 @@ final class VerticalListVM {
         let post = Post(id: postID, title: title, type: postType, text: description, imageURL: thumbnailURLString, videoURL: videoURL, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
         )
         
-        PostManager.shared.createPost(tiID: tiID, post: post) { error in
+        PostManager.shared.createVerticalListPost(tiID: tiID, chainLinkID: chainLinkID, post: post) { error in
             if let error {
-                print("🆘🔺⛓️😶‍🌫️ ERROR creating post: \(error.localizedDescription) 😶‍🌫️⛓️🔺🆘")
+                print("🆘🔺⛓️😶‍🌫️📜 ERROR creating VL post: \(error.localizedDescription) 📜😶‍🌫️⛓️🔺🆘")
                 completion(error)
             } else {
                 

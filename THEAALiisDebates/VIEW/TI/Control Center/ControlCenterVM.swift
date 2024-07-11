@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 final class ControlCenterViewModel {
     
     func tiChain(ti: TI?) -> [String] {
