@@ -15,11 +15,12 @@ struct VotingPostCardSideSheet: View {
     @Binding private var tiChain: [String]
     @Binding private var selectedChainLinkIndex: Int
     @Binding private var tiChainLink: ChainLink?
-    @Binding var tiPost: Post?
+    @Binding var vlPost: Post?
     
     
     @ObservedObject var cardVM = VotingCardViewModel()
     @Binding var showSideSheet: Bool
+    @Binding var isLoading: Bool
     
     var body: some View {
         
@@ -45,9 +46,11 @@ struct VotingPostCardSideSheet: View {
                 //MARK: - Left Column
                 VStack(spacing: 0) {
                     
-                    // - top (Add Post to Chain
+                    // - top (Add Post to Chain )
                     Button {
-                        
+                        if isAdmin {
+                            vlPostToChain()
+                        }
                     } label: {
                         if isAdmin {
                             
@@ -157,6 +160,58 @@ struct VotingPostCardSideSheet: View {
             .frame(width: width * 0.35, height: width * 0.5625 * 0.85, alignment: .leading)
         }
     }
+    
+    //MARK: - Add Post to Chain
+    func vlPostToChain() {
+        if isAdmin {
+            guard let ti, let tiChainLink, let vlPost else { print("❌ VLPost Side Sheet Error ❌"); return }
+            isLoading = true
+            
+            let chainLink = ChainLink(id: vlPost.id, title: vlPost.title, thumbnailURL: vlPost.imageURL)
+            let leftOrRight: LeftOrRight = ti.rightSideChain.contains(tiChainLink.id) ? .right : .left
+            
+            Task {
+                do {
+                    do {
+                        try await PostManager.shared.createPost(tiID: ti.id, post: vlPost)
+                    } catch {
+                        print("🆘Error in createPost: \(error)❣️")
+                        throw error
+                    }
+                    
+                    do {
+                        try await ChainLinkManager.shared.createChainLink(tiID: ti.id, chainLink: chainLink)
+                    } catch {
+                        print("🆘Error in createChainLink: \(error)❣️")
+                        throw error
+                    }
+                    
+                    do {
+                        try await TIManager.shared.addToChain(tiID: ti.id, cLinkID: vlPost.id, rightOrLeft: leftOrRight)
+                    } catch {
+                        print("🆘Error in addToChain: \(error)❣️")
+                        throw error
+                    }
+                    
+                    do {
+                        try await PostManager.shared.updateAddToChain(tiID: ti.id, chainLinkID: tiChainLink.id, postID: vlPost.id)
+                    } catch {
+                        print("🆘Error in updateAddToChain: \(error)❣️")
+                        throw error
+                    }
+                    
+                    isLoading = false // Ensure isLoading is set to false after all operations are complete
+                } catch {
+                    print("🆘⛓️❣️ VL Post Error: Couldn't upload vl Post to Ti Chain ❣️⛓️🆘")
+                    isLoading = false // Ensure isLoading is set to false in case of error
+                    return
+                }
+            }
+        }
+    }
+
+
+    
 }
 
 #Preview {

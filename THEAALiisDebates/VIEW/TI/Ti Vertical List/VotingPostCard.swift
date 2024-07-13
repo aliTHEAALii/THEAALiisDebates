@@ -17,7 +17,7 @@ struct VotingPostCard: View {
     
     @Binding var ti: TI?
     @Binding var chainLink: ChainLink?
-    @State var tiPost: Post? = nil
+    @State var vlPost: Post? = nil
     let tiPostID: String
     @State var tiVideo: TIVideoModel? = nil
     let order: Int
@@ -27,6 +27,7 @@ struct VotingPostCard: View {
     
     //    @StateObject private var cardVM = VotingCardViewModel()
     @State private var showSideOptions: Bool = false
+    @State private var isLoading: Bool = false
     
     var body: some View {
         
@@ -37,9 +38,9 @@ struct VotingPostCard: View {
                     
                     //MARK: Content
                     ZStack(alignment: .topLeading) {
-                        if tiPost != nil {
+                        if vlPost != nil {
                             //                            TIVideoPlayerViewOld(tiVideo: $tiVideo, urlString: "", sf: 0.85)
-                            VotingPostCardContent(post: $tiPost, sf: 0.85)
+                            VotingPostCardContent(post: $vlPost, sf: 0.85)
                         } else {
                             Rectangle()
                                 .fill(Color.gray.opacity(0.2))
@@ -54,8 +55,8 @@ struct VotingPostCard: View {
                     
                     
                     //MARK: - Voting
-                    if ti != nil, tiPost != nil {
-                        VotingButtonsSV(ti: $ti, vlPost: $tiPost, showSideOptions: $showSideOptions)
+                    if ti != nil, vlPost != nil {
+                        VotingButtonsSV(ti: $ti, chainLink: $chainLink, vlPost: $vlPost, showSideOptions: $showSideOptions)
                     } else {
                         ProgressView()
                             .frame(width: width * 0.15, height: width * 0.45)
@@ -83,24 +84,28 @@ struct VotingPostCard: View {
             
             
             //MARK: Post title
-            HStack {
-                Text(tiPost?.title ?? "No Name detected for TI Video")
-                    .foregroundColor(tiPost?.title != nil ? .primary : .secondary)
-                    .padding(.leading)
-                    .frame(height: width * 0.15)
+            HStack(spacing: 0) {
+                Text(vlPost?.title ?? "No Title detected for Vertical List Post")
+                    .foregroundStyle(.white)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(2)
+                    .padding(.horizontal, width * 0.01)
+                    .frame(width: width * 0.67, alignment: .leading)
                 
-                Spacer()
-                
-                UserButton(userUID: tiPost?.creatorUID, horizontalName: true, scale: 0.6)
-                
+                UserButton(userUID: vlPost?.creatorUID, horizontalName: true, scale: 0.6, horizontalWidth: width * 0.21)
             }
+            .frame(width: width, height: (vlPost?.creatorUID.count ?? 0) < 25 ? width * 0.13 : width * 0.17)
+            .background( vlPost?.addedToChain == true ? Color.ADColors.green.opacity(0.2) : .clear )
+
             
             
             Divider()
+                .padding(.bottom, width * 0.005)
         }
         .background(Color.black)
         .preferredColorScheme(.dark)
         .onAppear{ onAppearFetchPost() }
+        .overlay { if isLoading { ProgressView() } }
     }
     
     
@@ -108,13 +113,14 @@ struct VotingPostCard: View {
     
     func onAppearFetchPost() {
         guard let ti else { return }
+        guard let chainLink else { return }
         guard let postID else { return }
-        PostManager.shared.getPost(tiID: ti.id, postID: postID) { result in
+        PostManager.shared.getVerticalListPost(tiID: ti.id, chainLinkID: chainLink.id, postID: postID) { result in
             switch result{
             case .success(let post):
-                tiPost = post
+                vlPost = post
             case .failure(_): //error
-                tiPost = nil
+                vlPost = nil
             }
         }
     }
@@ -133,6 +139,7 @@ struct VotingButtonsSV: View {
     @AppStorage("current_user_id") private var currentUserUID: String = ""
     
     @Binding var ti: TI?
+    @Binding var chainLink: ChainLink?
     @Binding var vlPost: Post?
     @State private var loadingUpVote = false
     @State private var loadingDownVote = false
@@ -216,19 +223,20 @@ struct VotingButtonsSV: View {
     private func upVote() {
         loadingUpVote = true
 
-        guard let tiID   = ti?.id else { loadingUpVote = false; return }
-        guard let vlPost = vlPost else { loadingUpVote = false; return }
+        guard let tiID      = ti?.id    else { loadingUpVote = false; return }
+        guard let chainLink = chainLink else { loadingUpVote = false; return }
+        guard let vlPost    = vlPost    else { loadingUpVote = false; return }
         
         
         if vlPost.upVotersUIDsArray.contains(currentUserUID) {
             print("💃")
             
             //remove userUID from array
-            PostManager.shared.updateUpVotersArray(tiID: tiID, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .remove) { error in
+            PostManager.shared.updateVerticalListUpVotersArray(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .remove) { error in
                 
-                if let error {print(error.localizedDescription); return }
+                if let error {print("❌\(error.localizedDescription) ❌"); return }
 
-                PostManager.shared.changeUpVotes(tiID: tiID, postID: vlPost.id, increaseOrDecrease: .decrease) { error in
+                PostManager.shared.changeVerticalListUpVotes(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, increaseOrDecrease: .decrease) { error in
                     
                     if let error {
                         print("💃" + error.localizedDescription + "💃")
@@ -247,12 +255,12 @@ struct VotingButtonsSV: View {
             //if Down Voted -----
             if vlPost.downVotersUIDsArray.contains(currentUserUID) {
                 print("💅")
-                PostManager.shared.updateDownVotersArray(tiID: tiID, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .remove) { error in
+                PostManager.shared.updateVerticalListDownVotersArray(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .remove) { error in
                     
                     if error != nil { return }
                     
                     
-                    PostManager.shared.changeDownVotes(tiID: tiID, postID: vlPost.id, increaseOrDecrease: .decrease) { error in
+                    PostManager.shared.changeVerticalListDownVotes(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, increaseOrDecrease: .decrease) { error in
                         
                         if error != nil { return }
                         
@@ -265,11 +273,11 @@ struct VotingButtonsSV: View {
             
             //Not Voted -----
             print("🦁")
-            PostManager.shared.updateUpVotersArray(tiID: tiID, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .add) { error in
+            PostManager.shared.updateVerticalListUpVotersArray(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .add) { error in
                 
                 if let error {print(error.localizedDescription); return }
 
-                PostManager.shared.changeUpVotes(tiID: tiID, postID: vlPost.id, increaseOrDecrease: .increase) { error in
+                PostManager.shared.changeVerticalListUpVotes(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, increaseOrDecrease: .increase) { error in
                     
                     if let error {print(error.localizedDescription); return }
                     self.vlPost!.upVotersUIDsArray.append(currentUserUID)
@@ -288,8 +296,9 @@ struct VotingButtonsSV: View {
     private func downVote() {
         loadingDownVote = true
 
-        guard let tiID   = ti?.id else { loadingDownVote = false; return }
-        guard let vlPost = vlPost else { loadingDownVote = false; return }
+        guard let tiID      = ti?.id    else { loadingDownVote = false; return }
+        guard let chainLink = chainLink else { loadingDownVote = false; return }
+        guard let vlPost    = vlPost    else { loadingDownVote = false; return }
         
         loadingDownVote = true
         
@@ -297,11 +306,11 @@ struct VotingButtonsSV: View {
         if vlPost.downVotersUIDsArray.contains(currentUserUID) {
             print("💃")
             
-            PostManager.shared.updateDownVotersArray(tiID: tiID, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .remove) { error in
+            PostManager.shared.updateVerticalListDownVotersArray(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .remove) { error in
                 
                 if let error {print(error.localizedDescription); return }
 
-                PostManager.shared.changeDownVotes(tiID: tiID, postID: vlPost.id, increaseOrDecrease: .decrease) { error in
+                PostManager.shared.changeVerticalListDownVotes(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, increaseOrDecrease: .decrease) { error in
                     
                     if let error {print(error.localizedDescription); return }
 
@@ -318,12 +327,12 @@ struct VotingButtonsSV: View {
             //if UP-Voted -----
             if vlPost.upVotersUIDsArray.contains(currentUserUID) {
                 print("💅")
-                PostManager.shared.updateUpVotersArray(tiID: tiID, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .remove) { error in
+                PostManager.shared.updateVerticalListUpVotersArray(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .remove) { error in
                     
                     if error != nil { return }
                     
                     
-                    PostManager.shared.changeUpVotes(tiID: tiID, postID: vlPost.id, increaseOrDecrease: .decrease) { error in
+                    PostManager.shared.changeVerticalListUpVotes(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, increaseOrDecrease: .decrease) { error in
                         
                         if error != nil { return }
                         
@@ -336,12 +345,12 @@ struct VotingButtonsSV: View {
             
             //Not Voted -----
             print("🦁")
-            PostManager.shared.updateDownVotersArray(tiID: tiID, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .add) { error in
+            PostManager.shared.updateVerticalListDownVotersArray(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, userUID: currentUserUID, addOrRemove: .add) { error in
                 
 
                 if let error {print(error.localizedDescription); return }
                 
-                PostManager.shared.changeDownVotes(tiID: tiID, postID: vlPost.id, increaseOrDecrease: .increase) { error in
+                PostManager.shared.changeVerticalListDownVotes(tiID: tiID, chainLinkID: chainLink.id, postID: vlPost.id, increaseOrDecrease: .increase) { error in
                     
                     
                     if let error {print(error.localizedDescription); return }
@@ -356,53 +365,3 @@ struct VotingButtonsSV: View {
         loadingDownVote = false
     }
 }
-
-
-
-//    @ViewBuilder
-//    func votingSV() -> some View {
-//        //MARK: - Voting
-//        VStack(spacing: 0) {
-//
-//            Button {
-//
-//            } label: {
-//                Image(systemName: "chevron.up")
-//                    .foregroundColor(.secondary)
-//                    .font(.title)
-//                    .frame(width: width * 0.15, height: width * 0.15)
-//            }
-//
-//            Button {
-//                withAnimation(.spring()) {
-//                    showSideOptions.toggle()
-//                }
-//            } label: {
-//                ZStack {
-//                    RoundedRectangle(cornerRadius: 8)
-//                        .strokeBorder(lineWidth: 0.5)
-//                        .frame(width: width * 0.13, height: width * 0.1)
-//
-//                    //                                Text("4.6K")
-//
-//                    if let tiVideo = tiVideo {
-//                        Text( String(tiVideo.upVotes - tiVideo.downVotes) )
-//                            .fontWeight(.light)
-//                    }
-//                }
-//                .foregroundColor(.primary)
-//                .frame(width: width * 0.15, height: width * 0.15)
-//            }
-//
-//
-//            Button {
-//
-//            } label: {
-//                Image(systemName: "chevron.down")
-//                    .foregroundColor(.secondary)
-//                    .font(.title)
-//                    .frame(width: width * 0.15, height: width * 0.15)
-//            }
-//
-//        }
-//    }

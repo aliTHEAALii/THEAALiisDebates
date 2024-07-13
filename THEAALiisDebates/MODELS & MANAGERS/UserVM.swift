@@ -23,7 +23,7 @@ final class UserVM: ObservableObject {
         do {
             return try await UserManager.shared.getUser(userId: userUID ?? "")
         } catch {
-            print("🏀🟠🏀 Couln't get saved user")
+            print("🏀🟠🏀 Couln't get User From userUID")
             print(error.localizedDescription)
             return nil
         }

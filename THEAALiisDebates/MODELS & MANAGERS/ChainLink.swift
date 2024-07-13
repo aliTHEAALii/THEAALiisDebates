@@ -111,18 +111,9 @@ final class ChainLinkManager {
     }
     
     //MARK: - 1. Create
-//    func createChainLink(tiID: String, chainLink: ChainLink) throws {
-//        try ChainDocument(tiID: tiID, chainID: chainLink.id).setData(from: chainLink, merge: false)
-//        try ChainDocument(tiID: tiID, chainID: chainLink.id).setData(from: chainLink, merge: false) { error in
-//            
-//            guard error == nil else {
-//                
-//                print(error!.localizedDescription)
-//                throw error!
-//            }
-//        }
-//
-//    }
+    func createChainLink(tiID: String, chainLink: ChainLink) async throws {
+        try chainDocument(tiID: tiID, chainID: chainLink.id).setData(from: chainLink, merge: false)
+    }
     func createChainLink(tiID: String, chainLink: ChainLink, completion: @escaping (Error?) -> Void) {
         do {
             try chainDocument(tiID: tiID, chainID: chainLink.id).setData(from: chainLink, merge: false) { error in

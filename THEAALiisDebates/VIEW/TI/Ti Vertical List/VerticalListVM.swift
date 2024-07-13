@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 final class VerticalListVM {
     
@@ -52,5 +53,43 @@ final class VerticalListVM {
                 }
             }
         }
+    }
+    
+//    func onAppearFetch() async {
+//        do {
+//            let querySnapshot = try await Firestore.firestore()
+//                .collection("THEAALii_Interactions")
+////                .whereField("ti_type", isEqualTo: "D-1") // Add condition
+//                .order(by: "ti_absolute_votes", descending: true) // Sort by field
+//                .getDocuments()
+//            let fetchedInteractions = querySnapshot.documents.compactMap { document in
+//                try? document.data(as: TI.self)
+//            }
+//            verticalListPosts = fetchedInteractions
+//        } catch {
+//            print("Error fetching interactions: \(error)")
+//        }
+//    }
+    func getVLPost(tiID: String, chainLinkID: String, completion: @escaping (Result<[Post], Error>)->Void) async {
+        
+                do {
+                    let querySnapshot = try await Firestore.firestore()
+                        .collection("THEAALii_Interactions")
+                        .document(tiID)
+                        .collection("Chain_Links")
+                        .document(chainLinkID)
+                        .collection("Vertical_List_Posts")
+                        .order(by: "total_votes", descending: true) // Sort by field
+                        .getDocuments()
+                    
+                    let fetchedInteractions = querySnapshot.documents.compactMap { document in
+                        try? document.data(as: Post.self)
+                    }
+                    completion(.success(fetchedInteractions))
+                    
+                } catch {
+                    print("Error fetching interactions: \(error)")
+                    completion(.failure(error))
+                }
     }
 }

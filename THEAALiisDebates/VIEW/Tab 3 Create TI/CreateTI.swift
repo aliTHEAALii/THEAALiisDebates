@@ -323,7 +323,7 @@ final class TiCreatingVM {
             
             //FIXME: - ti Post Type
             
-            _ = Post(id: tiID, title: "Intro", type: .text, text: introDescription, imageURL: nil, videoURL: nil, creatorUID: currentUserUID, dateCreated: Date.now, addedToChain: true, totalVotes: 0, upVotes: 0, downVotes: 0, upVotersUIDsArray: [], downVotersUIDsArray: [], commentsArray: []
+            _ = Post(id: tiID, title: "INTRO", type: .text, text: introDescription, imageURL: nil, videoURL: nil, creatorUID: currentUserUID, dateCreated: Date.now, addedToChain: true, totalVotes: 0, upVotes: 0, downVotes: 0, upVotersUIDsArray: [], downVotersUIDsArray: [], commentsArray: []
             )
             
             _ = TITChainLinkModel(

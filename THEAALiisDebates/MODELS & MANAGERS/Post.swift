@@ -248,8 +248,27 @@ final class PostManager {
             }
         }
     }
+    func getVerticalListPost(tiID: String, chainLinkID: String, postID: String, completion: @escaping (Result<Post, Error>) -> Void) {
+        
+        VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).getDocument(as: Post.self) { result in
+            switch result {
+                
+            case .success(let post):
+                print("✅⬇️🎃⚛️ Success getting Post🎃 ⚛️🎃⬇️✅")
+                completion(.success(post))
+            case .failure(let error):
+                print("❌⬇️🎃⚛️ Error getting Post🎃: \(error.localizedDescription) ⚛️🎃⬇️❌")
+                completion(.failure(error))
+            }
+        }
+    }
     
-    // - 3. Update
+    //MARK:  - 3. Update
+    
+    //VL post Uploaded to chain
+    func updateAddToChain(tiID: String, chainLinkID: String, postID: String) async throws {
+        try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData([Post.CodingKeys.addedToChain.rawValue : true])
+    }
     
     //MARK: Voting
     //1 - UP Voters Array
@@ -375,16 +394,165 @@ final class PostManager {
                 } else { print("🌲⛓️ Success +1 TOTAL-VOTES : ⛓️🌲"); completion(nil) } }
         }
     }
-
-    // - 4. Delete
-//    func deletePost(tiID: String, postID: String) async throws {
-//        try await PostDocument(tiID: tiID, postID: postID).delete()
-//    }
     
+//MARK: - Vertical List UP & DOWN Votes
+    func updateVerticalListUpVotersArray(tiID: String, chainLinkID: String, postID: String, userUID: String, addOrRemove: AddOrRemove, completion: @escaping (Error?)->Void) {
+        
+        if addOrRemove == .add {
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.upVotersUIDsArray.rawValue : FieldValue.arrayUnion( [userUID] ) ] ) { error in
+                
+                if let error {
+                    print("🆘🔺⛓️☎️ ERROR adding post to vertical list: \(error.localizedDescription) ☎️⛓️🔺🆘")
+                    completion(error)
+                } else {
+                    print("✅⛓️🥒 Success added POST to VERTICAL LIST  🥒⛓️✅")
+                    completion(nil)
+                }
+            }
+            
+        } else if addOrRemove == .remove {
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.upVotersUIDsArray.rawValue : FieldValue.arrayRemove( [userUID] ) ] ) { error in
+                
+                if let error {
+                    print("🆘🔺⛓️☎️ ERROR adding post to vertical list: \(error.localizedDescription) ☎️⛓️🔺🆘")
+                    completion(error)
+                } else {
+                    print("✅⛓️🥒 Success added POST to VERTICAL LIST  🥒⛓️✅")
+                    completion(nil)
+                }
+            }
+        }
+    }
+    func updateVerticalListDownVotersArray(tiID: String, chainLinkID: String, postID: String, userUID: String, addOrRemove: AddOrRemove, completion: @escaping (Error?)->Void) {
+        if addOrRemove == .add {
+            
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.downVotersUIDsArray.rawValue : FieldValue.arrayUnion( [userUID] ) ] ) { error in
+                if let error {
+                    print("🆘🔺⛓️☎️ ERROR adding userUID to downVotersUIDsArray: \(error.localizedDescription) ☎️⛓️🔺🆘")
+                    completion(error)
+                } else {
+                    print("✅⛓️🥒 Success added POST to VERTICAL LIST  🥒⛓️✅")
+                    completion(nil)
+                }
+            }
+        } else if addOrRemove == .remove {
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.downVotersUIDsArray.rawValue : FieldValue.arrayRemove( [userUID] ) ] ) { error in
+                
+                if let error {
+                    print("🆘🔺⛓️☎️ ERROR removing userUID to downVotersUIDsArray: \(error.localizedDescription) ☎️⛓️🔺🆘")
+                    completion(error)
+                } else {
+                    print("✅⛓️🥒 Success added POST to VERTICAL LIST  🥒⛓️✅")
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
+    //UP - Down Numbers
+    func changeVerticalListUpVotes(tiID: String, chainLinkID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease, completion: @escaping (Error?)->Void) {
+        if increaseOrDecrease == .increase {
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.upVotes.rawValue : FieldValue.increment( Int64(1) ) ] ) { error in
+                if let error {
+                    print("🔺⛓️ ERROR +1 UP-VOTE : \(error.localizedDescription) ⛓️🔺")
+                    completion(error)
+                } else {
+                    print("🌲⛓️ Success +1 UP-VOTES : ⛓️🌲")
+                }
+            }
+            //total Votes
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.totalVotes.rawValue : FieldValue.increment( Int64(1) ) ] ) { error in
+                if let error {
+                    print("🔺⛓️ ERROR +1 TOTAL-VOTES : \(error.localizedDescription) ⛓️🔺")
+                    completion(error)
+                } else {
+                    print("🌲⛓️ Success +1 TOTAL-VOTES : ⛓️🌲")
+                    completion(nil)
+                }
+            }
+        
+        // DECREASE
+        } else if increaseOrDecrease == .decrease {
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.upVotes.rawValue : FieldValue.increment( Int64(-1) ) ] ) { error in
+                if let error {
+                    print("🔺⛓️ ERROR -1 UP-VOTE : \(error.localizedDescription) ⛓️🔺")
+                    completion(error)
+                } else {
+                    print("🌲⛓️ Success -1 UP-VOTES : ⛓️🌲")
+                }
+            }
+            //total Votes
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.totalVotes.rawValue : FieldValue.increment( Int64(-1) ) ] ) { error in
+                if let error {
+                    print("🔺⛓️ ERROR -1 TOTAL-VOTES : \(error.localizedDescription) ⛓️🔺")
+                    completion(error)
+                } else {
+                    print("🌲⛓️ Success -1 TOTAL-VOTES : ⛓️🌲")
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
+    //DOWN Votes
+    func changeVerticalListDownVotes(tiID: String, chainLinkID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease, completion: @escaping (Error?)->Void) {
+        if increaseOrDecrease == .increase {
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.downVotes.rawValue : FieldValue.increment( Int64(1) ) ] ) { error in
+                if let error {
+                    print("🔺⛓️ ERROR +1 DOWN-VOTE : \(error.localizedDescription) ⛓️🔺")
+                    completion(error)
+                } else {
+                    print("🌲⛓️ Success +1 DOWN-VOTES : ⛓️🌲")
+                }
+            }
+            
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.totalVotes.rawValue : FieldValue.increment( Int64(-1) ) ] ) { error in
+                if let error {
+                    print("🔺⛓️ ERROR -1 TOTAL-VOTES : \(error.localizedDescription) ⛓️🔺")
+                    completion(error)
+                } else {
+                    print("🌲⛓️ Success -1 TOTAL-VOTES : ⛓️🌲")
+                    completion(nil)
+                }
+            }
+           
+        //DECREASE
+        } else if increaseOrDecrease == .decrease {
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.downVotes.rawValue : FieldValue.increment( Int64(-1) ) ] ) { error in
+                if let error {
+                    print("🔺⛓️ ERROR -1 DOWN-VOTE : \(error.localizedDescription) ⛓️🔺")
+                    completion(error)
+                } else {
+                    print("🌲⛓️ Success -1 DOWN-VOTES : ⛓️🌲")
+                }
+            }
+            
+            VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData( [Post.CodingKeys.totalVotes.rawValue : FieldValue.increment( Int64(1) ) ] ) { error in
+                if let error {
+                    print("🔺⛓️ ERROR +1 TOTAL-VOTES : \(error.localizedDescription) ⛓️🔺")
+                    completion(error)
+                } else {
+                    print("🌲⛓️ Success +1 TOTAL-VOTES : ⛓️🌲")
+                    completion(nil)
+                }
+            }
+        }
+    }
 
+    //MARK: - 4. Delete
     func deletePost(tiID: String, postID: String, completion: @escaping (Result <Void, Error>) -> Void ) {
         
         PostDocument(tiID: tiID, postID: postID).delete { [weak self] error in //(any Error)? in
+            guard let _ = self else { return }
+            if let error = error {
+                completion(.failure(error))
+            }
+            completion( .success(()) )
+        }
+    }
+    func deleteVerticalListPost(tiID: String, chainLinkID: String, postID: String,  completion: @escaping (Result <Void, Error>) -> Void ) {
+        
+        VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).delete { [weak self] error in
             guard let _ = self else { return }
             if let error = error {
                 completion(.failure(error))

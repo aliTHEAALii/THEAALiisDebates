@@ -19,6 +19,7 @@ struct TiVerticalListView: View {
     
     @State private var verticalListPosts: [Post] = []
     
+    var vlVM = VerticalListVM()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -57,10 +58,29 @@ struct TiVerticalListView: View {
                 Rectangle()
                     .frame(width: 0, height: 0)
                     .foregroundStyle(.clear)
-                    .onAppear{ fetchSortVerticalList() }
+//                    .onAppear{ fetchSortVerticalList() }
+//                    .onChange(of: selectedChainLinkIndex) { _, _ in
+//                            fetchSortVerticalList()
+//                    }
+                    .onAppear{         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        Task { await  vlVM.getVLPost(tiID: ti!.id, chainLinkID: tiChainLink!.id) { result in
+                            switch result {
+                            case .success(let vlPosts):
+                                verticalListPosts = vlPosts
+                            case .failure(_):
+                                verticalListPosts = []
+                            } } }
+                    } }
                     .onChange(of: selectedChainLinkIndex) { _, _ in
-                            fetchSortVerticalList()
-                    }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            Task { await  vlVM.getVLPost(tiID: ti!.id, chainLinkID: tiChainLink!.id) { result in
+                                switch result {
+                                case .success(let vlPosts):
+                                    verticalListPosts = vlPosts
+                                case .failure(_):
+                                    verticalListPosts = []
+                                } } }
+                        } }
 
                 if  !verticalListPosts.isEmpty {
 
@@ -129,6 +149,8 @@ struct TiVerticalListView: View {
             }
         }
     }
+    
+    
 }
 
 #Preview {

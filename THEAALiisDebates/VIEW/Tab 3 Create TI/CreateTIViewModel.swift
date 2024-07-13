@@ -136,9 +136,9 @@ final class CreateTiVM {
             return false
         }
         
-        let introChainLink = ChainLink(id: id, title: "intro", thumbnailURL: thumbnailURLString)
+        let introChainLink = ChainLink(id: id, title: "INTRO", thumbnailURL: thumbnailURLString)
 
-        let introPost = Post(id: id, title: "Intro", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
+        let introPost = Post(id: id, title: "INTRO", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
         )
         
         let d1Ti = TI(ID: id, title: title, description: description,
@@ -213,10 +213,10 @@ final class CreateTiVM {
             return false
         }
 
-        let introPost = Post(id: id, title: "Intro", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
+        let introPost = Post(id: id, title: "INTRO", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
         )
         
-        let introChainLink = ChainLink(id: id, title: "Intro", thumbnailURL: thumbnailURLString)
+        let introChainLink = ChainLink(id: id, title: "INTRO", thumbnailURL: thumbnailURLString)
         
         let d2Ti = TI(ID: id, title: title, description: description, thumbnailURL: thumbnailURLString, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
                        rsUserUID: rsUserUID, rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess,
@@ -294,10 +294,10 @@ final class CreateTiVM {
 //            completion()
         }
 
-        let introPost = Post(id: id, title: "Intro", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
+        let introPost = Post(id: id, title: "INTRO", type: .text, text: description, imageURL: nil, videoURL: nil, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
         )
         
-        let introChainLink = ChainLink(id: id, title: "Intro", thumbnailURL: thumbnailURLString)
+        let introChainLink = ChainLink(id: id, title: "INTRO", thumbnailURL: thumbnailURLString)
         
         let d2Ti = TI(ID: id, title: title, description: description, thumbnailURL: thumbnailURLString, creatorUID: creatorUID, tiAdminsUIDs: tiAdminsUIDs,
                        rsUserUID: rsUserUID, rsLevel1UsersUIDs: rsLevel1UsersUIDs, rsLevel2UsersUIDs: rsLevel2UsersUIDs, rsLevel3UsersUIDs: rsLevel3UsersUIDs, rsVerticalListAccess: rsVerticalListAccess,

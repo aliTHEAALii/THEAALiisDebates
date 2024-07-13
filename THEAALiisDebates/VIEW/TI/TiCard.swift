@@ -76,6 +76,8 @@ struct TiCard: View {
             TiView(ti: ti, showTiView: $showTiView)
         }
     }
+    
+    
 }
 
 
@@ -96,45 +98,62 @@ struct D2IconBar: View {
     
     var ti: TI
     
-    var showNames = true
+    //TODO: Pass this to the tiView since the fetch is already done here, don't fetch L & R users again in TiView
+    @State var leftUser: UserModel? = nil
+    @State var rightUser: UserModel? = nil
+    
+//    var showNames = true
     
     var body: some View {
         
         HStack(spacing: 0) {
             
-            UserButton(scale: 1)
+            if leftUser != nil {
+                UserButton(user: leftUser )
+            } else { UserButton() }
             
-            if !showNames { Spacer() }
             
             
             ZStack {
                 VStack (spacing: width * 0.0075) {
                     TiMapRect(ti: ti, cornerRadius: 8, rectWidth: width * 0.7, rectHeight: width * 0.085, stroke: 0.5)
                     
-                    if showNames {
+                        
                         HStack(spacing: 0) {
-                            Text("Ali Abraham")
+                            Text(leftUser?.displayName ?? "nil")
                                 .font(.system(size: width * 0.033, weight: .regular))
                             
                             Spacer()
                             
-                            Text("Shen Beheero")
+                            Text(rightUser?.displayName ?? "nil")
                                 .font(.system(size: width * 0.033, weight: .regular))
                             
                         }
                         .foregroundStyle(.white)
-                    }
+                        
                 }
                 
                 TIIcon()
             }
-            //            .frame(width: width * 0.7, height: width * 0.15, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             
-            if !showNames { Spacer() }
             
-            UserButton()
+            if rightUser != nil {
+                UserButton(user: rightUser )
+            } else { UserButton() }
         }
         .frame(height: width * 0.2)
+        .task { await fetchUser() }
+    }
+    
+    func fetchUser() async {
+        guard let lsUserUID = ti.lsUserUID else { return }
+        
+        do {
+            leftUser = try await UserManager.shared.getUser(userId: lsUserUID)
+            rightUser = try await UserManager.shared.getUser(userId: ti.rsUserUID)
+        } catch {
+            print("❌ Couldn't fetch right or left User ❌")
+        }
     }
 }
 
