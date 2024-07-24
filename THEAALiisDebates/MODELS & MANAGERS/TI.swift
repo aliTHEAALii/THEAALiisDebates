@@ -380,7 +380,19 @@ struct TI: Identifiable, Codable, Hashable {
 
 
 
-//MARK: - [ MANAGER ]
+
+
+
+
+
+
+
+
+
+
+
+
+//MARK: - [ MANAGER ] ----------- -
 final class TIManager {
     
     static let shared = TIManager()

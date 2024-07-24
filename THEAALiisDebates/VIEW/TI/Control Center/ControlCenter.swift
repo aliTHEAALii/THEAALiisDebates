@@ -10,17 +10,14 @@ import SwiftUI
 //MARK: - Ti Control Center Light
 struct ControlCenter: View {
     
-    @AppStorage("current_user_id") var currentUserUID: String = ""
+    @AppStorage("current_user_uid") var currentUserUID: String = ""
     
     @Binding var ti: TI?
     @Binding var tiChain: [String]
     
     @Binding var selectedChainLink: Int
-
-    var vm = ControlCenterViewModel()
-
     
-    @State private var expandTiControls: Bool = false
+    @State private var expandTiControls: Bool = true
     
     var body: some View {
         
@@ -30,11 +27,6 @@ struct ControlCenter: View {
             VStack(spacing: 0) {
                 
                 // - Control Center Top Bar - \\
-//                CCTopBar(tiType: ti?.tiType ?? .d1,
-//                         tiChainCount: tiChain.count,
-//                         introPostIndex: vm.introPostIndex(ti: ti),
-//                         currentCLIndex: $selectedChainLink,
-//                         expandTiControls: $expandTiControls)
                 CCTopBar(ti: $ti,
                          tiChain: $tiChain,
                          selectedChainLink: $selectedChainLink,
@@ -50,62 +42,64 @@ struct ControlCenter: View {
                         // - MAP - \\ //height 0.3
                         CCMap(ti: $ti, tiChain: $tiChain, selectedChainLink: $selectedChainLink)
                         
-                        //Control Center Bottom(interaction) Bar
-                        HStack(spacing:0) {
-                            UserButton()
-                                .frame(width: width * 0.2)      //u
-                            
-                            //                            AddButtonSV()   //width * 0.15
-                            if let ti = ti {
-                                CCAddToChainButton(rightOrLeft: .left, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
-                            } else {
-                                Rectangle()
-                                    .foregroundStyle(.clear)
-                                    .frame(width: width * 0.15)
-                            }
-                            
-                            
-                            //MARK: ( Interaction Info ) Button
-                            Button {
-                                
-                            } label: {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(lineWidth: 0.5)
-                                        .foregroundColor(.secondary)
-                                        .frame(width: width * 0.2, height: width * 0.17)
-                                    
-                                    HStack(spacing: width * 0.01) {
-                                        VStack(spacing: width * 0.02) {
-                                            Image(systemName: "circle")
-                                                .font(.system(size: width * 0.04, weight: .regular))
-                                            Rectangle().fill(Color.primary).frame(width: 2, height: 20, alignment: .center)
-                                        }
-                                        VStack(spacing: width * 0.02) {
-                                            Image(systemName: "circle")
-                                                .font(.system(size: width * 0.04, weight: .regular))
-                                            Rectangle().fill(Color.primary).frame(width: 2, height: 20, alignment: .center)
-                                        }
-                                    }.foregroundColor(.primary)
-                                    
-                                }
-                            }
-                            .frame(width: width * 0.3)
-                            
-                            //                            AddButtonSV()   //width * 0.15
-                            if let ti = ti {
-                                CCAddToChainButton(rightOrLeft: .right, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
-                            } else {
-                                Rectangle()
-                                    .foregroundStyle(.clear)
-                                    .frame(width: width * 0.15)
-                            }
-                            
-                            UserButton()
-                            
-                                .frame(width: width * 0.2)      //u
-                        }
-                        .frame(width: width, height: width * 0.25)                 //b b
+                        //MARK: - Control Center Bottom(interaction) Bar
+//                        HStack(spacing:0) {
+//                            UserButton()
+//                                .frame(width: width * 0.2)      //u
+//                            
+//                            //                            AddButtonSV()   //width * 0.15
+//                            if ti != nil {
+//                                CCAddToChainButton(rightOrLeft: .left, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
+//                            } else {
+//                                Rectangle()
+//                                    .foregroundStyle(.clear)
+//                                    .frame(width: width * 0.15)
+//                            }
+//                            
+//                            
+//                            //MARK: ( Interaction Info ) Button
+//                            Button {
+//                                
+//                            } label: {
+//                                ZStack {
+//                                    RoundedRectangle(cornerRadius: 8)
+//                                        .stroke(lineWidth: 0.5)
+//                                        .foregroundColor(.secondary)
+//                                        .frame(width: width * 0.2, height: width * 0.17)
+//                                    
+//                                    HStack(spacing: width * 0.01) {
+//                                        VStack(spacing: width * 0.02) {
+//                                            Image(systemName: "circle")
+//                                                .font(.system(size: width * 0.04, weight: .regular))
+//                                            Rectangle().fill(Color.primary).frame(width: 2, height: 20, alignment: .center)
+//                                        }
+//                                        VStack(spacing: width * 0.02) {
+//                                            Image(systemName: "circle")
+//                                                .font(.system(size: width * 0.04, weight: .regular))
+//                                            Rectangle().fill(Color.primary).frame(width: 2, height: 20, alignment: .center)
+//                                        }
+//                                    }.foregroundColor(.primary)
+//                                    
+//                                }
+//                            }
+//                            .frame(width: width * 0.3)
+//                            
+//                            //                            AddButtonSV()   //width * 0.15
+//                            if ti != nil {
+//                                CCAddToChainButton(rightOrLeft: .right, ti: $ti, tiChainLink: .constant(nil), tiChain: $tiChain)
+//                            } else {
+//                                Rectangle()
+//                                    .foregroundStyle(.clear)
+//                                    .frame(width: width * 0.15)
+//                            }
+//                            
+//                            UserButton()
+//                            
+//                                .frame(width: width * 0.2)      //u
+//                        }
+//                        .frame(width: width, height: width * 0.25)                 //b b
+                        
+                        CCBottomBar(ti: $ti, tiChain: $tiChain)
                         
                     }
                     .frame(width: width, height: width * 0.55)                 //b b
@@ -123,10 +117,6 @@ struct ControlCenter: View {
             
         }// - ZStack - //
         .preferredColorScheme(.dark)
-//        .onChange(of: expandTiControls) { _, _ in
-//            tiChain = vm.tiChain(ti: ti)
-//        }
-        .onAppear{ selectedChainLink =  ti?.leftSideChain?.count ?? 0  }
     }
     
     
@@ -151,10 +141,6 @@ struct ControlCenter: View {
 //        //add right chain
 //        return tiChain + [ti.introPostID] + ti.rightSideChain
 //    }
-    //TODO: - THIS!!!!!!! Change indecies
-    private func selectClink() {
-        
-    }
     
     private func order(index: Int) -> Int {
         guard let ti = ti else { return 0 }

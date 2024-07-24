@@ -13,7 +13,7 @@ struct EditUserInfoFSC: View {
     
     @ObservedObject var vmEdit = EditUserInfoViewModel()
     
-    @AppStorage("current_user_id") var currentUserId: String = ""
+    @AppStorage("current_user_uid") var currentUserId: String = ""
     @AppStorage("user_name") var currentUserName: String = ""
     @AppStorage("user_Pic") var currentUserProfilePicData: Data?
     @AppStorage("log_status") var logStatus: Bool = false

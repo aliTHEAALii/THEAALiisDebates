@@ -13,7 +13,7 @@ import Firebase
 
 struct PickProfileImageButton: View {
     
-    @AppStorage("current_user_id") var currentUserID: String = ""
+    @AppStorage("current_user_uid") var currentUserID: String = ""
     @AppStorage("user_Pic") var currentUserProfilePicData: Data?
     
     //    @State var userName = ""

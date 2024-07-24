@@ -12,13 +12,13 @@ struct VotingPostCardSideSheet: View {
     let isAdmin: Bool
     
     @Binding var ti: TI?
-    @Binding private var tiChain: [String]
-    @Binding private var selectedChainLinkIndex: Int
-    @Binding private var tiChainLink: ChainLink?
+    @Binding var tiChain: [String]
+    //    @Binding private var selectedChainLinkIndex: Int
+    @Binding var tiChainLink: ChainLink?
     @Binding var vlPost: Post?
     
-    
-    @ObservedObject var cardVM = VotingCardViewModel()
+
+    @ObservedObject private var cardVM = VotingCardViewModel()
     @Binding var showSideSheet: Bool
     @Binding var isLoading: Bool
     
@@ -46,27 +46,30 @@ struct VotingPostCardSideSheet: View {
                 //MARK: - Left Column
                 VStack(spacing: 0) {
                     
-                    // - top (Add Post to Chain )
+                    // - top (Add Post to RIGHT Chain )
                     Button {
                         if isAdmin {
-                            vlPostToChain()
+                            if canAddToRight {
+                                vlPostToChain(leftOrRight: .right)
+                            }
                         }
                     } label: {
                         if isAdmin {
                             
                             VStack(spacing: 0) {
                                 
-                                ZStack {
-                                    TiTriangle(scale: 0.15, stroke: 3, color: Color.ADColors.green)
-                                        .offset(x: width * 0.01)
-                                    TiTriangle(scale: 0.15, stroke: 3, color: Color.ADColors.green)
-                                        .offset(x: width * -0.01)
-                                }
+                                IconDoubleTiTriangle(
+                                    scale: 1,
+                                    color: canAddToRight == true ? Color.ADColors.green : .secondary)
+                                .rotationEffect(.degrees(90))
                                 .frame(width: width * 0.15, height: width * 0.5625 * 0.85 * 0.25)
+
                                 
                                 
-                                Text("Add to Chain")
-                                    .font(.system(size: width * 0.02, weight: .regular))
+                                Text(canAddToRight == true ? "Add to Right" : "Added Right")
+                                    .font(.system(size: width * 0.018, weight: .regular))
+                                    .foregroundStyle(canAddToRight == true ? .primary : .secondary)
+                                
                             }
                             .frame(width: width * 0.15, height: width * 0.5625 * 0.85 * 0.33)
                         } else {
@@ -77,19 +80,40 @@ struct VotingPostCardSideSheet: View {
                     }
                     
                     
-                    if isAdmin {
+                    // - Middle (add to LEFT Chain)
+                    if ti?.tiType == .d1 {
+                        //empty space for 
                         Rectangle()
                             .foregroundStyle(.clear)
                             .frame(width: width * 0.15, height: width * 0.5625 * 0.85 * 0.33)
                         
                     } else {
-                        // - middle
                         Button {
-                            
+                            if isAdmin {
+                                if canAddToLeft {
+                                    vlPostToChain(leftOrRight: .left)
+                                }
+                            }
                         } label: {
-                            
-                            Image(systemName: "circle")
+                            if ti?.tiType == .d2 {
+                                VStack(spacing: 0) {
+                                    
+                                    IconDoubleTiTriangle(
+                                        scale: 1,
+                                        color: canAddToLeft == true ? Color.ADColors.green : .secondary)
+                                    .rotationEffect(.degrees(-90))
+                                    .frame(width: width * 0.15, height: width * 0.5625 * 0.85 * 0.25)
+                                    
+                                    
+                                    Text(canAddToLeft == true ? "Add to Left" : "Added Left")
+                                        .font(.system(size: width * 0.018, weight: .regular))
+                                        .foregroundStyle(canAddToLeft == true ? .primary : .secondary)
+                                }
                                 .frame(width: width * 0.15, height: width * 0.5625 * 0.85 * 0.33)
+                            } else {
+                                Image(systemName: "circle")
+                                    .frame(width: width * 0.15, height: width * 0.5625 * 0.85 * 0.33)
+                            }
                         }
                     }
                     
@@ -119,41 +143,7 @@ struct VotingPostCardSideSheet: View {
                 .frame(width: width * 0.15, height: width * 0.5625 * 0.85)
                 
                 //MARK: - Right Column
-                VStack(spacing: 0) {
-                    
-                    // -
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "circle")
-                            .frame(width: width * 0.15, height: width * 0.5625 * 0.85 * 0.33)
-                        
-                    }
-                    
-                    // - collapse button
-                    Button {
-                        withAnimation(.spring()) {
-                            showSideSheet.toggle()
-                        }
-                    } label: {
-                        Image(systemName: "chevron.right")
-                            .font(.title)
-                            .fontWeight(.thin)
-                            .frame(width: width * 0.15, height: width * 0.5625 * 0.85 * 0.33)
-                        
-                    }
-                    
-                    // -
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "circle")
-                            .frame(width: width * 0.15, height: width * 0.5625 * 0.85 * 0.33)
-                        
-                    }
-                    
-                }
-                .frame(width: width * 0.15, height: width * 0.15)
+                VotingButtonsSV(ti: $ti, chainLink: $tiChainLink, vlPost: $vlPost, showVoteNumbers: true, showSideOptions: $showSideSheet)
                 
             }
             .foregroundColor(.primary)
@@ -162,44 +152,67 @@ struct VotingPostCardSideSheet: View {
     }
     
     //MARK: - Add Post to Chain
-    func vlPostToChain() {
+    func vlPostToChain(leftOrRight: LeftOrRight) {
         if isAdmin {
-            guard let ti, let tiChainLink, let vlPost else { print("❌ VLPost Side Sheet Error ❌"); return }
+            
+            guard ti != nil, let tiChainLink, vlPost != nil else {
+                print("❌ VLPost Side Sheet Error ❌"); return
+            }
+            guard vlPost!.addedToChain == nil  || vlPost!.addedToChain == false  else {
+                print("❌ VLPost Side Sheet Error 2 ❌"); return
+            }
+            
             isLoading = true
             
-            let chainLink = ChainLink(id: vlPost.id, title: vlPost.title, thumbnailURL: vlPost.imageURL)
-            let leftOrRight: LeftOrRight = ti.rightSideChain.contains(tiChainLink.id) ? .right : .left
+            let chainLink = ChainLink(id: vlPost!.id, title: vlPost!.title, thumbnailURL: vlPost!.imageURL, addedFromVerticalListed: true)
             
             Task {
                 do {
                     do {
-                        try await PostManager.shared.createPost(tiID: ti.id, post: vlPost)
+                        try await PostManager.shared.createPost(tiID: ti!.id, post: vlPost!)
+                        print("🟢 VL createPost❣️")
+                        
                     } catch {
                         print("🆘Error in createPost: \(error)❣️")
                         throw error
                     }
                     
                     do {
-                        try await ChainLinkManager.shared.createChainLink(tiID: ti.id, chainLink: chainLink)
+                        try await ChainLinkManager.shared.createChainLink(tiID: ti!.id, chainLink: chainLink)
+                        print("🟢 VL createChainLink❣️")
+                        
                     } catch {
                         print("🆘Error in createChainLink: \(error)❣️")
                         throw error
                     }
                     
                     do {
-                        try await TIManager.shared.addToChain(tiID: ti.id, cLinkID: vlPost.id, rightOrLeft: leftOrRight)
+                        try await TIManager.shared.addToChain(tiID: ti!.id, cLinkID: vlPost!.id, rightOrLeft: leftOrRight)
+                        print("🟢 VL addToChain❣️")
+                        
                     } catch {
                         print("🆘Error in addToChain: \(error)❣️")
                         throw error
                     }
                     
                     do {
-                        try await PostManager.shared.updateAddToChain(tiID: ti.id, chainLinkID: tiChainLink.id, postID: vlPost.id)
+                        try await PostManager.shared.updateAddToChain(tiID: ti!.id, chainLinkID: tiChainLink.id, postID: vlPost!.id)
+                        print("🟢 VL updateAddToChain❣️")
+                        
                     } catch {
                         print("🆘Error in updateAddToChain: \(error)❣️")
                         throw error
                     }
                     
+                    if leftOrRight == .left {
+                        ti!.leftSideChain?.append(vlPost!.id)
+                        tiChain.insert(vlPost!.id, at: 0)
+                    } else {
+                        ti!.rightSideChain.append(vlPost!.id)
+                        tiChain.append(vlPost!.id)
+                    }
+                    
+                    vlPost!.addedToChain = true
                     isLoading = false // Ensure isLoading is set to false after all operations are complete
                 } catch {
                     print("🆘⛓️❣️ VL Post Error: Couldn't upload vl Post to Ti Chain ❣️⛓️🆘")
@@ -209,13 +222,35 @@ struct VotingPostCardSideSheet: View {
             }
         }
     }
-
-
     
+    var canAddToLeft: Bool {
+        guard ti != nil, vlPost != nil else { return false }
+        if vlPost!.addedToChain == false {
+            return true
+        } else {
+            if ti!.leftSideChain != nil {
+                if ti!.leftSideChain!.contains(vlPost!.id) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    var canAddToRight: Bool {
+        guard ti != nil, vlPost != nil else { return false }
+        if vlPost!.addedToChain == false {
+            return true
+        } else {
+            if ti!.rightSideChain.contains(vlPost!.id) {
+                return false
+            }
+        }
+        return true
+    }
 }
 
 #Preview {
     TiView(ti: nil, showTiView: .constant(true))
-
-//    VotingPostCardSideSheet(isAdmin: true, showSideSheet: .constant(true))
+    
+    //    VotingPostCardSideSheet(isAdmin: true, showSideSheet: .constant(true))
 }

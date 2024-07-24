@@ -12,7 +12,7 @@ struct VotingSVOld: View {
     let tiId: String
     @Binding var tiVideo: TIVideoModel?
     
-    @AppStorage("current_user_id") private var currentUserId: String = ""
+    @AppStorage("current_user_uid") private var currentUserId: String = ""
     @Binding var showSideOptions: Bool
 
     var body: some View {

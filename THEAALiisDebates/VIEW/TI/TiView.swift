@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+
 struct TiView: View {
     
-    @AppStorage("current_user_id") var currentUserUID: String = ""
+    @AppStorage("current_user_uid") var currentUserUID: String = "BXnHfiEaIQZiTcpvWs0bATdAdJo1"
     
     @State var ti: TI? //FIXME: could be nil
     @State private var tiChain: [String] = []
@@ -17,7 +18,8 @@ struct TiView: View {
     @State private var tiChainLink: ChainLink? = nil
     @State var tiPost: Post?
     
-    var ccVM = ControlCenterViewModel()
+    var vmTi = TiViewModel()
+    var vmCC = ControlCenterViewModel()
     
     @Binding var showTiView: Bool
     
@@ -52,12 +54,21 @@ struct TiView: View {
                 }
             }
             
+            
+            //Add Intro Video Button
+            if ti != nil, tiPost != nil {
+                if showPickIntroPostVideoButton {
+                    PickIntroVideoButton(tiID: ti!.id, introPost: $tiPost)
+                        .padding()
+                }
+            }
+            
             ScrollView(showsIndicators: false) {
                 LazyVStack(spacing: 0){
                     
                     //CC
                     ControlCenter(ti: $ti, tiChain: $tiChain, selectedChainLink: $selectedChainLinkIndex)
-
+                    
                     //Selected Post Info
                     TiPostInfo(ti: $ti, tiPost: $tiPost)
                     
@@ -74,8 +85,8 @@ struct TiView: View {
     //MARK: - Functions
     private func onAppearFetch() {
         
-        tiChain = ccVM.tiChain(ti: ti)
-        selectedChainLinkIndex = ccVM.introPostIndex(ti: ti)
+        tiChain = vmCC.tiChain(ti: ti)
+        selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
         getChainLink()
         fetchTiPost()
         
@@ -84,8 +95,8 @@ struct TiView: View {
             switch result {
             case .success(let gottenTi):
                 ti = gottenTi
-                tiChain = ccVM.tiChain(ti: ti)
-                selectedChainLinkIndex = ccVM.introPostIndex(ti: ti)
+                tiChain = vmCC.tiChain(ti: ti)
+                selectedChainLinkIndex = vmCC.introPostIndex(ti: ti)
                 getChainLink()
                 fetchTiPost()
                 
@@ -98,16 +109,16 @@ struct TiView: View {
         
         
     }
-
+    
     func getChainLink() {
         guard let ti = ti else { return }
         let chainLinkID = tiChain[selectedChainLinkIndex]
         ChainLinkManager.shared.getChainLink(tiID: ti.id, chainID: chainLinkID) { result in
             switch result {
-            
+                
             case .success(let gottenChainLink):
                 tiChainLink = gottenChainLink
-            
+                
             case .failure(_):
                 tiChainLink = nil
             }
@@ -127,11 +138,22 @@ struct TiView: View {
             }
         }
     }
+    
+    //TODO: if selected Index == intro Post index
+    var showPickIntroPostVideoButton: Bool {
+        guard selectedChainLinkIndex == vmTi.introPostIndex(ti: ti) else { return false }
+        guard currentUserUID == ti?.creatorUID else { return false }
+        
+        let hasVideo = tiPost?.type == .video
+        
+        if hasVideo {
+            return false
+        } else {
+            return true
+        }
+    }
 }
 
 #Preview {
     TiView(ti: nil, showTiView: .constant(true))
 }
-
-
-

@@ -37,7 +37,7 @@ struct TIIcon: View {
                     .foregroundColor(.ADColors.green)
                     .font(.system(size: width * 0.06 * scale, weight: triangleWeight))
                     .offset(y: -3 * scale)
-                    .rotationEffect(.degrees(tiType == .d2 ? 180 : 90))
+                    .rotationEffect(.degrees(tiType == .d2 ? 180 : 180))
             }
         }
         .foregroundColor(.primary)
@@ -78,8 +78,8 @@ struct TiIconForMap: View {
 
 struct TIIcon_Previews: PreviewProvider {
     static var previews: some View {
-//        TIIcon()
-        TIIconD1()
+        TIIcon()
+//        TIIconD1()
 //        TIIconD2()
 //        CreateTI(showFSC: .constant(true), selectedTabIndex: .constant(2), indexStep: 1)
 

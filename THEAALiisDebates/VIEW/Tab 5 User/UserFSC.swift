@@ -14,7 +14,7 @@ struct UserFSC: View {
     @Binding var showFSC: Bool
     
     @State private var currentUser: UserModel? = nil
-    @AppStorage("current_user_id") var currentUserId: String = ""
+    @AppStorage("current_user_uid") var currentUserId: String = ""
     
     var body: some View {
         
@@ -157,7 +157,7 @@ struct SaveUserButton: View {
     
     let user: UserModel
     @State var currentUser: UserModel
-    //    @AppStorage("current_user_id") var currentUserId: String = ""
+    //    @AppStorage("current_user_uid") var currentUserId: String = ""
     @State private var showSavedUsersSheet = false
     
     var body: some View {

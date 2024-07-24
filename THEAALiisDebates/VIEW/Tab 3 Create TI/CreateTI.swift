@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CreateTI: View {
     
-    @AppStorage("current_user_id") var currentUserUID: String = ""
+    @AppStorage("current_user_uid") var currentUserUID: String = ""
     var currentUser: UserModel? {
         return UserVM().getUser(userUID: currentUserUID)
     }
@@ -302,7 +302,7 @@ struct CreateTI: View {
 final class TiCreatingVM {
     
     let tiID = UUID().uuidString
-    @AppStorage("current_user_id") var currentUserUID: String = ""
+    @AppStorage("current_user_uid") var currentUserUID: String = ""
     
     func createTI(
         //1

@@ -15,7 +15,6 @@ struct FeedTabView: View {
 //    @FirestoreQuery(collectionPath: "THEAALii_Interactions") var interactionsFeed: [TI]
     @State var interactionsFeed: [TI] = []
 
-//    @State private var tiFeedArray: [TI] = []
 
     
 //    @Binding var showTiTView: Bool
@@ -80,12 +79,16 @@ struct FeedTabView: View {
 //                .whereField("ti_type", isEqualTo: "D-1") // Add condition
                 .order(by: "ti_absolute_votes", descending: true) // Sort by field
                 .getDocuments()
+            
             let fetchedInteractions = querySnapshot.documents.compactMap { document in
                 try? document.data(as: TI.self)
             }
+            
             interactionsFeed = fetchedInteractions
+            
         } catch {
             print("Error fetching interactions: \(error)")
+            return
         }
     }
 

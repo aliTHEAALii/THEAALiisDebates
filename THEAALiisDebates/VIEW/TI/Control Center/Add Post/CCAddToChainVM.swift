@@ -25,7 +25,7 @@ final class CCAddToChainVM {
         let post = Post(id: postID, title: title, type: postType, text: description, imageURL: thumbnailURLString, videoURL: videoURL, creatorUID: creatorUID, dateCreated: Date.now, addedToChain: nil
         )
         
-        let chainLink = ChainLink(id: postID, title: title, thumbnailURL: thumbnailURLString)
+        let chainLink = ChainLink(id: postID, title: title, thumbnailURL: thumbnailURLString, addedFromVerticalListed: false)
         
         Task {
             do {

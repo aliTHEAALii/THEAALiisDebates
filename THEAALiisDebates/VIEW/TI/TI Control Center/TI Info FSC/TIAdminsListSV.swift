@@ -13,7 +13,7 @@ struct TIAdminsListSV: View {
     @Binding var ti: TIModel
     
     @State private var currentUser: UserModel?
-    @AppStorage("current_user_id") private var currentUserUID: String = ""
+    @AppStorage("current_user_uid") private var currentUserUID: String = ""
     
     var body: some View {
         
@@ -75,7 +75,7 @@ struct EditAdminsSV: View {
     @Binding var ti: TIModel
     
     @State   var currentUser: UserModel
-    @AppStorage("current_user_id") private var currentUserUID: String = ""
+    @AppStorage("current_user_uid") private var currentUserUID: String = ""
     
     var body: some View {
         HStack(spacing: 0) {

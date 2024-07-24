@@ -39,6 +39,7 @@ struct RoundedTriangle: Shape {
 
 #Preview {
 
+    //MARK: - Ti Triangle
     TiTriangle(scale: 1)
 //    RoundedTriangle(cornerRadius: 15)
 //        .stroke(lineWidth: 1)
@@ -77,6 +78,52 @@ struct TiTriangle: View {
                 
             }
             
+            
+            
+        }
+    }
+}
+
+struct IconDoubleTiTriangle: View {
+    
+    var scale: CGFloat = 1
+    var stroke: CGFloat = 1
+    var color: Color = .white
+    var fill = false
+    var upsideDown = false
+    
+    var body: some View {
+        
+        ZStack {
+            
+//            Image(systemName: "triangle")
+//                .font(.system(size: width * 0.5, weight: .thin))
+//                .frame(width: width * 0.5 * scale, height: width * 0.5 * scale)
+//                .offset(y: 20)
+            
+//            if fill {
+//                RoundedTriangle(cornerRadius: 16 * scale)
+//                    .foregroundStyle(color)
+//                    .frame(width: width * 0.5 * scale, height: width * 0.5 * scale)
+//                    .rotationEffect(.degrees(upsideDown ? 180 : 0))
+//                
+//            } else {
+//                RoundedTriangle(cornerRadius: 16 * scale)
+//                    .stroke(lineWidth: stroke * scale)
+//                    .foregroundStyle(color)
+//                    .frame(width: width * 0.55 * scale, height: width * 0.5 * scale)
+//                    .rotationEffect(.degrees(upsideDown ? 180 : 0))
+//                
+//            }
+            ZStack {
+                TiTriangle(scale: 0.15, stroke: 3,
+                           color: color)
+                .offset(x: width * 0.005)
+                TiTriangle(scale: 0.15, stroke: 3,
+                           color: color)
+                .offset(x: width * -0.005)
+            }
+            .frame(width: width * 0.15, height: width * 0.5625 * 0.85 * 0.25)
             
             
         }

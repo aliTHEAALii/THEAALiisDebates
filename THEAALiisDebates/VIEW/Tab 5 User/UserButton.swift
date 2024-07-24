@@ -100,7 +100,7 @@ struct UserButton_Previews: PreviewProvider {
 //MARK: - User Button 2
 struct UserButton: View {
     
-    var user: UserModel? = nil
+    @State var user: UserModel? = nil
     var userUID: String? = nil
     
     var horizontalName = false
@@ -109,6 +109,7 @@ struct UserButton: View {
     
     
     @State private var showUserSheet = false
+    @State private var isLoading = false
     
     var body: some View {
         
@@ -126,7 +127,8 @@ struct UserButton: View {
                         VStack(alignment: .trailing, spacing: 0) {
                             
                             //User Name
-                            Text(computedUser?.displayName ?? "No User")
+//                            Text(computedUser?.displayName ?? "No User")
+                            Text(user?.displayName ?? "No User")
                                 .font(.system(size: width * 0.045 * scale, weight: .regular))
                                 .foregroundStyle(.white)
                                 .padding(.trailing, width * 0.01 * scale)
@@ -156,9 +158,10 @@ struct UserButton: View {
                             .frame(width: width * 0.12 * scale)
                             .foregroundColor(.black)
                         
-                        if let computedUser {
-                            if let profileImageURLString = computedUser.profileImageURLString {
-                                
+//                        if let computedUser {
+//                            if let profileImageURLString = computedUser.profileImageURLString {
+                        if let user {
+                            if let profileImageURLString = user.profileImageURLString {
                                 AsyncImage(url: URL(string: profileImageURLString), scale: 0.5 * scale) { image in
                                     image
                                         .resizable()
@@ -194,56 +197,40 @@ struct UserButton: View {
                     }
                 }
             }
+            .onAppear{ Task { await loadUser() } }
             .preferredColorScheme(.dark)
-            //        .onAppear{
-            //            //FIXME: - Crashed the app
-            //            Task {
-            //                if userUID != nil && userUID != "" {
-            //                    //Valid UID
-            //                    let userExists = try await UserManager.shared.getUser(userId: userUID!)
-            //                    if userExists != nil {
-            //                        try await loadUser(userUID: userUID!)
-            //                    }
-            //                }
-            //            }
-            //        }
-//            .onAppear{ Task { try await loadUser() } }
             .fullScreenCover(isPresented: $showUserSheet) {
                 
-                UserFSC(user: computedUser, showFSC: $showUserSheet)
+                UserFSC(user: user, showFSC: $showUserSheet)
             }
         }
     }
     
     //MARK: - Functions
-//    func loadUser() async throws {
-//        
-//        
-//        //        guard let userUID = userUID else { return }
-//        
-//        if user == nil {
-//            //        if user?.userUID != nil && userUID != "" {
-//#if DEBUG
-//            //            self.user = TestingModels().user
-//            //            self.user = nil
-//#else
-//            do {
-//                /*
-//                 if getting user is [successful]   user = UserModel(...)
-//                 if getting user is [UNsuccessful] user = nil
-//                 */
-//                self.user = try await UserManager.shared.getUser(userId: userUID ?? "")
-//            } catch {
-//                print("🏀🟠🏀 Couln't get user")
-//                print(error.localizedDescription)
-//            }
-//#endif
-//        }
-//    }
+    func loadUser() async {
+        guard user == nil else { return }
+        guard let userUID else { return }
+        isLoading = true
+
+            /*
+             if getting user is [successful]   user = UserModel(...)
+             if getting user is [UNsuccessful] user = nil
+             */
+            Task {
+                do {
+
+                    user = try await UserManager.shared.getUser(userId: userUID)
+                    isLoading = false
+                } catch {
+                    print("🆘🔴🟠 Couln't get user 🟧🆘")
+                    print(error.localizedDescription)
+                    isLoading = false
+                }
+            }
+    }
     
     //MARK: - Computed Properties
     var computedUser: UserModel? {
-//        guard user == nil else { return user }
         if user != nil { return user }
         if userUID == nil { return nil}
 //        guard userUID != nil else { return nil }
@@ -256,40 +243,37 @@ struct UserButton: View {
         
         if userUID != nil {
 #if DEBUG
-//            return TestingModels().user3
             return TestingModels().userArray.randomElement()
 
 #else
-            do {
-                /*
-                 if getting user is [successful]   user = UserModel(...)
-                 if getting user is [UNsuccessful] user = nil
-                 */
-//                self.user = try await UserManager.shared.getUser(userId: userUID ?? "")
-                return try await UserManager.shared.getUser(userId: userUID ?? "")
-            } catch {
-                print("🏀🟠🏀 Couln't get user")
-                print(error.localizedDescription)
+            Task {
+                do {
+                    return try await UserManager.shared.getUser(userId: userUID ?? "")
+                } catch {
+                    print("🆘🔴🟠 Couln't get user 🟧🆘")
+                    print(error.localizedDescription)
+                    return nil
+                }
             }
 #endif
         }
         return nil
     }
     
-    //Label
+    //MARK: - Label
     var userLabel: String {
-        guard let computedUser else { return "No User" }
+        guard let user else { return "No User" }
         
-        if !computedUser.createdTIsIDs.isEmpty {
+        if !user.createdTIsIDs.isEmpty {
             return "Creator"
         } else {
             return "Observer"
         }
     }
     var userLabelIcon: String {
-        guard let computedUser else {  return "xmark" }
+        guard let user else {  return "xmark" }
         
-        if !computedUser.createdTIsIDs.isEmpty {
+        if !user.createdTIsIDs.isEmpty {
             
             return "plus.square.fill"
             

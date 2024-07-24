@@ -135,7 +135,7 @@ final class UserManager {
     
     //1. - Create
     func createNewUser(user: UserModel) async throws {
-        print("🦠😎 created User")
+        print("✅😎 created User")
         try userDocument(userUID: user.userUID).setData(from: user, merge: false)
     }
     

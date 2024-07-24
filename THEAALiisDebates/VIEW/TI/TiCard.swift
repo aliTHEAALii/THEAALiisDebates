@@ -45,7 +45,7 @@ struct TiCard: View {
                     .padding(.bottom, ti.tiType == .d2 ? width * 0.17 : width * 0.085)
                     
                     if ti.tiType == .d2 {
-                        D2IconBar(ti: ti)
+                        D2IconBarNew(ti: ti)
                         
                     } else if ti.tiType == .d1 {
                         TiMapRectD1(ti: ti, cornerRadius: 8, rectWidth: width * 0.5, rectHeight: width * 0.085, stroke: 0.5)
@@ -93,8 +93,9 @@ struct TiCard: View {
 
 
 
-//MARK: - D-2 Card Bar
-struct D2IconBar: View {
+
+//MARK: - D-2 Card Bar OLD
+struct D2IconBarOld: View {
     
     var ti: TI
     
@@ -145,6 +146,7 @@ struct D2IconBar: View {
         .task { await fetchUser() }
     }
     
+    //MARK: - Fetch User
     func fetchUser() async {
         guard let lsUserUID = ti.lsUserUID else { return }
         
@@ -157,33 +159,145 @@ struct D2IconBar: View {
     }
 }
 
-
-//MARK: - Ti Rect Shape
-struct TiMapRectangleShape: Shape {
+//MARK: - D-2 Card Bar NEW
+struct D2IconBarNew: View {
     
-    let cornerRadius: CGFloat
+    var ti: TI
     
-    func path(in rect: CGRect) -> Path {
-        let width = rect.width
-        let height = rect.height
+    //TODO: Pass this to the tiView since the fetch is already done here, don't fetch L & R users again in TiView
+    @State var leftUser: UserModel? = nil
+    @State var rightUser: UserModel? = nil
+    
+//    var showNames = true
+    
+    var body: some View {
         
-        // The triangle's three corners.
-        let bottomLeft = CGPoint(x: 0, y: height)
-        let bottomRight = CGPoint(x: width, y: height)
-        
-        let topLeft = CGPoint(x: 0, y: 0)
-        let topRight = CGPoint(x: width, y: 0)
-        
+        ZStack {
+            
+            // -  Border & Names
+            VStack(spacing: width * 0.0075) {
                 
-        var path = Path()
+                //Upper space
+                Rectangle()
+                    .foregroundStyle(.clear)
+                    .frame(height: width * 0.05)
+                
+                // Border
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(lineWidth: 1)
+                    .foregroundStyle(.gray)
+                    .frame(width: width * 0.9, height: width * 0.08)
+                
+                //Name (left & right) //Bottom Space
+                HStack(spacing: 0) {
+                    Text(leftUser?.displayName ?? "nil")
+                        .font(.system(size: width * 0.033, weight: .regular))
+                    
+                    Spacer()
+                    
+                    Text(rightUser?.displayName ?? "nil")
+                        .font(.system(size: width * 0.033, weight: .regular))
+                    
+                }
+                .foregroundStyle(.white)
+                .frame(width: width * 0.775, height: width * 0.05)
+            } // --- \\
+//            .padding(.top, width * 0.05)
+
+            //MARK: - Circles
+            HStack(spacing: 0) {
+                                
+                //left Circles
+                HStack(spacing: 0) {
+                    if let leftSideChain = ti.leftSideChain {
+                        if leftSideChain.count > 3 {
+                            ForEach(0..<4) { i in
+                                CircleForTiCard(number: leftSideChain.count - i)
+                                
+                            }
+                        } else if leftSideChain.count <= 3, !leftSideChain.isEmpty  {
+                            ForEach(0..<3) { i in
+                                
+                                
+                                if (3 - i) > leftSideChain.count {
+                                    //blank circles for space
+                                    CircleForTiCard(number: nil, color: .clear)
+                                    
+                                } else {
+                                    CircleForTiCard(number: 3 - i)
+                                }
+                            }
+                        }
+                    }
+                }.frame(width: width * 0.4)
+                
+                Rectangle()
+                    .foregroundStyle(.clear)
+                    .frame(width: width * 0.05)
+                
+                //right Circles
+                HStack(spacing: 0) {
+                if ti.rightSideChain.count > 3 {
+                    ForEach(0..<4) { i in
+                        
+                        CircleForTiCard(number: ti.rightSideChain.count - (3 - i))
+
+                    }
+                } else if ti.rightSideChain.count <= 3 && !ti.rightSideChain.isEmpty {
+                    ForEach(0..<3) { i in
+                        
+                        if (i + 1) <= ti.rightSideChain.count {
+                            CircleForTiCard(number: i + 1)
+                        } else {
+                            //blank circle for space
+                            CircleForTiCard(number: nil, color: .clear)
+                        }
+                    }
+                }
+            }.frame(width: width * 0.4)
+
+                
+            }
+//            .frame(width: width * 0.7)
+//            .frame(width: rectWidth - width * 0.02, height: width * 0.07) ----\\\\\
+            //MARK: - Here
+            
+            // - Ti Icon & Users
+            HStack(spacing: 0) {
+                
+                if leftUser != nil {
+                    UserButton(user: leftUser )
+                    
+                } else {
+                    UserButton()
+                }
+                
+                //MARK: - Icon
+                Spacer()
+                TIIcon()
+                Spacer()
+                
+                
+                if rightUser != nil {
+                    UserButton(user: rightUser )
+                } else {
+                    UserButton()
+                }
+            }
+        }
+        .frame(height: width * 0.2)
+    .task { await fetchUser() }
+    }
+    
+    func fetchUser() async {
+        guard let lsUserUID = ti.lsUserUID else { return }
         
-        path.move(to: topLeft)
-        path.addArc(tangent1End: bottomLeft, tangent2End: bottomRight, radius: cornerRadius)
-        path.addArc(tangent1End: bottomRight, tangent2End: topRight, radius: cornerRadius)
-        path.addLine(to: topRight)
-        
-        
-        return path
+        do {
+            leftUser = try await UserManager.shared.getUser(userId: lsUserUID)
+            rightUser = try await UserManager.shared.getUser(userId: ti.rsUserUID)
+        } catch {
+            print("❌ Couldn't fetch right or left User ❌")
+        }
     }
 }
 
@@ -271,7 +385,38 @@ struct TiMapRect: View {
     }
 }
 
-//MARK: Map Rect
+//MARK: - Ti Rect Shape
+struct TiMapRectangleShape: Shape {
+    
+    let cornerRadius: CGFloat
+    
+    func path(in rect: CGRect) -> Path {
+        let width = rect.width
+        let height = rect.height
+        
+        // The triangle's three corners.
+        let bottomLeft = CGPoint(x: 0, y: height)
+        let bottomRight = CGPoint(x: width, y: height)
+        
+        let topLeft = CGPoint(x: 0, y: 0)
+        let topRight = CGPoint(x: width, y: 0)
+        
+                
+        var path = Path()
+        
+        path.move(to: topLeft)
+        path.addArc(tangent1End: bottomLeft, tangent2End: bottomRight, radius: cornerRadius)
+        path.addArc(tangent1End: bottomRight, tangent2End: topRight, radius: cornerRadius)
+        path.addLine(to: topRight)
+        
+        
+        return path
+    }
+}
+
+
+
+//MARK: Map Rect D-1
 struct TiMapRectD1: View {
     
     let ti: TI

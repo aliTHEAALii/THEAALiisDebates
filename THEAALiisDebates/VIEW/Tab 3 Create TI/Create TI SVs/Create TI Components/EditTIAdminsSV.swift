@@ -55,6 +55,7 @@ struct EditTIAdminsSV: View {
                 
                 FSCHeaderSV(showFSC: $showEditAdmins, text: "Edit Admins")
                 
+                // 2. Creator
                 HStack {
                     Text("TI Creator")
                         

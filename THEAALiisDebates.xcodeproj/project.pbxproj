@@ -130,6 +130,11 @@
 		2F6CA3F62C271BD0003EF603 /* CCMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6CA3F52C271BD0003EF603 /* CCMap.swift */; };
 		2F6CA3F92C2D1824003EF603 /* VerticalListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6CA3F82C2D1824003EF603 /* VerticalListVM.swift */; };
 		2F6CA3FB2C2D9882003EF603 /* TiVerticalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6CA3FA2C2D9882003EF603 /* TiVerticalListView.swift */; };
+		2FBA0CD92C42AA8D00BA4907 /* VotingButtonsSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CD82C42AA8D00BA4907 /* VotingButtonsSV.swift */; };
+		2FBA0CDB2C42AE8F00BA4907 /* IconDoubleTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CDA2C42AE8F00BA4907 /* IconDoubleTriangle.swift */; };
+		2FBA0CDD2C42C5B400BA4907 /* CCBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CDC2C42C5B400BA4907 /* CCBottomBar.swift */; };
+		2FBA0CE12C45B58200BA4907 /* PickIntroVideoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */; };
+		2FBA0CE32C46CCBF00BA4907 /* SideSheetRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBA0CE22C46CCBF00BA4907 /* SideSheetRectangle.swift */; };
 		2FD5F5482C00CC5E00488621 /* RoundedTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD5F5472C00CC5E00488621 /* RoundedTriangle.swift */; };
 /* End PBXBuildFile section */
 
@@ -253,6 +258,11 @@
 		2F6CA3F52C271BD0003EF603 /* CCMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCMap.swift; sourceTree = "<group>"; };
 		2F6CA3F82C2D1824003EF603 /* VerticalListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalListVM.swift; sourceTree = "<group>"; };
 		2F6CA3FA2C2D9882003EF603 /* TiVerticalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiVerticalListView.swift; sourceTree = "<group>"; };
+		2FBA0CD82C42AA8D00BA4907 /* VotingButtonsSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VotingButtonsSV.swift; sourceTree = "<group>"; };
+		2FBA0CDA2C42AE8F00BA4907 /* IconDoubleTriangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconDoubleTriangle.swift; sourceTree = "<group>"; };
+		2FBA0CDC2C42C5B400BA4907 /* CCBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCBottomBar.swift; sourceTree = "<group>"; };
+		2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickIntroVideoButton.swift; sourceTree = "<group>"; };
+		2FBA0CE22C46CCBF00BA4907 /* SideSheetRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideSheetRectangle.swift; sourceTree = "<group>"; };
 		2FD5F5472C00CC5E00488621 /* RoundedTriangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTriangle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -288,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				2F4F878E2C35D71F0018D2A5 /* VotingPostCardSideSheet.swift */,
+				2FBA0CD82C42AA8D00BA4907 /* VotingButtonsSV.swift */,
 			);
 			path = "Voting Post Card SVs";
 			sourceTree = "<group>";
@@ -399,6 +410,7 @@
 			children = (
 				2F690C5A2BC09D7500A31760 /* Globals.swift */,
 				2F690C732BC1775000A31760 /* TestingComponentsManager.swift */,
+				2FBA0CDE2C4485D800BA4907 /* Shapes */,
 				2F690C782BC177E200A31760 /* Global Views */,
 			);
 			path = Globals;
@@ -417,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				2F690C792BC1781000A31760 /* TIIcon.swift */,
+				2FBA0CDA2C42AE8F00BA4907 /* IconDoubleTriangle.swift */,
 				2F690D172BC6738E00A31760 /* D1Icon.swift */,
 				2F690C7B2BC1784D00A31760 /* FutureFeatureButton.swift */,
 				2F690C7D2BC1787800A31760 /* LoadingView.swift */,
@@ -635,6 +648,7 @@
 				2F6CA3E82C22B885003EF603 /* ControlCenter.swift */,
 				2F6CA3F12C24262B003EF603 /* CCTopBar.swift */,
 				2F6CA3F52C271BD0003EF603 /* CCMap.swift */,
+				2FBA0CDC2C42C5B400BA4907 /* CCBottomBar.swift */,
 				2F6CA3D72C1A9AD0003EF603 /* Add Post */,
 				2F6CA3EA2C22BA01003EF603 /* ii - Interaction Information */,
 			);
@@ -656,6 +670,7 @@
 			children = (
 				2F6CA3EB2C22BA5D003EF603 /* iiButton.swift */,
 				2F6CA3ED2C22BCF5003EF603 /* iiView.swift */,
+				2FBA0CDF2C45B55500BA4907 /* ii Components */,
 			);
 			path = "ii - Interaction Information";
 			sourceTree = "<group>";
@@ -670,6 +685,22 @@
 				2F4F878B2C3253D60018D2A5 /* VotingPostCardContent.swift */,
 			);
 			path = "Ti Vertical List";
+			sourceTree = "<group>";
+		};
+		2FBA0CDE2C4485D800BA4907 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				2FBA0CE22C46CCBF00BA4907 /* SideSheetRectangle.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
+		2FBA0CDF2C45B55500BA4907 /* ii Components */ = {
+			isa = PBXGroup;
+			children = (
+				2FBA0CE02C45B58200BA4907 /* PickIntroVideoButton.swift */,
+			);
+			path = "ii Components";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -776,6 +807,7 @@
 				2F690CBB2BC18E2300A31760 /* VotingSVOld.swift in Sources */,
 				2F690CCD2BC1905500A31760 /* AddTIVideoButton.swift in Sources */,
 				2F690CAD2BC1860500A31760 /* Post.swift in Sources */,
+				2FBA0CD92C42AA8D00BA4907 /* VotingButtonsSV.swift in Sources */,
 				2F690CD62BC190F900A31760 /* PickVideoButton.swift in Sources */,
 				2F6CA3E32C1E3720003EF603 /* CCAddToChainVM.swift in Sources */,
 				2F690C6D2BC0BDAF00A31760 /* DebateModel.swift in Sources */,
@@ -800,6 +832,7 @@
 				2F690C842BC1796D00A31760 /* CloseButton.swift in Sources */,
 				2F12323D2C0A61E4009481D8 /* ChainLink.swift in Sources */,
 				2F690CE42BC191D900A31760 /* LibraryTabView.swift in Sources */,
+				2FBA0CDD2C42C5B400BA4907 /* CCBottomBar.swift in Sources */,
 				2F4F878A2C31A55E0018D2A5 /* VotingPostCard.swift in Sources */,
 				2F690C482BC09BDA00A31760 /* LoginScreen.swift in Sources */,
 				2F690D202BCAD57700A31760 /* Pick User.swift in Sources */,
@@ -808,6 +841,7 @@
 				2F6CA3EE2C22BCF5003EF603 /* iiView.swift in Sources */,
 				2F690C8C2BC17CF200A31760 /* UserTabView.swift in Sources */,
 				2F690C672BC0BD6200A31760 /* TIVideo.swift in Sources */,
+				2FBA0CDB2C42AE8F00BA4907 /* IconDoubleTriangle.swift in Sources */,
 				2F690D0C2BC1950400A31760 /* SideSheetForVotingCellOld.swift in Sources */,
 				2F690CE82BC1927D00A31760 /* FeedTab.swift in Sources */,
 				2F35340A2BDB3ABF00DE5E7A /* CTiStep2D2.swift in Sources */,
@@ -822,6 +856,7 @@
 				2F690C692BC0BD7E00A31760 /* TITChainLink.swift in Sources */,
 				2F690C652BC0BD3C00A31760 /* Video Manager.swift in Sources */,
 				2F690C8F2BC17D5700A31760 /* UserBioAndButtons.swift in Sources */,
+				2FBA0CE12C45B58200BA4907 /* PickIntroVideoButton.swift in Sources */,
 				2F690C772BC177C600A31760 /* TI.swift in Sources */,
 				2F690D062BC194BC00A31760 /* SideSheet.swift in Sources */,
 				2F690CC02BC18EF000A31760 /* TIControlsVM.swift in Sources */,
@@ -849,6 +884,7 @@
 				2F690C7A2BC1781000A31760 /* TIIcon.swift in Sources */,
 				2F690CEE2BC192CE00A31760 /* VideoCard.swift in Sources */,
 				2F690C322BC0974200A31760 /* RootView.swift in Sources */,
+				2FBA0CE32C46CCBF00BA4907 /* SideSheetRectangle.swift in Sources */,
 				2F6CA3E72C229719003EF603 /* CCAddToChainButton.swift in Sources */,
 				2F690CFE2BC1943200A31760 /* DebateControlsSV.swift in Sources */,
 				2F690CB32BC18DAE00A31760 /* VotingVideoCard.swift in Sources */,

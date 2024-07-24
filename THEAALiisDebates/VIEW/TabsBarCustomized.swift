@@ -12,7 +12,7 @@ struct TabsBarCustomized: View {
     @StateObject private var vmTIT = TITViewModel()
     @AppStorage("tit_id") var TITid : String = "10A47E3F-5659-40C9-B14F-A0428390BDFA"
     //get Current User
-    @AppStorage("current_user_id"  ) private var currentUserId: String = ""
+    @AppStorage("current_user_uid"  ) private var currentUserId: String = ""
     @State private var currentUser: UserModel? = nil
     
     let icons = ["triangle", "magnifyingglass", "plus", "line.3.horizontal", "person"]

@@ -16,22 +16,26 @@ struct ChainLink: Identifiable, Codable {
     var id: String                         //same as the post
     var title    :  String
     var thumbnailURL :  String?
+    var addedFromVerticalList: Bool
     //Vertical list info
     var verticalList : [String] = []
     var listAccess   :  String?
     var listTitle    :  String?
     
     ///Create ChainLink
-    init(id: String, title: String, thumbnailURL: String?) {
+    init(id: String, title: String, thumbnailURL: String?, addedFromVerticalListed: Bool) {
         self.id = id
         self.title = title
         self.thumbnailURL = thumbnailURL
+        self.addedFromVerticalList = addedFromVerticalListed
     }
     ///Read ChainLink
-    init(id: String, title: String, thumbnailURL: String?, verticalList: [String], listAccess: String?, listTitle: String?) {
+    init(id: String, title: String, thumbnailURL: String?, addedFromVerticalList: Bool, verticalList: [String], listAccess: String?, listTitle: String?) {
         self.id           = id
         self.title        = title
         self.thumbnailURL = thumbnailURL
+        self.addedFromVerticalList = addedFromVerticalList
+        
         self.verticalList = verticalList
         self.listAccess   = listAccess
         self.listTitle    = listTitle
@@ -42,6 +46,7 @@ struct ChainLink: Identifiable, Codable {
         case id                 = "id"
         case title              = "title"
         case thumbnailURL       = "thumbnail_url"
+        case addedFromVerticalList = "added_from_vertical_list"
         
         case verticalList       = "vertical_list"
         case listAccess         = "list_access"
@@ -56,6 +61,7 @@ struct ChainLink: Identifiable, Codable {
         try container.encode(self.id          , forKey: .id          )
         try container.encode(self.title, forKey: .title)
         try container.encode(self.thumbnailURL, forKey: .thumbnailURL)
+        try container.encode(self.addedFromVerticalList, forKey: .addedFromVerticalList)
         //Vertical List
         try container.encode(self.verticalList       , forKey: .verticalList)
         try container.encodeIfPresent(self.listAccess, forKey: .listAccess  )
@@ -70,6 +76,7 @@ struct ChainLink: Identifiable, Codable {
 
         self.title = try container.decode(String.self, forKey: .title)
         self.thumbnailURL = try container.decode(String.self, forKey: .thumbnailURL)
+        self.addedFromVerticalList = try container.decodeIfPresent(Bool.self, forKey: .addedFromVerticalList) ?? false
         //Vertical List
         self.verticalList = try container.decode([String].self,        forKey: .verticalList)
         self.listAccess   = try container.decodeIfPresent(String.self, forKey: .listAccess  )
@@ -98,7 +105,7 @@ struct ChainLink: Identifiable, Codable {
 
 
 
-//MARK: - TIT Chain Manager -------
+//MARK: - TI Chain Manager ------- -
 
 final class ChainLinkManager {
     

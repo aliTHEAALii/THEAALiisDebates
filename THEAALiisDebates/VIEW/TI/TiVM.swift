@@ -41,4 +41,39 @@ final class TiViewModel: ObservableObject {
             return nil
         }
     }
+    
+    func introPostIndex(ti: TI?) -> Int {
+        if ti?.tiType == .d2 {
+            return ti?.leftSideChain?.count ?? 0
+        }
+        return 0
+    }
+    
+    func isAdmin(ti: TI?, currentUserUID: String) -> Bool {
+        guard let ti = ti else { return false }
+        if ti.tiAdminsUIDs.contains(currentUserUID) { return true }
+        if ti.creatorUID == currentUserUID { return true }
+        return false
+    }
+    
+    func introPostHasVideo(ti: TI?) async -> Bool {
+        guard let ti else { return true }
+        
+        Task {
+            do {
+                let introPost = try await PostManager.shared.fetchPost(tiID: ti.id, postID: ti.id)
+                
+                if introPost!.type == .video { 
+                    return true
+                } else {
+                    return false
+                }
+            } catch {
+                print("❌ Error: introPostHasVideo  \(error) ❌")
+                return false
+            }
+        }
+        
+        return true
+    }
 }

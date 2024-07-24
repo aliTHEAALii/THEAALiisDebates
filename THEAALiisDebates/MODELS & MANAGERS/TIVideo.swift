@@ -37,7 +37,7 @@ struct TIVideoModel: Identifiable, Codable, Hashable {
     
     //MARK: Dictionary
     ///for Firebase creating a TITVideo
-    var dictionary: [String: Any?] {
+    var dictionary: [String: Any] {
         //NON-Optional
         var dict: [String: Any] = [
             "id": id,
@@ -184,7 +184,7 @@ final class TITVideoManager {
     
     //MARK: - 1. Create
     func createTitVideo(titID: String, titVideo: TIVideoModel) async throws {
-        try await TITVideoDocument(TITid: titID, TITVideoID: titVideo.id).setData(titVideo.dictionary)
+        try await TITVideoDocument(TITid: titID, TITVideoID: titVideo.id).setData(titVideo.dictionary as [String : Any])
     }
     
     //MARK: - 2. Read

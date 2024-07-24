@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TIViewOld: View {
     
-    @AppStorage("current_user_id") var currentUserId: String = ""
+    @AppStorage("current_user_uid") var currentUserId: String = ""
     
     //    let ti: TIModel
     @State var ti: TIModel

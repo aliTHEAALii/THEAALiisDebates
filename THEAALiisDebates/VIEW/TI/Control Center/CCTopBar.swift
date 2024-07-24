@@ -51,9 +51,6 @@ struct CCTopBar: View {
             
             
             
-            
-            
-            
             Divider()
                 .frame(height: width * 0.15)                         //d
             
@@ -144,12 +141,10 @@ struct CCIndicatorCircles: View {
                                 Text("\(ccVM.order(ti: ti!, index: i))")
                                 //                                    .fontWeight(.medium)
                                     .foregroundStyle(expandTiControls ? .secondary : .primary)
-                                
                             }
                         }
                         .frame(width: width * 0.1)
                     }
-                    
                 }
             }
             .padding(.horizontal, width * 0.002)

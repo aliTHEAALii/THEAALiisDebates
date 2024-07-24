@@ -103,7 +103,8 @@ struct TiVerticalListView: View {
                     //                }
                     ForEach(Array(zip(verticalListPosts.indices, verticalListPosts)), id: \.1.id ) { index, post in
                         VotingPostCard(postID: post.id,
-                                       ti: $ti,
+                                       ti: $ti, 
+                                       tiChain: $tiChain,
                                        chainLink: $tiChainLink,
                                        tiPostID: post.id,
                                        order: index + 1,

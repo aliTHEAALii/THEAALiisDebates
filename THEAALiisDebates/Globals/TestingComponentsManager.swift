@@ -97,6 +97,8 @@ final class TestingModels {
     
     var userArray : [UserModel] { [user1, user2, user3, user4nil] }
     
+    let userMeUID: String = "kJchOu2tJCenXU4ZpXoAxgCYfJN2"
+    
     //MARK: - TI
     let testTI0 = TI(ID: "id", title: "testing TI title", description: "testing ti Description", thumbnailURL: "https://images.ctfassets.net/ooa29xqb8tix/J6KiaOqQyBtSa84hx6fuI/2cd1d475743a2a42c8643b2a69e88547/Advanced_React_Hooks_800x600_cover.png?w=400&q=50", creatorUID: "uid", tiAdminsUIDs: ["sdf", "asda"], rsLevel1UsersUIDs: ["asd", "sdfdas"], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: .open)
     
@@ -104,7 +106,7 @@ final class TestingModels {
                         rsUserUID: "uid", rsLevel1UsersUIDs: ["asdfa"], rsLevel2UsersUIDs: [], rsLevel3UsersUIDs: [], rsVerticalListAccess: .open,
                         lsUserUID: "uid2", lsLevel1UsersUIDs: ["oooo", "ppp"], lsLevel2UsersUIDs: [], lsLevel3UsersUIDs: [], lsVerticalListAccess: .restricted)
     
-    let testTId2 = TI(ID: "id", title: "test TI .d2", description: ".d2 description", thumbnailURL: nil, creatorUID: "uid", tiAdminsUIDs: ["kkk"], rsUserUID: "rs uid", rsLevel1UsersUIDs: nil, rsLevel2UsersUIDs: nil, rsLevel3UsersUIDs: nil, rsVerticalListAccess: .open, lsUserUID: "ls uid", lsLevel1UsersUIDs: nil, lsLevel2UsersUIDs: nil, lsLevel3UsersUIDs: nil, lsVerticalListAccess: .restricted)
+    let testTId2 = TI(ID: "id", title: "test TI .d2", description: ".d2 description", thumbnailURL: nil, creatorUID: "BXnHfiEaIQZiTcpvWs0bATdAdJo1", tiAdminsUIDs: ["V7PM9BXAcwetP8ZeoV70619zpcF2"], rsUserUID: "rs uid", rsLevel1UsersUIDs: nil, rsLevel2UsersUIDs: nil, rsLevel3UsersUIDs: nil, rsVerticalListAccess: .open, lsUserUID: "ls uid", lsLevel1UsersUIDs: nil, lsLevel2UsersUIDs: nil, lsLevel3UsersUIDs: nil, lsVerticalListAccess: .restricted)
     
 }
 

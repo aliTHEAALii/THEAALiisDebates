@@ -13,7 +13,7 @@ struct CCAddToChain: View {
     @Binding var ti: TI?
     @Binding var tiChainLink: ChainLink?
     @Binding var tiChain: [String]
-    @AppStorage("current_user_id") var currentUserUID: String = ""
+    @AppStorage("current_user_uid") var currentUserUID: String = ""
 
     let postID = UUID().uuidString
     var vm = CCAddToChainVM()

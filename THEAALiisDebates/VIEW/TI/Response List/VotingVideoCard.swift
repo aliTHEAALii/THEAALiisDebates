@@ -17,7 +17,7 @@ struct VotingVideoCard: View {
     let order: Int
     
     let isAdmin: Bool
-    @AppStorage("current_user_id") private var currentUserId: String = ""
+    @AppStorage("current_user_uid") private var currentUserId: String = ""
 
     
 //    @StateObject private var cardVM = VotingCardViewModel()

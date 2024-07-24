@@ -11,7 +11,7 @@ struct TIInfoFSC: View {
     
     @Binding var ti: TIModel
     
-    @AppStorage("current_user_id") private var currentUserId: String = ""
+    @AppStorage("current_user_uid") private var currentUserId: String = ""
     @Binding var showTIInfoFSC: Bool
     
     var body: some View {
@@ -135,7 +135,7 @@ struct TIInfoButton: View {
 //
 //    @Binding var ti: TIModel
 //
-//    @AppStorage("current_user_id") private var currentUserId: String = ""
+//    @AppStorage("current_user_uid") private var currentUserId: String = ""
 //
 //    var body: some View {
 //

@@ -7,11 +7,9 @@
 
 import SwiftUI
 
-
-//MARK: - ii Button -
 struct iiButton: View {
     
-    @Binding var ti : TI
+    @Binding var ti : TI?
     @State private var iiShowFSC = false
     
     var body: some View {
@@ -40,11 +38,13 @@ struct iiButton: View {
                 
             }
         }
-        .frame(width: width * 0.4)
+        .frame(width: width * 0.3)
         .preferredColorScheme(.dark)
         .fullScreenCover(isPresented: $iiShowFSC) {
-            FSCHeaderSV(showFSC: $iiShowFSC, text: "Interaction Information")
-            iiView(ti: $ti)
+            VStack(spacing: 0) {
+                FSCHeaderSV(showFSC: $iiShowFSC, text: "Interaction Information")
+                iiView(ti: $ti)
+            }
         }
     }
 }

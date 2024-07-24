@@ -161,7 +161,23 @@ struct Post: Identifiable, Codable {
 }
 
 
-//MARK: - Post Manager
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//MARK: - Post Manager -------- -
 final class PostManager {
     
     static let shared = PostManager()
@@ -169,12 +185,14 @@ final class PostManager {
     
     // ,Post Document Location
     private let TICollection: CollectionReference = Firestore.firestore().collection("THEAALii_Interactions")
+    private func TIDocument(tiID: String) -> DocumentReference { TICollection.document(tiID) }
     private func PostDocument(tiID: String, postID: String) -> DocumentReference {
         TICollection.document(tiID).collection("Posts").document(postID)
     }
     private func VLPostDocument(tiID: String, chainLinkID: String, postID: String) -> DocumentReference {
         TICollection.document(tiID).collection("Chain_Links").document(chainLinkID).collection("Vertical_List_Posts").document(postID)
     }
+    
     ///-----
 //    private func TITVideoDocument(TITid: String, TITVideoID: String) -> DocumentReference {
 //        TITCollection.document(TITid).collection("TITVideos").document(TITVideoID)
@@ -208,7 +226,7 @@ final class PostManager {
             completion(error)
         }
     }
-    //MARK: - VL
+    //MARK: - VL -
     func createVerticalListPost(tiID: String, chainLinkID: String, post: Post, completion: @escaping (Error?)->Void) {
         do {
             try VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: post.id).setData(from: post) { error in
@@ -264,6 +282,31 @@ final class PostManager {
     }
     
     //MARK:  - 3. Update
+    
+    //Update Intro Post Video
+    func updateIntroPostVideo(tiID: String, videoUrlString: String) async throws {
+        Task {
+            do {
+                do {
+                    try await PostDocument(tiID: tiID, postID: tiID).updateData([Post.CodingKeys.videoURL.rawValue : videoUrlString])
+                } catch {
+                    print("🆘 Error 1 - couldn't update videoURL in introPost : \(error.localizedDescription)❌")
+                    throw error
+                }
+                
+                do {
+                    try await PostDocument(tiID: tiID, postID: tiID).updateData([Post.CodingKeys.type.rawValue : PostType.video.rawValue])
+                } catch {
+                    print("🆘 Error 2 - couldn't update Intro Post type : \(error.localizedDescription)❌")
+                    throw error
+                }
+
+            } catch {
+                print("🆘 Error 3 - couldn't update Intro Post videoURL : \(error.localizedDescription)❌")
+                throw error
+            }
+        }
+    }
     
     //VL post Uploaded to chain
     func updateAddToChain(tiID: String, chainLinkID: String, postID: String) async throws {
@@ -324,29 +367,83 @@ final class PostManager {
             }
         }
     }
-    //Increment & Decrement Votes
+    
+    //MARK: - Increment & Decrement Votes -
     //3.
     
-//    func changeUpVotes(tiID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease) async throws {
-//        if increaseOrDecrease == .increase {
-//            try await PostDocument(tiID: tiID, postID: postID).updateData(["up_votes" : FieldValue.increment(Int64(1))])
-//            try await PostDocument(tiID: tiID, postID: postID).updateData(["total_votes" : FieldValue.increment(Int64(1))])
-//            
-//        } else {
-//            try await PostDocument(tiID: tiID, postID: postID).updateData(["up_votes" : FieldValue.increment(Int64(-1))])
-//            try await PostDocument(tiID: tiID, postID: postID).updateData(["total_votes" : FieldValue.increment(Int64(-1))])
-//        }
-//    }
-//    func changeDownVotes(tiID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease) async throws {
-//        if increaseOrDecrease == .increase {
-//            try await PostDocument(tiID: tiID, postID: postID).updateData(["down_votes" : FieldValue.increment(Int64(1))])
-//            try await PostDocument(tiID: tiID, postID: postID).updateData(["total_votes" : FieldValue.increment(Int64(-1))])
-//            
-//        } else {
-//            try await PostDocument(tiID: tiID, postID: postID).updateData(["down_votes" : FieldValue.increment(Int64(-1))])
-//            try await PostDocument(tiID: tiID, postID: postID).updateData(["total_votes" : FieldValue.increment(Int64(1))])
-//        }
-//    }
+    func changeUpVotes(tiID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease) async throws {
+        if increaseOrDecrease == .increase {
+            try await PostDocument(tiID: tiID, postID: postID).updateData([Post.CodingKeys.upVotes : FieldValue.increment(Int64(1))])
+            try await PostDocument(tiID: tiID, postID: postID).updateData([Post.CodingKeys.totalVotes : FieldValue.increment(Int64(1))])
+            //Ti Votes
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiUpVotes : FieldValue.increment(Int64(1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiTotalVotes : FieldValue.increment(Int64(1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiAbsoluteVotes : FieldValue.increment(Int64(1))])
+
+        } else {
+            try await PostDocument(tiID: tiID, postID: postID).updateData([Post.CodingKeys.upVotes : FieldValue.increment(Int64(-1))])
+            try await PostDocument(tiID: tiID, postID: postID).updateData([Post.CodingKeys.totalVotes : FieldValue.increment(Int64(-1))])
+            //Ti Votes
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiUpVotes : FieldValue.increment(Int64(-1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiTotalVotes : FieldValue.increment(Int64(-1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiAbsoluteVotes : FieldValue.increment(Int64(-1))])
+        }
+    }
+    func changeDownVotes(tiID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease) async throws {
+        if increaseOrDecrease == .increase {
+            try await PostDocument(tiID: tiID, postID: postID).updateData([Post.CodingKeys.downVotes : FieldValue.increment(Int64(1))])
+            try await PostDocument(tiID: tiID, postID: postID).updateData([Post.CodingKeys.totalVotes : FieldValue.increment(Int64(-1))])
+            //Ti Votes
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiDownVotes : FieldValue.increment(Int64(1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiTotalVotes : FieldValue.increment(Int64(1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiAbsoluteVotes : FieldValue.increment(Int64(-1))])
+            
+        } else {
+            try await PostDocument(tiID: tiID, postID: postID).updateData([Post.CodingKeys.downVotes : FieldValue.increment(Int64(-1))])
+            try await PostDocument(tiID: tiID, postID: postID).updateData([Post.CodingKeys.totalVotes : FieldValue.increment(Int64(1))])
+            //Ti Votes
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiDownVotes : FieldValue.increment(Int64(-1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiTotalVotes : FieldValue.increment(Int64(-1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiAbsoluteVotes : FieldValue.increment(Int64(1))])
+        }
+    }
+    func changeVLUpVotes(tiID: String, chainLinkID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease) async throws {
+        if increaseOrDecrease == .increase {
+            try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData([Post.CodingKeys.upVotes.rawValue : FieldValue.increment(Int64(1))])
+            try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData([Post.CodingKeys.totalVotes.rawValue : FieldValue.increment(Int64(1))])
+            //Ti Votes
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiUpVotes.rawValue : FieldValue.increment(Int64(1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiTotalVotes.rawValue : FieldValue.increment(Int64(1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiAbsoluteVotes.rawValue : FieldValue.increment(Int64(1))])
+
+        } else {
+            try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData([Post.CodingKeys.upVotes.rawValue : FieldValue.increment(Int64(-1))])
+            try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData([Post.CodingKeys.totalVotes.rawValue : FieldValue.increment(Int64(-1))])
+            //Ti Votes
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiUpVotes.rawValue : FieldValue.increment(Int64(-1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiTotalVotes.rawValue : FieldValue.increment(Int64(-1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiAbsoluteVotes.rawValue : FieldValue.increment(Int64(-1))])
+        }
+    }
+    func changeVLDownVotes(tiID: String, chainLinkID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease) async throws {
+        if increaseOrDecrease == .increase {
+            try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData([Post.CodingKeys.downVotes.rawValue : FieldValue.increment(Int64(1))])
+            try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData([Post.CodingKeys.totalVotes.rawValue : FieldValue.increment(Int64(-1))])
+            //Ti Votes
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiDownVotes.rawValue : FieldValue.increment(Int64(1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiTotalVotes.rawValue : FieldValue.increment(Int64(1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiAbsoluteVotes.rawValue : FieldValue.increment(Int64(-1))])
+            
+        } else {
+            try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData([Post.CodingKeys.downVotes.rawValue : FieldValue.increment(Int64(-1))])
+            try await VLPostDocument(tiID: tiID, chainLinkID: chainLinkID, postID: postID).updateData([Post.CodingKeys.totalVotes.rawValue : FieldValue.increment(Int64(1))])
+            //Ti Votes
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiDownVotes.rawValue : FieldValue.increment(Int64(-1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiTotalVotes.rawValue : FieldValue.increment(Int64(-1))])
+            try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.tiAbsoluteVotes.rawValue : FieldValue.increment(Int64(1))])
+        }
+    }
+    //MARK: - UP-DownVotes ///
     
     //UP Votes
     func changeUpVotes(tiID: String, postID: String, increaseOrDecrease: IncreaseOrDecrease, completion: @escaping (Error?)->Void) {

@@ -24,7 +24,7 @@ struct PickThumbnailSV: View {
     
     let buttonText: String
     
-    @AppStorage("current_user_id") var currentUserUID: String = ""
+    @AppStorage("current_user_uid") var currentUserUID: String = ""
     
     @Environment(\.dismiss) var dismiss
     @State var showImagePicker = false

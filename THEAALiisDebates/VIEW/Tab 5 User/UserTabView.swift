@@ -10,7 +10,7 @@ import SwiftUI
 //MARK: - User Tab View
 struct UserTabView: View {
     
-    @AppStorage("current_user_id"  ) var currentUserUID: String = ""
+    @AppStorage("current_user_uid"  ) var currentUserUID: String = ""
     @AppStorage("user_name" ) var currentUserName: String = ""
     @AppStorage("user_Pic"  ) var currentUserProfilePicData: Data?
     @AppStorage("log_status") var logStatus: Bool = false

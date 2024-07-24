@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CTiStep2D2: View {
     
-    @AppStorage("current_user_id") var currentUserUID: String = ""
+    @AppStorage("current_user_uid") var currentUserUID: String = ""
     let currentUser: UserModel?
 
     let tiID: String

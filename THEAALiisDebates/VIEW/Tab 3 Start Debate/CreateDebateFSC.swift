@@ -13,7 +13,7 @@ import FirebaseStorage
 
 struct CreateDebateFSC: View {
     
-    @AppStorage("current_user_id") var currentUserID: String = ""
+    @AppStorage("current_user_uid") var currentUserID: String = ""
     
     @Binding var selectedTabIndex: Int
     @Binding var showFullScreenCover: Bool

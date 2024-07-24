@@ -12,7 +12,7 @@ struct UploadToTIChainFSC: View {
     let ti: TIModel
     @Binding var showFSC: Bool
     
-    @AppStorage("current_user_id") var currentUserID: String = ""
+    @AppStorage("current_user_uid") var currentUserID: String = ""
     
     @ObservedObject private var vmControls = TIContolsViewModel()
     

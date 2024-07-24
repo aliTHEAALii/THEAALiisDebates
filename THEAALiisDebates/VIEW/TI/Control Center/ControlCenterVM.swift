@@ -34,9 +34,9 @@ final class ControlCenterViewModel {
 
     func introPostIndex(ti: TI?) -> Int {
         if ti?.tiType == .d2 {
-            
+            return ti?.leftSideChain?.count ?? 0
         }
-        return ti?.leftSideChain?.count ?? 0
+        return 0
     }
     
     

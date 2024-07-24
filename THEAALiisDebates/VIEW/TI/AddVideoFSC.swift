@@ -14,7 +14,7 @@ struct AddVideoFSC: View {
     let tiChainLID: String
     
     let toWhat: String = "To Response List"
-    @AppStorage("current_user_id") var currentUserUID: String = ""
+    @AppStorage("current_user_uid") var currentUserUID: String = ""
 
     @Binding var showFullScreenCover: Bool
 

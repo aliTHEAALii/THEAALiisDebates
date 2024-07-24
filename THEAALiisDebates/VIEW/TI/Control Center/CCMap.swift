@@ -126,7 +126,7 @@ struct CCMap: View {
 
 
 
-//MARK: - VS Map Video SV
+//MARK: - VS Map Post SV
 struct CCMapPostSV: View {
     
     @Binding var ti: TI?
@@ -199,6 +199,8 @@ struct CCMapPostSV: View {
                         .foregroundStyle(Color.ADColors.green)
                 }
             }
+            .background(chainLink?.addedFromVerticalList == true ? Color.ADColors.green.opacity(0.2) : .clear )
+            .clipShape(RoundedRectangle(cornerRadius: 4))            
         }
         .onAppear{ getChainLink() }
     }
