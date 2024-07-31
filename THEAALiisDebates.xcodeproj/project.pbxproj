@@ -11,6 +11,7 @@
 		2F12323D2C0A61E4009481D8 /* ChainLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F12323C2C0A61E4009481D8 /* ChainLink.swift */; };
 		2F1232412C10D773009481D8 /* TiPostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1232402C10D773009481D8 /* TiPostInfo.swift */; };
 		2F1232452C111E88009481D8 /* PickThumbnailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1232442C111E88009481D8 /* PickThumbnailButton.swift */; };
+		2F1DD32E2C56E49F001D3771 /* TabSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1DD32D2C56E49F001D3771 /* TabSearchView.swift */; };
 		2F3534022BD8AEC800DE5E7A /* CreateTIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3534012BD8AEC800DE5E7A /* CreateTIViewModel.swift */; };
 		2F3534082BDB34F000DE5E7A /* CTiStep1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3534072BDB34F000DE5E7A /* CTiStep1.swift */; };
 		2F35340A2BDB3ABF00DE5E7A /* CTiStep2D2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3534092BDB3ABF00DE5E7A /* CTiStep2D2.swift */; };
@@ -143,6 +144,7 @@
 		2F12323C2C0A61E4009481D8 /* ChainLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainLink.swift; sourceTree = "<group>"; };
 		2F1232402C10D773009481D8 /* TiPostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiPostInfo.swift; sourceTree = "<group>"; };
 		2F1232442C111E88009481D8 /* PickThumbnailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickThumbnailButton.swift; sourceTree = "<group>"; };
+		2F1DD32D2C56E49F001D3771 /* TabSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSearchView.swift; sourceTree = "<group>"; };
 		2F3534012BD8AEC800DE5E7A /* CreateTIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTIViewModel.swift; sourceTree = "<group>"; };
 		2F3534072BDB34F000DE5E7A /* CTiStep1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTiStep1.swift; sourceTree = "<group>"; };
 		2F3534092BDB3ABF00DE5E7A /* CTiStep2D2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTiStep2D2.swift; sourceTree = "<group>"; };
@@ -284,6 +286,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F1DD32C2C56E475001D3771 /* Tab 2 Search */ = {
+			isa = PBXGroup;
+			children = (
+				2F1DD32D2C56E49F001D3771 /* TabSearchView.swift */,
+			);
+			path = "Tab 2 Search";
+			sourceTree = "<group>";
+		};
 		2F3534112BE0877800DE5E7A /* Create TI Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,7 +465,7 @@
 				2F690CF12BC1938B00A31760 /* TabsBar.swift */,
 				2F690CF32BC1939B00A31760 /* MiniPlayer.swift */,
 				2F690CE02BC1918A00A31760 /* Tab 1 Feed */,
-				2F690CE12BC1919900A31760 /* Tab 2 Search */,
+				2F1DD32C2C56E475001D3771 /* Tab 2 Search */,
 				2F690D0D2BC1D26100A31760 /* Tab 3 Create TI */,
 				2F690CD02BC190A500A31760 /* Tab 3 Start Debate */,
 				2F690CE22BC191B700A31760 /* Tab 4  */,
@@ -568,13 +578,6 @@
 				2F690CED2BC192CE00A31760 /* VideoCard.swift */,
 			);
 			path = "Tab 1 Feed";
-			sourceTree = "<group>";
-		};
-		2F690CE12BC1919900A31760 /* Tab 2 Search */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Tab 2 Search";
 			sourceTree = "<group>";
 		};
 		2F690CE22BC191B700A31760 /* Tab 4  */ = {
@@ -889,6 +892,7 @@
 				2F690CFE2BC1943200A31760 /* DebateControlsSV.swift in Sources */,
 				2F690CB32BC18DAE00A31760 /* VotingVideoCard.swift in Sources */,
 				2F690CE62BC191F500A31760 /* EditSavedDebatesFSC.swift in Sources */,
+				2F1DD32E2C56E49F001D3771 /* TabSearchView.swift in Sources */,
 				2F690C6B2BC0BD9900A31760 /* TI Model & Manager.swift in Sources */,
 				2F690CF42BC1939B00A31760 /* MiniPlayer.swift in Sources */,
 				2F12323B2C075045009481D8 /* TiView.swift in Sources */,

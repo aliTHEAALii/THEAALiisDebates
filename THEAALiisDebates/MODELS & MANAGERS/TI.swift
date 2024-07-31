@@ -427,6 +427,25 @@ final class TIManager {
         }
     }
     
+    func searchItems(searchText: String) async -> [TI] {
+        do {
+            let querySnapshot = try await TICollection.whereField("title", isLessThanOrEqualTo: searchText)
+                .whereField("title", isLessThanOrEqualTo: searchText + "\u{f8ff}")
+                .getDocuments()
+            
+            let fetchedInteractions = querySnapshot.documents.compactMap { document in
+                try? document.data(as: TI.self)
+            }
+            
+            print("✅⬇️🫖💎🔎 Success searching TIs👀 🔍💎🫖⬇️✅")
+            return fetchedInteractions
+            
+        } catch {
+            print("🆘⬇️🫖💎🔎 Error searching TIs🫖💎: \(error.localizedDescription) 🔍💎🫖⬇️🆘")
+            return []
+        }
+    }
+    
     // - 3. Update
     
     //MARK: add post to chain
@@ -444,13 +463,14 @@ final class TIManager {
         if rightOrLeft == .right {
             
             try await TIDocument(tiID: tiID).updateData([ TI.CodingKeys.rightSideChain.rawValue : FieldValue.arrayUnion([cLinkID]) ])
+            
         } else if rightOrLeft == .left {
             
             try await TIDocument(tiID: tiID).updateData([TI.CodingKeys.leftSideChain.rawValue : FieldValue.arrayUnion([cLinkID])])
-
         }
     }
-    //TODO: - 
+    
+    //TODO: -
     func addLinkToChain(tiID: String, chainLinkID: String, completion: @escaping (Result<Void, Error>) -> Void) {
         
     }

@@ -11,14 +11,11 @@ import FirebaseFirestoreSwift
 
 struct FeedTabView: View {
     
-    //MARK: - John Gallaugher
+    //John Gallaugher
 //    @FirestoreQuery(collectionPath: "THEAALii_Interactions") var interactionsFeed: [TI]
     @State var interactionsFeed: [TI] = []
 
 
-    
-//    @Binding var showTiTView: Bool
-    
     var body: some View {
         
         ScrollView(showsIndicators: false) {
@@ -84,10 +81,11 @@ struct FeedTabView: View {
                 try? document.data(as: TI.self)
             }
             
+            print("🟢 Fetched Interactions")
             interactionsFeed = fetchedInteractions
             
         } catch {
-            print("Error fetching interactions: \(error)")
+            print("❌Error fetching interactions: \(error)❌")
             return
         }
     }
@@ -99,7 +97,8 @@ struct FeedTabView_Previews: PreviewProvider {
         //        FeedTabView2(showDebateView: .constant(false))
         //            .environmentObject(DataManagerVM())
 
-        RootView(logStatus: true)
+        FeedTabView()
+//        RootView(logStatus: true)
 //        FeedTabView(showTITView: .constant(false))
         //            .environmentObject(DataManagerVM())
 
